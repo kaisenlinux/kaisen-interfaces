@@ -19,10 +19,13 @@ fi
 
 if [[ "$EUID" -eq "0" ]]; then
 	echo -e $GREEN "Check APT access..."
-	tput init;apt update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection to continue." && exit 1
+	tput init;apt update 2>&1 | grep '^[WE]:' 1> /dev/null && echo -e $RED "Please check your internet connection to continue." && exit 1
 	echo ""
-	echo -e $GREEN "APT access ok, check to update kaisen-interface-switcher..."
+	echo -e $GREEN "APT access ok, check connected network interface..."
 	echo ""
+	tput init;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
+	echo -e $GREEN "Check if new kaisen-interface-switcher version exist..."
+        echo ""
 	tput init;apt install -y kaisen-mate
 	echo -e $GREEN "Welcome at Kaisen Linux interface switcher (MATE version)."
 	echo ""
@@ -47,18 +50,18 @@ if [[ "$EUID" -eq "0" ]]; then
 if [[ $OPTION = "1" ]]; then
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt remove --fix-missing -y atril atril-common caja caja-common conky-all debian-mate-default-settings \
-	engrampa engrampa-common eom eom-common ffmpegthumbnailer firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr \
-	firefox-l10n-it firefox-l10n-pt-pt fonts-mathjax fonts-powerline gir1.2-eom-1.0 gir1.2-gtksource-3.0 \
-	gir1.2-matemenu-2.0 gir1.2-peas-1.0 gir1.2-pluma-1.0 gnome-accessibility-themes gnome-themes-extra \
-	gnome-themes-extra-data gtk2-engines gtk2-engines-murrine gtk2-engines-pixbuf hunspell-fr kaisen-mate kaisen-menu \
-	kaisen-skeleton libatrildocument3 libatrilview3 libaudclient2 libcaja-extension1 libcpupower1 libexempi8 \
-	libffmpegthumbnailer4v5 libgail-3-0 libgtk-layer-shell0 libgtksourceview-3.0-1 libgtksourceview-3.0-common \
-	libgucharmap-2-90-7 libid3tag0 libimlib2 libjs-mathjax liblightdm-gobject-1-0 liblua5.1-0 libmarco-private2 \
-	libmate-desktop-2-17 libmate-menu2 libmate-panel-applet-4-1 libmate-slab0 libmate-window-settings1 libmatedict6 \
-	libmatekbd-common libmatekbd4 libmatemixer-common libmatemixer0 libmateweather-common libmateweather1 libndp0 \
-	libnma-common libnma0 libpeas-1.0-0 libpeas-common librda-common librda0 libteamdctl0 libwnck-3-0 libwnck-3-common \
-	libxklavier16 libxmmsclient6 libxpresent1 lightdm lightdm-gtk-greeter marco marco-common mate-applet-brisk-menu \
+	apt remove -y atril atril-common caja caja-common conky-all conkycolors debian-mate-default-settings engrampa \
+	engrampa-common eom eom-common ffmpegthumbnailer firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
+	firefox-l10n-pt-pt fonts-mathjax fonts-powerline gir1.2-eom-1.0 gir1.2-gtksource-3.0 gir1.2-matemenu-2.0 \
+	gir1.2-peas-1.0 gir1.2-pluma-1.0 gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines \
+	gtk2-engines-murrine gtk2-engines-pixbuf hunspell-fr kaisen-mate kaisen-menu kaisen-skeleton libatrildocument3 \
+	libatrilview3 libaudclient2 libcaja-extension1 libcpupower1 libexempi8 libffmpegthumbnailer4v5 libgail-3-0 \
+	libgtk-layer-shell0 libgtksourceview-3.0-1 libgtksourceview-3.0-common libgucharmap-2-90-7 libid3tag0 libimlib2 \
+	libjs-mathjax liblightdm-gobject-1-0 liblua5.1-0 libmarco-private2 libmate-desktop-2-17 libmate-menu2 \
+	libmate-panel-applet-4-1 libmate-slab0 libmate-window-settings1 libmatedict6 libmatekbd-common libmatekbd4 \
+	libmatemixer-common libmatemixer0 libmateweather-common libmateweather1 libndp0 libnma-common libnma0 libpeas-1.0-0 \
+	libpeas-common librda-common librda0 libteamdctl0 libwnck-3-0 libwnck-3-common libxklavier16 libxmmsclient6 \
+	libxpresent1 lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings marco marco-common mate-applet-brisk-menu \
 	mate-applets mate-applets-common mate-backgrounds mate-calc mate-calc-common mate-control-center \
 	mate-control-center-common mate-desktop mate-desktop-common mate-desktop-environment mate-desktop-environment-core \
 	mate-icon-theme mate-media mate-media-common mate-menus mate-notification-daemon mate-notification-daemon-common \
@@ -66,60 +69,60 @@ if [[ $OPTION = "1" ]]; then
 	mate-screensaver mate-screensaver-common mate-session-manager mate-settings-daemon mate-settings-daemon-common \
 	mate-system-monitor mate-system-monitor-common mate-terminal mate-terminal-common mate-themes mate-user-guide \
 	mate-utils mate-utils-common menu-xdg mobile-broadband-provider-info network-manager network-manager-gnome pluma \
-	pluma-common xcursor-themes zenity zenity-common;apt -y --fix-broken install;apt install -y kaisen-kde; \
-	apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
+	pluma-common python-configparser python-entrypoints python-keyring xcursor-themes zenity zenity-common; \
+	apt install -y kaisen-kde || true;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
 fi
 
 if [[ $OPTION = "2" ]]; then
 	echo -e $GREEN "LXDE installation..."
 	echo "";tput init; \
-        apt remove --fix-missing -y atril atril-common caja caja-common conky-all debian-mate-default-settings \
-        engrampa engrampa-common eom eom-common ffmpegthumbnailer firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr \
-        firefox-l10n-it firefox-l10n-pt-pt fonts-mathjax fonts-powerline gir1.2-eom-1.0 gir1.2-gtksource-3.0 \
-        gir1.2-matemenu-2.0 gir1.2-peas-1.0 gir1.2-pluma-1.0 gnome-accessibility-themes gnome-themes-extra \
-        gnome-themes-extra-data gtk2-engines gtk2-engines-murrine gtk2-engines-pixbuf hunspell-fr kaisen-mate kaisen-menu \
-        kaisen-skeleton libatrildocument3 libatrilview3 libaudclient2 libcaja-extension1 libcpupower1 libexempi8 \
-        libffmpegthumbnailer4v5 libgail-3-0 libgtk-layer-shell0 libgtksourceview-3.0-1 libgtksourceview-3.0-common \
-        libgucharmap-2-90-7 libid3tag0 libimlib2 libjs-mathjax liblightdm-gobject-1-0 liblua5.1-0 libmarco-private2 \
-        libmate-desktop-2-17 libmate-menu2 libmate-panel-applet-4-1 libmate-slab0 libmate-window-settings1 libmatedict6 \
-        libmatekbd-common libmatekbd4 libmatemixer-common libmatemixer0 libmateweather-common libmateweather1 libndp0 \
-        libnma-common libnma0 libpeas-1.0-0 libpeas-common librda-common librda0 libteamdctl0 libwnck-3-0 libwnck-3-common \
-        libxklavier16 libxmmsclient6 libxpresent1 lightdm lightdm-gtk-greeter marco marco-common mate-applet-brisk-menu \
-        mate-applets mate-applets-common mate-backgrounds mate-calc mate-calc-common mate-control-center \
-        mate-control-center-common mate-desktop mate-desktop-common mate-desktop-environment mate-desktop-environment-core \
-        mate-icon-theme mate-media mate-media-common mate-menus mate-notification-daemon mate-notification-daemon-common \
-        mate-panel mate-panel-common mate-polkit mate-polkit-common mate-power-manager mate-power-manager-common \
-        mate-screensaver mate-screensaver-common mate-session-manager mate-settings-daemon mate-settings-daemon-common \
-        mate-system-monitor mate-system-monitor-common mate-terminal mate-terminal-common mate-themes mate-user-guide \
-        mate-utils mate-utils-common menu-xdg mobile-broadband-provider-info network-manager network-manager-gnome pluma \
-        pluma-common xcursor-themes zenity zenity-common;apt -y --fix-broken install;apt install -y kaisen-lxde; \
-        apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
+    apt remove -y atril atril-common caja caja-common conky-all conkycolors debian-mate-default-settings engrampa \
+	engrampa-common eom eom-common ffmpegthumbnailer firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
+	firefox-l10n-pt-pt fonts-mathjax fonts-powerline gir1.2-eom-1.0 gir1.2-gtksource-3.0 gir1.2-matemenu-2.0 \
+	gir1.2-peas-1.0 gir1.2-pluma-1.0 gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines \
+	gtk2-engines-murrine gtk2-engines-pixbuf hunspell-fr kaisen-mate kaisen-menu kaisen-skeleton libatrildocument3 \
+	libatrilview3 libaudclient2 libcaja-extension1 libcpupower1 libexempi8 libffmpegthumbnailer4v5 libgail-3-0 \
+	libgtk-layer-shell0 libgtksourceview-3.0-1 libgtksourceview-3.0-common libgucharmap-2-90-7 libid3tag0 libimlib2 \
+	libjs-mathjax liblightdm-gobject-1-0 liblua5.1-0 libmarco-private2 libmate-desktop-2-17 libmate-menu2 \
+	libmate-panel-applet-4-1 libmate-slab0 libmate-window-settings1 libmatedict6 libmatekbd-common libmatekbd4 \
+	libmatemixer-common libmatemixer0 libmateweather-common libmateweather1 libndp0 libnma-common libnma0 libpeas-1.0-0 \
+	libpeas-common librda-common librda0 libteamdctl0 libwnck-3-0 libwnck-3-common libxklavier16 libxmmsclient6 \
+	libxpresent1 lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings marco marco-common mate-applet-brisk-menu \
+	mate-applets mate-applets-common mate-backgrounds mate-calc mate-calc-common mate-control-center \
+	mate-control-center-common mate-desktop mate-desktop-common mate-desktop-environment mate-desktop-environment-core \
+	mate-icon-theme mate-media mate-media-common mate-menus mate-notification-daemon mate-notification-daemon-common \
+	mate-panel mate-panel-common mate-polkit mate-polkit-common mate-power-manager mate-power-manager-common \
+	mate-screensaver mate-screensaver-common mate-session-manager mate-settings-daemon mate-settings-daemon-common \
+	mate-system-monitor mate-system-monitor-common mate-terminal mate-terminal-common mate-themes mate-user-guide \
+	mate-utils mate-utils-common menu-xdg mobile-broadband-provider-info network-manager network-manager-gnome pluma \
+	pluma-common python-configparser python-entrypoints python-keyring xcursor-themes zenity zenity-common; \
+	apt install -y kaisen-lxde || true;apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
 fi
 
 if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-        apt remove --fix-missing -y atril atril-common caja caja-common conky-all debian-mate-default-settings \
-        engrampa engrampa-common eom eom-common ffmpegthumbnailer firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr \
-        firefox-l10n-it firefox-l10n-pt-pt fonts-mathjax fonts-powerline gir1.2-eom-1.0 gir1.2-gtksource-3.0 \
-        gir1.2-matemenu-2.0 gir1.2-peas-1.0 gir1.2-pluma-1.0 gnome-accessibility-themes gnome-themes-extra \
-        gnome-themes-extra-data gtk2-engines gtk2-engines-murrine gtk2-engines-pixbuf hunspell-fr kaisen-mate kaisen-menu \
-        kaisen-skeleton libatrildocument3 libatrilview3 libaudclient2 libcaja-extension1 libcpupower1 libexempi8 \
-        libffmpegthumbnailer4v5 libgail-3-0 libgtk-layer-shell0 libgtksourceview-3.0-1 libgtksourceview-3.0-common \
-        libgucharmap-2-90-7 libid3tag0 libimlib2 libjs-mathjax liblightdm-gobject-1-0 liblua5.1-0 libmarco-private2 \
-        libmate-desktop-2-17 libmate-menu2 libmate-panel-applet-4-1 libmate-slab0 libmate-window-settings1 libmatedict6 \
-        libmatekbd-common libmatekbd4 libmatemixer-common libmatemixer0 libmateweather-common libmateweather1 libndp0 \
-        libnma-common libnma0 libpeas-1.0-0 libpeas-common librda-common librda0 libteamdctl0 libwnck-3-0 libwnck-3-common \
-        libxklavier16 libxmmsclient6 libxpresent1 lightdm lightdm-gtk-greeter marco marco-common mate-applet-brisk-menu \
-        mate-applets mate-applets-common mate-backgrounds mate-calc mate-calc-common mate-control-center \
-        mate-control-center-common mate-desktop mate-desktop-common mate-desktop-environment mate-desktop-environment-core \
-        mate-icon-theme mate-media mate-media-common mate-menus mate-notification-daemon mate-notification-daemon-common \
-        mate-panel mate-panel-common mate-polkit mate-polkit-common mate-power-manager mate-power-manager-common \
-        mate-screensaver mate-screensaver-common mate-session-manager mate-settings-daemon mate-settings-daemon-common \
-        mate-system-monitor mate-system-monitor-common mate-terminal mate-terminal-common mate-themes mate-user-guide \
-        mate-utils mate-utils-common menu-xdg mobile-broadband-provider-info network-manager network-manager-gnome pluma \
-        pluma-common xcursor-themes zenity zenity-common;apt -y --fix-broken install;apt install -y kaisen-xfce; \
-        apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
+    apt remove -y atril atril-common caja caja-common conky-all conkycolors debian-mate-default-settings engrampa \
+	engrampa-common eom eom-common ffmpegthumbnailer firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
+	firefox-l10n-pt-pt fonts-mathjax fonts-powerline gir1.2-eom-1.0 gir1.2-gtksource-3.0 gir1.2-matemenu-2.0 \
+	gir1.2-peas-1.0 gir1.2-pluma-1.0 gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines \
+	gtk2-engines-murrine gtk2-engines-pixbuf hunspell-fr kaisen-mate kaisen-menu kaisen-skeleton libatrildocument3 \
+	libatrilview3 libaudclient2 libcaja-extension1 libcpupower1 libexempi8 libffmpegthumbnailer4v5 libgail-3-0 \
+	libgtk-layer-shell0 libgtksourceview-3.0-1 libgtksourceview-3.0-common libgucharmap-2-90-7 libid3tag0 libimlib2 \
+	libjs-mathjax liblightdm-gobject-1-0 liblua5.1-0 libmarco-private2 libmate-desktop-2-17 libmate-menu2 \
+	libmate-panel-applet-4-1 libmate-slab0 libmate-window-settings1 libmatedict6 libmatekbd-common libmatekbd4 \
+	libmatemixer-common libmatemixer0 libmateweather-common libmateweather1 libndp0 libnma-common libnma0 libpeas-1.0-0 \
+	libpeas-common librda-common librda0 libteamdctl0 libwnck-3-0 libwnck-3-common libxklavier16 libxmmsclient6 \
+	libxpresent1 lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings marco marco-common mate-applet-brisk-menu \
+	mate-applets mate-applets-common mate-backgrounds mate-calc mate-calc-common mate-control-center \
+	mate-control-center-common mate-desktop mate-desktop-common mate-desktop-environment mate-desktop-environment-core \
+	mate-icon-theme mate-media mate-media-common mate-menus mate-notification-daemon mate-notification-daemon-common \
+	mate-panel mate-panel-common mate-polkit mate-polkit-common mate-power-manager mate-power-manager-common \
+	mate-screensaver mate-screensaver-common mate-session-manager mate-settings-daemon mate-settings-daemon-common \
+	mate-system-monitor mate-system-monitor-common mate-terminal mate-terminal-common mate-themes mate-user-guide \
+	mate-utils mate-utils-common menu-xdg mobile-broadband-provider-info network-manager network-manager-gnome pluma \
+	pluma-common python-configparser python-entrypoints python-keyring xcursor-themes zenity zenity-common; \
+	apt install -y kaisen-xfce || true;apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
 fi
 
 if [[ $OPTION = "4" ]]; then

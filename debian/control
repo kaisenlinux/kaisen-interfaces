@@ -58,6 +58,7 @@ Depends: lxde,
 	 locales-all,
 	 fonts-cantarell,
 	 conky-all,
+	 conkycolors,
 	 kaisen-design,
 Description: Kaisen LXDE desktop environment configurations
 
@@ -88,6 +89,7 @@ Depends: mate-desktop-environment,
 	 locales-all,
 	 fonts-cantarell,
 	 conky-all,
+	 conkycolors,
 	 kaisen-design,
 Description: Kaisen MATE desktop environment configurations
 

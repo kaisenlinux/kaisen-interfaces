@@ -19,10 +19,13 @@ fi
 
 if [[ "$EUID" -eq "0" ]]; then
 	echo -e $GREEN "Check APT access..."
-	tput init;apt update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection to continue." && exit 1
+	tput init;apt update 2>&1 | grep '^[WE]:' 1> /dev/null && echo -e $RED "Please check your internet connection to continue." && exit 1
 	echo ""
-	echo -e $GREEN "APT access ok, check to update kaisen-interface-switcher..."
+	echo -e $GREEN "APT access ok, check connected network interface..."
 	echo ""
+	tput init;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
+	echo -e $GREEN "Check if new kaisen-interface-switcher version exist..."
+        echo ""
 	tput init;apt install -y kaisen-kde
 	echo -e $GREEN "Welcome at Kaisen Linux interface switcher (KDE version)."
 	echo ""
@@ -47,262 +50,262 @@ if [[ "$EUID" -eq "0" ]]; then
 if [[ $OPTION = "1" ]]; then
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt remove --fix-missing -y accountwizard akonadi-backend-mysql akonadi-contacts-data akonadi-mime-data \
-	akonadi-server akregator appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large \
-	apt-config-icons-large-hidpi ark baloo-kf5 bluedevil breeze breeze-cursor-theme breeze-gtk-theme breeze-icon-theme \
-	catdoc cups-bsd default-mysql-server-core dolphin dragonplayer drkonqi firefox-l10n-de firefox-l10n-es-es \
-	firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt fonts-hack fonts-noto fonts-noto-cjk fonts-noto-cjk-extra \
-	fonts-noto-color-emoji fonts-noto-hinted fonts-noto-ui-extra fonts-noto-unhinted fonts-powerline \
-	frameworkintegration gdb-minimal gtk2-engines-pixbuf gwenview haveged hunspell-fr install-info juk \
-	kaccounts-providers kactivities-bin kactivitymanagerd kaddressbook kaisen-kde kaisen-menu kaisen-skeleton kamera \
-	kate kate5-data kcalc kde-baseapps kde-cli-tools kde-cli-tools-data kde-config-gtk-style kde-config-mailtransport \
-	kde-config-screenlocker kde-config-sddm kde-plasma-desktop kde-spectacle kde-standard kde-style-breeze \
-	kde-style-oxygen-qt5 kdeconnect kded5 kdepim-addons kdepim-runtime kdepim-themeeditors kdeplasma-addons-data kdialog \
-	kdoctools5 keditbookmarks kf5-kdepim-apps-libs-data kf5-messagelib-data kfind kgamma5 khelpcenter khotkeys \
-	khotkeys-data kimageformat-plugins kinfocenter kinit kio kio-extras kio-extras-data kio-ldap kmail kmenuedit knotes \
-	konq-plugins konqueror konsole konsole-kpart korganizer kpackagelauncherqml kpackagetool5 kross kscreen ksshaskpass \
-	ksysguard ksysguard-data ksysguardd ktexteditor-data ktexteditor-katepart kwalletmanager kwin-common kwin-data \
-	kwin-style-breeze kwin-x11 kwrite kwrited libaccounts-glib0 libaccounts-qt5-1 libappstreamqt2 libcanberra-pulse \
-	libcfitsio9 libcolorcorrect5 libdmtx0b libdolphinvcs5 libeditorconfig0 libepub0 libfakekey0 libgit2-28 libgps26 \
-	libgrantlee-templates5 libgrantlee-textdocument5 libhavege2 libhfstospell11 libibus-1.0-5 libipt2 libkaccounts2 \
-	libkdecorations2-5v5 libkdecorations2private6 libkf5activities5 libkf5activitiesstats1 libkf5akonadi-data \
-	libkf5akonadiagentbase5 libkf5akonadicalendar-data libkf5akonadicalendar5abi1 libkf5akonadicontact5 \
-	libkf5akonadicore5abi2 libkf5akonadimime5 libkf5akonadinotes5 libkf5akonadiprivate5abi2 libkf5akonadisearch-bin \
-	libkf5akonadisearch-data libkf5akonadisearch-plugins libkf5akonadisearchcore5 libkf5akonadisearchdebug5 \
-	libkf5akonadisearchpim5 libkf5akonadisearchxapian5 libkf5akonadiwidgets5abi1 libkf5alarmcalendar-data \
-	libkf5alarmcalendar5abi1 libkf5archive5 libkf5attica5 libkf5auth5 libkf5baloo5 libkf5balooengine5 \
-	libkf5baloowidgets-bin libkf5baloowidgets5 libkf5bluezqt-data libkf5bluezqt6 libkf5bookmarks-data libkf5bookmarks5 \
-	libkf5calendarcore5abi2 libkf5calendarevents5 libkf5calendarsupport-data libkf5calendarsupport5abi1 \
-	libkf5calendarutils5 libkf5completion-data libkf5completion5 libkf5contacteditor5 libkf5contacts-data \
-	libkf5contacts5 libkf5dav-data libkf5dav5 libkf5declarative-data libkf5declarative5 libkf5dnssd-data libkf5dnssd5 \
-	libkf5doctools5 libkf5emoticons-bin libkf5emoticons-data libkf5emoticons5 libkf5eventviews-data \
-	libkf5eventviews5abi1 libkf5filemetadata-bin libkf5filemetadata-data libkf5filemetadata3 libkf5followupreminder5 \
+	apt remove -y accountwizard akonadi-backend-mysql akonadi-contacts-data akonadi-mime-data akonadi-server akregator \
+	appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large apt-config-icons-large-hidpi ark baloo-kf5 \
+	bluedevil breeze breeze-cursor-theme breeze-gtk-theme breeze-icon-theme catdoc cups-bsd default-mysql-server-core \
+	dolphin dragonplayer drkonqi firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
+	fonts-hack fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-noto-hinted \
+	fonts-noto-ui-extra fonts-noto-unhinted fonts-powerline frameworkintegration gdb-minimal gtk2-engines-pixbuf \
+	gwenview haveged hunspell-fr install-info juk kaccounts-providers kactivities-bin kactivitymanagerd kaddressbook \
+	kaisen-kde kaisen-menu kaisen-skeleton kamera kate kate5-data kcalc kde-baseapps kde-cli-tools kde-cli-tools-data \
+	kde-config-gtk-style kde-config-mailtransport kde-config-screenlocker kde-config-sddm kde-plasma-desktop \
+	kde-spectacle kde-standard kde-style-breeze kde-style-oxygen-qt5 kdeconnect kded5 kdepim-addons kdepim-runtime \
+	kdepim-themeeditors kdeplasma-addons-data kdialog kdoctools5 keditbookmarks kf5-kdepim-apps-libs-data \
+	kf5-messagelib-data kfind kgamma5 khelpcenter khotkeys khotkeys-data kimageformat-plugins kinfocenter kinit kio \
+	kio-extras kio-extras-data kio-ldap kmail kmenuedit knotes konq-plugins konqueror konsole konsole-kpart korganizer \
+	kpackagelauncherqml kpackagetool5 kross kscreen ksshaskpass ksysguard ksysguard-data ksysguardd ktexteditor-data \
+	ktexteditor-katepart kuserfeedback-doc kwalletmanager kwin-common kwin-data kwin-style-breeze kwin-x11 kwrite \
+	kwrited libaccounts-glib0 libaccounts-qt5-1 libappstreamqt2 libcanberra-pulse libcfitsio9 libcolorcorrect5 libdmtx0b \
+	libdolphinvcs5 libeditorconfig0 libepub0 libfakekey0 libgit2-28 libgps26 libgrantlee-templates5 libhavege2 \
+	libhfstospell11 libibus-1.0-5 libipt2 libkaccounts2 libkdecorations2-5v5 libkdecorations2private6 libkf5activities5 \
+	libkf5activitiesstats1 libkf5akonadi-data libkf5akonadiagentbase5 libkf5akonadicalendar-data \
+	libkf5akonadicalendar5abi1 libkf5akonadicontact5 libkf5akonadicore5abi2 libkf5akonadimime5 libkf5akonadinotes5 \
+	libkf5akonadiprivate5abi2 libkf5akonadisearch-bin libkf5akonadisearch-data libkf5akonadisearch-plugins \
+	libkf5akonadisearchcore5 libkf5akonadisearchdebug5 libkf5akonadisearchpim5 libkf5akonadisearchxapian5 \
+	libkf5akonadiwidgets5abi1 libkf5alarmcalendar-data libkf5alarmcalendar5abi1 libkf5archive5 libkf5attica5 libkf5auth5 \
+	libkf5baloo5 libkf5balooengine5 libkf5baloowidgets-bin libkf5baloowidgets5 libkf5bluezqt-data libkf5bluezqt6 \
+	libkf5bookmarks-data libkf5bookmarks5 libkf5calendarcore5abi2 libkf5calendarevents5 libkf5calendarsupport-data \
+	libkf5calendarsupport5abi1 libkf5calendarutils5 libkf5completion-data libkf5completion5 libkf5contacteditor5 \
+	libkf5contacts-data libkf5contacts5 libkf5dav-data libkf5dav5 libkf5declarative-data libkf5declarative5 \
+	libkf5dnssd-data libkf5dnssd5 libkf5doctools5 libkf5emoticons-bin libkf5emoticons-data libkf5emoticons5 \
+	libkf5eventviews-data libkf5eventviews5abi1 libkf5filemetadata-bin libkf5filemetadata-data libkf5filemetadata3 \
 	libkf5globalaccel-bin libkf5globalaccel-data libkf5globalaccel5 libkf5globalaccelprivate5 \
 	libkf5grantleetheme-plugins libkf5grantleetheme5 libkf5gravatar-data libkf5gravatar5abi2 libkf5holidays-data \
 	libkf5holidays5 libkf5iconthemes-bin libkf5iconthemes-data libkf5iconthemes5 libkf5identitymanagement5 \
 	libkf5imap-data libkf5imap5 libkf5incidenceeditor-data libkf5incidenceeditor5abi1 libkf5itemmodels5 \
 	libkf5itemviews-data libkf5itemviews5 libkf5jobwidgets-data libkf5jobwidgets5 libkf5js5 libkf5jsapi5 \
 	libkf5kaddressbookgrantlee5 libkf5kaddressbookimportexport5 libkf5kcmutils-data libkf5kcmutils5 libkf5kdcraw5 \
-	libkf5kdelibs4support-data libkf5kdelibs4support5 libkf5kdelibs4support5-bin libkf5kdepimdbusinterfaces5 \
-	libkf5kexiv2-15.0.0 libkf5khtml-bin libkf5khtml-data libkf5khtml5 libkf5kiocore5 libkf5kiofilewidgets5 libkf5kiogui5 \
-	libkf5kiontlm5 libkf5kiowidgets5 libkf5kipi-data libkf5kipi32.0.0 libkf5kirigami2-5 libkf5kmanagesieve5 libkf5konq6 \
-	libkf5kontactinterface-data libkf5kontactinterface5 libkf5krosscore5 libkf5krossui5 libkf5ksieve-data libkf5ksieve5 \
-	libkf5ksieveui5 libkf5ldap-data libkf5ldap5abi1 libkf5libkdepim-data libkf5libkdepim-plugins libkf5libkdepim5 \
-	libkf5libkdepimakonadi5 libkf5libkleo-data libkf5libkleo5 libkf5mailcommon-data libkf5mailcommon5abi2 \
-	libkf5mailimporter5 libkf5mailimporterakonadi5 libkf5mailtransport-data libkf5mailtransport5 \
-	libkf5mailtransportakonadi5 libkf5mbox5 libkf5messagecomposer5abi1 libkf5messagecore5abi1 libkf5messagelist5abi1 \
-	libkf5messageviewer5abi1 libkf5mime-data libkf5mime5abi1 libkf5mimetreeparser5abi1 libkf5modemmanagerqt6 \
-	libkf5networkmanagerqt6 libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5 libkf5notifyconfig-data \
-	libkf5notifyconfig5 libkf5package-data libkf5package5 libkf5parts-data libkf5parts-plugins libkf5parts5 \
-	libkf5people-data libkf5people5 libkf5peoplebackend5 libkf5peoplewidgets5 libkf5pimcommon-data libkf5pimcommon5abi2 \
-	libkf5pimcommonakonadi5abi1 libkf5pimtextedit-data libkf5pimtextedit-plugins libkf5pimtextedit5abi2 libkf5plasma5 \
-	libkf5plasmaquick5 libkf5prison5 libkf5pty-data libkf5pty5 libkf5pulseaudioqt2 libkf5purpose-bin libkf5purpose5 \
-	libkf5quickaddons5 libkf5runner5 libkf5screen-bin libkf5screen7 libkf5sendlater5 libkf5solid5 libkf5solid5-data \
-	libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5style5 libkf5su-bin libkf5su-data libkf5su5 \
-	libkf5syndication5abi1 libkf5syntaxhighlighting-data libkf5syntaxhighlighting5 libkf5sysguard-bin libkf5sysguard-data \
-	libkf5templateparser5 libkf5texteditor-bin libkf5texteditor5 libkf5textwidgets-data libkf5textwidgets5 \
-	libkf5threadweaver5 libkf5tnef5 libkf5unitconversion-data libkf5unitconversion5 libkf5waylandserver5 \
-	libkf5webengineviewer5abi1 libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkfontinst5 libkfontinstui5 libkgantt2 \
-	libkgantt2-l10n libkolabxml1v5 libkpimgapi-data libkpimgapicalendar5 libkpimgapicontacts5 libkpimgapicore5abi1 \
-	libkpimgapitasks5 libkpimimportwizard5 libkpimitinerary-data libkpimitinerary5 libkpimpkpass5 libkpimsmtp5abi1 \
-	libkscreenlocker5 libksgrd7 libksignalplotter7 libkwin4-effect-builtins1 libkwineffects12 libkwinglutils12 \
-	libkwinxrenderutils12 libkworkspace5-5 libmarkdown2 libmbedtls12 libmbedx509-0 libndp0 libnotificationmanager1 \
-	libokular5core9 libopenconnect5 liboxygenstyle5-5 liboxygenstyleconfig5-5 libpackagekitqt5-1 libpam-kwallet-common \
-	libpam-kwallet5 libphonenumber7 libplasma-geolocation-interface5 libpoppler-qt5-1 libpowerdevilcore2 \
-	libpowerdevilui5 libprocesscore7 libprocessui7 libqalculate20 libqalculate20-data libqca-qt5-2 libqca-qt5-2-plugins \
-	libqgpgme7 libqmobipocket2 libqt5multimediaquick5 libqt5networkauth5 libqt5quickcontrols2-5 libqt5quicktemplates2-5 \
-	libqt5quickwidgets5 libqt5script5 libqt5virtualkeyboard5 libqt5webengine-data libqt5webengine5 libqt5webenginecore5 \
-	libqt5webenginewidgets5 libqt5xmlpatterns5 libre2-8 libsasl2-modules-kdexoauth2 libscim8v5 libsignon-plugins-common1 \
-	libsignon-qt5-1 libstoken1 libtaskmanager6abi1 libteamdctl0 libtomcrypt1 libtss2-esys0 libvoikko1 libweather-ion7 \
-	libxapian30 libxcb-composite0 libxcb-cursor0 libxcb-damage0 libxcb-dpms0 libxcb-record0 libxerces-c3.2 libzxingcore1 \
-	mariadb-server-core-10.3 mbox-importer media-player-info milou mobile-broadband-provider-info network-manager okular \
-	oxygen-sounds pim-data-exporter pim-sieve-editor plasma-dataengines-addons plasma-desktop plasma-desktop-data \
-	plasma-discover plasma-discover-common plasma-framework plasma-integration plasma-nm plasma-pa plasma-runners-addons \
-	plasma-wallpapers-addons plasma-widgets-addons plasma-workspace plasma-workspace-data polkit-kde-agent-1 powerdevil \
-	powerdevil-data qdbus-qt5 qml-module-org-kde-activities qml-module-org-kde-bluezqt qml-module-org-kde-draganddrop \
-	qml-module-org-kde-kcm qml-module-org-kde-kconfig qml-module-org-kde-kcoreaddons qml-module-org-kde-kholidays \
-	qml-module-org-kde-kio qml-module-org-kde-kirigami2 qml-module-org-kde-kquickcontrols \
-	qml-module-org-kde-kquickcontrolsaddons qml-module-org-kde-kwindowsystem qml-module-org-kde-newstuff \
-	qml-module-org-kde-people qml-module-org-kde-purpose qml-module-org-kde-qqc2desktopstyle \
-	qml-module-org-kde-runnermodel qml-module-org-kde-solid qml-module-qtmultimedia qml-module-qtquick-controls2 \
+	libkf5kdelibs4support-data libkf5kdelibs4support5 libkf5kdelibs4support5-bin libkf5kexiv2-15.0.0 libkf5khtml-bin \
+	libkf5khtml-data libkf5khtml5 libkf5kiocore5 libkf5kiofilewidgets5 libkf5kiogui5 libkf5kiontlm5 libkf5kiowidgets5 \
+	libkf5kipi-data libkf5kipi32.0.0 libkf5kirigami2-5 libkf5kmanagesieve5 libkf5konq6 libkf5kontactinterface-data \
+	libkf5kontactinterface5 libkf5krosscore5 libkf5krossui5 libkf5ksieve-data libkf5ksieve5 libkf5ksieveui5 \
+	libkf5ldap-data libkf5ldap5abi1 libkf5libkdepim-data libkf5libkdepim-plugins libkf5libkdepim5 libkf5libkleo-data \
+	libkf5libkleo5 libkf5mailcommon-data libkf5mailcommon5abi2 libkf5mailimporter5 libkf5mailimporterakonadi5 \
+	libkf5mailtransport-data libkf5mailtransport5 libkf5mailtransportakonadi5 libkf5mbox5 libkf5messagecomposer5abi1 \
+	libkf5messagecore5abi1 libkf5messagelist5abi1 libkf5messageviewer5abi1 libkf5mime-data libkf5mime5abi1 \
+	libkf5mimetreeparser5abi1 libkf5modemmanagerqt6 libkf5networkmanagerqt6 libkf5newstuff-data libkf5newstuff5 \
+	libkf5newstuffcore5 libkf5notifyconfig-data libkf5notifyconfig5 libkf5package-data libkf5package5 libkf5parts-data \
+	libkf5parts-plugins libkf5parts5 libkf5people-data libkf5people5 libkf5peoplebackend5 libkf5peoplewidgets5 \
+	libkf5pimcommon-data libkf5pimcommon5abi2 libkf5pimcommonakonadi5abi1 libkf5pimtextedit-data \
+	libkf5pimtextedit-plugins libkf5pimtextedit5abi2 libkf5plasma5 libkf5plasmaquick5 libkf5prison5 libkf5pty-data \
+	libkf5pty5 libkf5pulseaudioqt2 libkf5purpose-bin libkf5purpose5 libkf5quickaddons5 libkf5runner5 libkf5screen-bin \
+	libkf5screen7 libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5style5 \
+	libkf5su-bin libkf5su-data libkf5su5 libkf5syndication5abi1 libkf5syntaxhighlighting-data libkf5syntaxhighlighting5 \
+	libkf5sysguard-bin libkf5sysguard-data libkf5templateparser5 libkf5texteditor-bin libkf5texteditor5 \
+	libkf5textwidgets-data libkf5textwidgets5 libkf5threadweaver5 libkf5tnef5 libkf5unitconversion-data \
+	libkf5unitconversion5 libkf5waylandserver5 libkf5webengineviewer5abi1 libkf5xmlgui-bin libkf5xmlgui-data \
+	libkf5xmlgui5 libkfontinst5 libkfontinstui5 libkgantt2 libkgantt2-l10n libkolabxml1v5 libkpimgapi-data \
+	libkpimgapicalendar5 libkpimgapicontacts5 libkpimgapicore5abi1 libkpimgapitasks5 libkpimimportwizard5 \
+	libkpimitinerary-data libkpimitinerary5 libkpimpkpass5 libkpimsmtp5abi1 libkscreenlocker5 libksgrd7 \
+	libksignalplotter7 libkuserfeedbackcore1 libkuserfeedbackwidgets1 libkwin4-effect-builtins1 libkwineffects12 \
+	libkwinglutils12 libkwinxrenderutils12 libkworkspace5-5 libmarkdown2 libmbedtls12 libmbedx509-0 libndp0 \
+	libnotificationmanager1 libokular5core9 libopenconnect5 liboxygenstyle5-5 liboxygenstyleconfig5-5 libpackagekitqt5-1 \
+	libpam-kwallet-common libpam-kwallet5 libphonenumber7 libplasma-geolocation-interface5 libpoppler-qt5-1 \
+	libpowerdevilcore2 libpowerdevilui5 libprocesscore7 libprocessui7 libqalculate20 libqalculate20-data libqca-qt5-2 \
+	libqca-qt5-2-plugins libqgpgme7 libqmobipocket2 libqt5multimediaquick5 libqt5networkauth5 libqt5quickcontrols2-5 \
+	libqt5quickparticles5 libqt5quicktemplates2-5 libqt5quickwidgets5 libqt5script5 libqt5virtualkeyboard5 \
+	libqt5webengine-data libqt5webengine5 libqt5webenginecore5 libqt5webenginewidgets5 libqt5xmlpatterns5 libre2-8 \
+	libsasl2-modules-kdexoauth2 libscim8v5 libsignon-plugins-common1 libsignon-qt5-1 libstoken1 libtaskmanager6abi1 \
+	libteamdctl0 libtomcrypt1 libtss2-esys0 libvoikko1 libweather-ion7 libxapian30 libxcb-composite0 libxcb-cursor0 \
+	libxcb-damage0 libxcb-dpms0 libxcb-record0 libxerces-c3.2 libzxingcore1 mariadb-server-core-10.3 mbox-importer \
+	media-player-info milou mobile-broadband-provider-info network-manager okular oxygen-sounds pim-data-exporter \
+	pim-sieve-editor plasma-dataengines-addons plasma-desktop plasma-desktop-data plasma-discover plasma-discover-common \
+	plasma-framework plasma-integration plasma-nm plasma-pa plasma-runners-addons plasma-wallpapers-addons \
+	plasma-widgets-addons plasma-workspace plasma-workspace-data polkit-kde-agent-1 powerdevil powerdevil-data qdbus-qt5 \
+	qml-module-org-kde-activities qml-module-org-kde-bluezqt qml-module-org-kde-draganddrop qml-module-org-kde-kcm \
+	qml-module-org-kde-kconfig qml-module-org-kde-kcoreaddons qml-module-org-kde-kholidays qml-module-org-kde-kio \
+	qml-module-org-kde-kirigami2 qml-module-org-kde-kquickcontrols qml-module-org-kde-kquickcontrolsaddons \
+	qml-module-org-kde-kwindowsystem qml-module-org-kde-newstuff qml-module-org-kde-people qml-module-org-kde-purpose \
+	qml-module-org-kde-qqc2desktopstyle qml-module-org-kde-runnermodel qml-module-org-kde-solid \
+	qml-module-org-kde-userfeedback qml-module-qtmultimedia qml-module-qtquick-controls2 qml-module-qtquick-particles2 \
 	qml-module-qtquick-templates2 qml-module-qtquick-virtualkeyboard qml-module-qtwebengine qml-module-qtwebkit \
 	qt5-image-formats-plugins qtchooser sddm sddm-theme-breeze sddm-theme-debian-maui signon-plugin-oauth2 \
-	software-properties-kde sonnet-plugins sweeper systemsettings tpm-udev user-manager;apt -y --fix-broken install; \
-	apt install -y kaisen-xfce;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
+	software-properties-kde sonnet-plugins sweeper systemsettings tpm-udev user-manager; \
+	apt install -y kaisen-xfce || true;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
 fi
 
 if [[ $OPTION = "2" ]]; then
 	echo -e $GREEN "LXDE installation..."
         echo "";tput init; \
-	apt remove --fix-missing -y accountwizard akonadi-backend-mysql akonadi-contacts-data akonadi-mime-data \
-	akonadi-server akregator appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large \
-	apt-config-icons-large-hidpi ark baloo-kf5 bluedevil breeze breeze-cursor-theme breeze-gtk-theme breeze-icon-theme \
-	catdoc cups-bsd default-mysql-server-core dolphin dragonplayer drkonqi firefox-l10n-de firefox-l10n-es-es \
-	firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt fonts-hack fonts-noto fonts-noto-cjk fonts-noto-cjk-extra \
-	fonts-noto-color-emoji fonts-noto-hinted fonts-noto-ui-extra fonts-noto-unhinted fonts-powerline \
-	frameworkintegration gdb-minimal gtk2-engines-pixbuf gwenview haveged hunspell-fr install-info juk \
-	kaccounts-providers kactivities-bin kactivitymanagerd kaddressbook kaisen-kde kaisen-menu kaisen-skeleton kamera \
-	kate kate5-data kcalc kde-baseapps kde-cli-tools kde-cli-tools-data kde-config-gtk-style kde-config-mailtransport \
-	kde-config-screenlocker kde-config-sddm kde-plasma-desktop kde-spectacle kde-standard kde-style-breeze \
-	kde-style-oxygen-qt5 kdeconnect kded5 kdepim-addons kdepim-runtime kdepim-themeeditors kdeplasma-addons-data kdialog \
-	kdoctools5 keditbookmarks kf5-kdepim-apps-libs-data kf5-messagelib-data kfind kgamma5 khelpcenter khotkeys \
-	khotkeys-data kimageformat-plugins kinfocenter kinit kio kio-extras kio-extras-data kio-ldap kmail kmenuedit knotes \
-	konq-plugins konqueror konsole konsole-kpart korganizer kpackagelauncherqml kpackagetool5 kross kscreen ksshaskpass \
-	ksysguard ksysguard-data ksysguardd ktexteditor-data ktexteditor-katepart kwalletmanager kwin-common kwin-data \
-	kwin-style-breeze kwin-x11 kwrite kwrited libaccounts-glib0 libaccounts-qt5-1 libappstreamqt2 libcanberra-pulse \
-	libcfitsio9 libcolorcorrect5 libdmtx0b libdolphinvcs5 libeditorconfig0 libepub0 libfakekey0 libgit2-28 libgps26 \
-	libgrantlee-templates5 libgrantlee-textdocument5 libhavege2 libhfstospell11 libibus-1.0-5 libipt2 libkaccounts2 \
-	libkdecorations2-5v5 libkdecorations2private6 libkf5activities5 libkf5activitiesstats1 libkf5akonadi-data \
-	libkf5akonadiagentbase5 libkf5akonadicalendar-data libkf5akonadicalendar5abi1 libkf5akonadicontact5 \
-	libkf5akonadicore5abi2 libkf5akonadimime5 libkf5akonadinotes5 libkf5akonadiprivate5abi2 libkf5akonadisearch-bin \
-	libkf5akonadisearch-data libkf5akonadisearch-plugins libkf5akonadisearchcore5 libkf5akonadisearchdebug5 \
-	libkf5akonadisearchpim5 libkf5akonadisearchxapian5 libkf5akonadiwidgets5abi1 libkf5alarmcalendar-data \
-	libkf5alarmcalendar5abi1 libkf5archive5 libkf5attica5 libkf5auth5 libkf5baloo5 libkf5balooengine5 \
-	libkf5baloowidgets-bin libkf5baloowidgets5 libkf5bluezqt-data libkf5bluezqt6 libkf5bookmarks-data libkf5bookmarks5 \
-	libkf5calendarcore5abi2 libkf5calendarevents5 libkf5calendarsupport-data libkf5calendarsupport5abi1 \
-	libkf5calendarutils5 libkf5completion-data libkf5completion5 libkf5contacteditor5 libkf5contacts-data \
-	libkf5contacts5 libkf5dav-data libkf5dav5 libkf5declarative-data libkf5declarative5 libkf5dnssd-data libkf5dnssd5 \
-	libkf5doctools5 libkf5emoticons-bin libkf5emoticons-data libkf5emoticons5 libkf5eventviews-data \
-	libkf5eventviews5abi1 libkf5filemetadata-bin libkf5filemetadata-data libkf5filemetadata3 libkf5followupreminder5 \
+	apt remove -y accountwizard akonadi-backend-mysql akonadi-contacts-data akonadi-mime-data akonadi-server akregator \
+	appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large apt-config-icons-large-hidpi ark baloo-kf5 \
+	bluedevil breeze breeze-cursor-theme breeze-gtk-theme breeze-icon-theme catdoc cups-bsd default-mysql-server-core \
+	dolphin dragonplayer drkonqi firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
+	fonts-hack fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-noto-hinted \
+	fonts-noto-ui-extra fonts-noto-unhinted fonts-powerline frameworkintegration gdb-minimal gtk2-engines-pixbuf \
+	gwenview haveged hunspell-fr install-info juk kaccounts-providers kactivities-bin kactivitymanagerd kaddressbook \
+	kaisen-kde kaisen-menu kaisen-skeleton kamera kate kate5-data kcalc kde-baseapps kde-cli-tools kde-cli-tools-data \
+	kde-config-gtk-style kde-config-mailtransport kde-config-screenlocker kde-config-sddm kde-plasma-desktop \
+	kde-spectacle kde-standard kde-style-breeze kde-style-oxygen-qt5 kdeconnect kded5 kdepim-addons kdepim-runtime \
+	kdepim-themeeditors kdeplasma-addons-data kdialog kdoctools5 keditbookmarks kf5-kdepim-apps-libs-data \
+	kf5-messagelib-data kfind kgamma5 khelpcenter khotkeys khotkeys-data kimageformat-plugins kinfocenter kinit kio \
+	kio-extras kio-extras-data kio-ldap kmail kmenuedit knotes konq-plugins konqueror konsole konsole-kpart korganizer \
+	kpackagelauncherqml kpackagetool5 kross kscreen ksshaskpass ksysguard ksysguard-data ksysguardd ktexteditor-data \
+	ktexteditor-katepart kuserfeedback-doc kwalletmanager kwin-common kwin-data kwin-style-breeze kwin-x11 kwrite \
+	kwrited libaccounts-glib0 libaccounts-qt5-1 libappstreamqt2 libcanberra-pulse libcfitsio9 libcolorcorrect5 libdmtx0b \
+	libdolphinvcs5 libeditorconfig0 libepub0 libfakekey0 libgit2-28 libgps26 libgrantlee-templates5 libhavege2 \
+	libhfstospell11 libibus-1.0-5 libipt2 libkaccounts2 libkdecorations2-5v5 libkdecorations2private6 libkf5activities5 \
+	libkf5activitiesstats1 libkf5akonadi-data libkf5akonadiagentbase5 libkf5akonadicalendar-data \
+	libkf5akonadicalendar5abi1 libkf5akonadicontact5 libkf5akonadicore5abi2 libkf5akonadimime5 libkf5akonadinotes5 \
+	libkf5akonadiprivate5abi2 libkf5akonadisearch-bin libkf5akonadisearch-data libkf5akonadisearch-plugins \
+	libkf5akonadisearchcore5 libkf5akonadisearchdebug5 libkf5akonadisearchpim5 libkf5akonadisearchxapian5 \
+	libkf5akonadiwidgets5abi1 libkf5alarmcalendar-data libkf5alarmcalendar5abi1 libkf5archive5 libkf5attica5 libkf5auth5 \
+	libkf5baloo5 libkf5balooengine5 libkf5baloowidgets-bin libkf5baloowidgets5 libkf5bluezqt-data libkf5bluezqt6 \
+	libkf5bookmarks-data libkf5bookmarks5 libkf5calendarcore5abi2 libkf5calendarevents5 libkf5calendarsupport-data \
+	libkf5calendarsupport5abi1 libkf5calendarutils5 libkf5completion-data libkf5completion5 libkf5contacteditor5 \
+	libkf5contacts-data libkf5contacts5 libkf5dav-data libkf5dav5 libkf5declarative-data libkf5declarative5 \
+	libkf5dnssd-data libkf5dnssd5 libkf5doctools5 libkf5emoticons-bin libkf5emoticons-data libkf5emoticons5 \
+	libkf5eventviews-data libkf5eventviews5abi1 libkf5filemetadata-bin libkf5filemetadata-data libkf5filemetadata3 \
 	libkf5globalaccel-bin libkf5globalaccel-data libkf5globalaccel5 libkf5globalaccelprivate5 \
 	libkf5grantleetheme-plugins libkf5grantleetheme5 libkf5gravatar-data libkf5gravatar5abi2 libkf5holidays-data \
 	libkf5holidays5 libkf5iconthemes-bin libkf5iconthemes-data libkf5iconthemes5 libkf5identitymanagement5 \
 	libkf5imap-data libkf5imap5 libkf5incidenceeditor-data libkf5incidenceeditor5abi1 libkf5itemmodels5 \
 	libkf5itemviews-data libkf5itemviews5 libkf5jobwidgets-data libkf5jobwidgets5 libkf5js5 libkf5jsapi5 \
 	libkf5kaddressbookgrantlee5 libkf5kaddressbookimportexport5 libkf5kcmutils-data libkf5kcmutils5 libkf5kdcraw5 \
-	libkf5kdelibs4support-data libkf5kdelibs4support5 libkf5kdelibs4support5-bin libkf5kdepimdbusinterfaces5 \
-	libkf5kexiv2-15.0.0 libkf5khtml-bin libkf5khtml-data libkf5khtml5 libkf5kiocore5 libkf5kiofilewidgets5 libkf5kiogui5 \
-	libkf5kiontlm5 libkf5kiowidgets5 libkf5kipi-data libkf5kipi32.0.0 libkf5kirigami2-5 libkf5kmanagesieve5 libkf5konq6 \
-	libkf5kontactinterface-data libkf5kontactinterface5 libkf5krosscore5 libkf5krossui5 libkf5ksieve-data libkf5ksieve5 \
-	libkf5ksieveui5 libkf5ldap-data libkf5ldap5abi1 libkf5libkdepim-data libkf5libkdepim-plugins libkf5libkdepim5 \
-	libkf5libkdepimakonadi5 libkf5libkleo-data libkf5libkleo5 libkf5mailcommon-data libkf5mailcommon5abi2 \
-	libkf5mailimporter5 libkf5mailimporterakonadi5 libkf5mailtransport-data libkf5mailtransport5 \
-	libkf5mailtransportakonadi5 libkf5mbox5 libkf5messagecomposer5abi1 libkf5messagecore5abi1 libkf5messagelist5abi1 \
-	libkf5messageviewer5abi1 libkf5mime-data libkf5mime5abi1 libkf5mimetreeparser5abi1 libkf5modemmanagerqt6 \
-	libkf5networkmanagerqt6 libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5 libkf5notifyconfig-data \
-	libkf5notifyconfig5 libkf5package-data libkf5package5 libkf5parts-data libkf5parts-plugins libkf5parts5 \
-	libkf5people-data libkf5people5 libkf5peoplebackend5 libkf5peoplewidgets5 libkf5pimcommon-data libkf5pimcommon5abi2 \
-	libkf5pimcommonakonadi5abi1 libkf5pimtextedit-data libkf5pimtextedit-plugins libkf5pimtextedit5abi2 libkf5plasma5 \
-	libkf5plasmaquick5 libkf5prison5 libkf5pty-data libkf5pty5 libkf5pulseaudioqt2 libkf5purpose-bin libkf5purpose5 \
-	libkf5quickaddons5 libkf5runner5 libkf5screen-bin libkf5screen7 libkf5sendlater5 libkf5solid5 libkf5solid5-data \
-	libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5style5 libkf5su-bin libkf5su-data libkf5su5 \
-	libkf5syndication5abi1 libkf5syntaxhighlighting-data libkf5syntaxhighlighting5 libkf5sysguard-bin libkf5sysguard-data \
-	libkf5templateparser5 libkf5texteditor-bin libkf5texteditor5 libkf5textwidgets-data libkf5textwidgets5 \
-	libkf5threadweaver5 libkf5tnef5 libkf5unitconversion-data libkf5unitconversion5 libkf5waylandserver5 \
-	libkf5webengineviewer5abi1 libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkfontinst5 libkfontinstui5 libkgantt2 \
-	libkgantt2-l10n libkolabxml1v5 libkpimgapi-data libkpimgapicalendar5 libkpimgapicontacts5 libkpimgapicore5abi1 \
-	libkpimgapitasks5 libkpimimportwizard5 libkpimitinerary-data libkpimitinerary5 libkpimpkpass5 libkpimsmtp5abi1 \
-	libkscreenlocker5 libksgrd7 libksignalplotter7 libkwin4-effect-builtins1 libkwineffects12 libkwinglutils12 \
-	libkwinxrenderutils12 libkworkspace5-5 libmarkdown2 libmbedtls12 libmbedx509-0 libndp0 libnotificationmanager1 \
-	libokular5core9 libopenconnect5 liboxygenstyle5-5 liboxygenstyleconfig5-5 libpackagekitqt5-1 libpam-kwallet-common \
-	libpam-kwallet5 libphonenumber7 libplasma-geolocation-interface5 libpoppler-qt5-1 libpowerdevilcore2 \
-	libpowerdevilui5 libprocesscore7 libprocessui7 libqalculate20 libqalculate20-data libqca-qt5-2 libqca-qt5-2-plugins \
-	libqgpgme7 libqmobipocket2 libqt5multimediaquick5 libqt5networkauth5 libqt5quickcontrols2-5 libqt5quicktemplates2-5 \
-	libqt5quickwidgets5 libqt5script5 libqt5virtualkeyboard5 libqt5webengine-data libqt5webengine5 libqt5webenginecore5 \
-	libqt5webenginewidgets5 libqt5xmlpatterns5 libre2-8 libsasl2-modules-kdexoauth2 libscim8v5 libsignon-plugins-common1 \
-	libsignon-qt5-1 libstoken1 libtaskmanager6abi1 libteamdctl0 libtomcrypt1 libtss2-esys0 libvoikko1 libweather-ion7 \
-	libxapian30 libxcb-composite0 libxcb-cursor0 libxcb-damage0 libxcb-dpms0 libxcb-record0 libxerces-c3.2 libzxingcore1 \
-	mariadb-server-core-10.3 mbox-importer media-player-info milou mobile-broadband-provider-info network-manager okular \
-	oxygen-sounds pim-data-exporter pim-sieve-editor plasma-dataengines-addons plasma-desktop plasma-desktop-data \
-	plasma-discover plasma-discover-common plasma-framework plasma-integration plasma-nm plasma-pa plasma-runners-addons \
-	plasma-wallpapers-addons plasma-widgets-addons plasma-workspace plasma-workspace-data polkit-kde-agent-1 powerdevil \
-	powerdevil-data qdbus-qt5 qml-module-org-kde-activities qml-module-org-kde-bluezqt qml-module-org-kde-draganddrop \
-	qml-module-org-kde-kcm qml-module-org-kde-kconfig qml-module-org-kde-kcoreaddons qml-module-org-kde-kholidays \
-	qml-module-org-kde-kio qml-module-org-kde-kirigami2 qml-module-org-kde-kquickcontrols \
-	qml-module-org-kde-kquickcontrolsaddons qml-module-org-kde-kwindowsystem qml-module-org-kde-newstuff \
-	qml-module-org-kde-people qml-module-org-kde-purpose qml-module-org-kde-qqc2desktopstyle \
-	qml-module-org-kde-runnermodel qml-module-org-kde-solid qml-module-qtmultimedia qml-module-qtquick-controls2 \
+	libkf5kdelibs4support-data libkf5kdelibs4support5 libkf5kdelibs4support5-bin libkf5kexiv2-15.0.0 libkf5khtml-bin \
+	libkf5khtml-data libkf5khtml5 libkf5kiocore5 libkf5kiofilewidgets5 libkf5kiogui5 libkf5kiontlm5 libkf5kiowidgets5 \
+	libkf5kipi-data libkf5kipi32.0.0 libkf5kirigami2-5 libkf5kmanagesieve5 libkf5konq6 libkf5kontactinterface-data \
+	libkf5kontactinterface5 libkf5krosscore5 libkf5krossui5 libkf5ksieve-data libkf5ksieve5 libkf5ksieveui5 \
+	libkf5ldap-data libkf5ldap5abi1 libkf5libkdepim-data libkf5libkdepim-plugins libkf5libkdepim5 libkf5libkleo-data \
+	libkf5libkleo5 libkf5mailcommon-data libkf5mailcommon5abi2 libkf5mailimporter5 libkf5mailimporterakonadi5 \
+	libkf5mailtransport-data libkf5mailtransport5 libkf5mailtransportakonadi5 libkf5mbox5 libkf5messagecomposer5abi1 \
+	libkf5messagecore5abi1 libkf5messagelist5abi1 libkf5messageviewer5abi1 libkf5mime-data libkf5mime5abi1 \
+	libkf5mimetreeparser5abi1 libkf5modemmanagerqt6 libkf5networkmanagerqt6 libkf5newstuff-data libkf5newstuff5 \
+	libkf5newstuffcore5 libkf5notifyconfig-data libkf5notifyconfig5 libkf5package-data libkf5package5 libkf5parts-data \
+	libkf5parts-plugins libkf5parts5 libkf5people-data libkf5people5 libkf5peoplebackend5 libkf5peoplewidgets5 \
+	libkf5pimcommon-data libkf5pimcommon5abi2 libkf5pimcommonakonadi5abi1 libkf5pimtextedit-data \
+	libkf5pimtextedit-plugins libkf5pimtextedit5abi2 libkf5plasma5 libkf5plasmaquick5 libkf5prison5 libkf5pty-data \
+	libkf5pty5 libkf5pulseaudioqt2 libkf5purpose-bin libkf5purpose5 libkf5quickaddons5 libkf5runner5 libkf5screen-bin \
+	libkf5screen7 libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5style5 \
+	libkf5su-bin libkf5su-data libkf5su5 libkf5syndication5abi1 libkf5syntaxhighlighting-data libkf5syntaxhighlighting5 \
+	libkf5sysguard-bin libkf5sysguard-data libkf5templateparser5 libkf5texteditor-bin libkf5texteditor5 \
+	libkf5textwidgets-data libkf5textwidgets5 libkf5threadweaver5 libkf5tnef5 libkf5unitconversion-data \
+	libkf5unitconversion5 libkf5waylandserver5 libkf5webengineviewer5abi1 libkf5xmlgui-bin libkf5xmlgui-data \
+	libkf5xmlgui5 libkfontinst5 libkfontinstui5 libkgantt2 libkgantt2-l10n libkolabxml1v5 libkpimgapi-data \
+	libkpimgapicalendar5 libkpimgapicontacts5 libkpimgapicore5abi1 libkpimgapitasks5 libkpimimportwizard5 \
+	libkpimitinerary-data libkpimitinerary5 libkpimpkpass5 libkpimsmtp5abi1 libkscreenlocker5 libksgrd7 \
+	libksignalplotter7 libkuserfeedbackcore1 libkuserfeedbackwidgets1 libkwin4-effect-builtins1 libkwineffects12 \
+	libkwinglutils12 libkwinxrenderutils12 libkworkspace5-5 libmarkdown2 libmbedtls12 libmbedx509-0 libndp0 \
+	libnotificationmanager1 libokular5core9 libopenconnect5 liboxygenstyle5-5 liboxygenstyleconfig5-5 libpackagekitqt5-1 \
+	libpam-kwallet-common libpam-kwallet5 libphonenumber7 libplasma-geolocation-interface5 libpoppler-qt5-1 \
+	libpowerdevilcore2 libpowerdevilui5 libprocesscore7 libprocessui7 libqalculate20 libqalculate20-data libqca-qt5-2 \
+	libqca-qt5-2-plugins libqgpgme7 libqmobipocket2 libqt5multimediaquick5 libqt5networkauth5 libqt5quickcontrols2-5 \
+	libqt5quickparticles5 libqt5quicktemplates2-5 libqt5quickwidgets5 libqt5script5 libqt5virtualkeyboard5 \
+	libqt5webengine-data libqt5webengine5 libqt5webenginecore5 libqt5webenginewidgets5 libqt5xmlpatterns5 libre2-8 \
+	libsasl2-modules-kdexoauth2 libscim8v5 libsignon-plugins-common1 libsignon-qt5-1 libstoken1 libtaskmanager6abi1 \
+	libteamdctl0 libtomcrypt1 libtss2-esys0 libvoikko1 libweather-ion7 libxapian30 libxcb-composite0 libxcb-cursor0 \
+	libxcb-damage0 libxcb-dpms0 libxcb-record0 libxerces-c3.2 libzxingcore1 mariadb-server-core-10.3 mbox-importer \
+	media-player-info milou mobile-broadband-provider-info network-manager okular oxygen-sounds pim-data-exporter \
+	pim-sieve-editor plasma-dataengines-addons plasma-desktop plasma-desktop-data plasma-discover plasma-discover-common \
+	plasma-framework plasma-integration plasma-nm plasma-pa plasma-runners-addons plasma-wallpapers-addons \
+	plasma-widgets-addons plasma-workspace plasma-workspace-data polkit-kde-agent-1 powerdevil powerdevil-data qdbus-qt5 \
+	qml-module-org-kde-activities qml-module-org-kde-bluezqt qml-module-org-kde-draganddrop qml-module-org-kde-kcm \
+	qml-module-org-kde-kconfig qml-module-org-kde-kcoreaddons qml-module-org-kde-kholidays qml-module-org-kde-kio \
+	qml-module-org-kde-kirigami2 qml-module-org-kde-kquickcontrols qml-module-org-kde-kquickcontrolsaddons \
+	qml-module-org-kde-kwindowsystem qml-module-org-kde-newstuff qml-module-org-kde-people qml-module-org-kde-purpose \
+	qml-module-org-kde-qqc2desktopstyle qml-module-org-kde-runnermodel qml-module-org-kde-solid \
+	qml-module-org-kde-userfeedback qml-module-qtmultimedia qml-module-qtquick-controls2 qml-module-qtquick-particles2 \
 	qml-module-qtquick-templates2 qml-module-qtquick-virtualkeyboard qml-module-qtwebengine qml-module-qtwebkit \
 	qt5-image-formats-plugins qtchooser sddm sddm-theme-breeze sddm-theme-debian-maui signon-plugin-oauth2 \
-	software-properties-kde sonnet-plugins sweeper systemsettings tpm-udev user-manager;apt -y --fix-broken install; \
-	apt install -y kaisen-lxde;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
+	software-properties-kde sonnet-plugins sweeper systemsettings tpm-udev user-manager; \
+	apt install -y kaisen-lxde || true ;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
 fi
 
 if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "MATE installation..."
         echo "";tput init; \
-	apt remove --fix-missing -y accountwizard akonadi-backend-mysql akonadi-contacts-data akonadi-mime-data \
-	akonadi-server akregator appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large \
-	apt-config-icons-large-hidpi ark baloo-kf5 bluedevil breeze breeze-cursor-theme breeze-gtk-theme breeze-icon-theme \
-	catdoc cups-bsd default-mysql-server-core dolphin dragonplayer drkonqi firefox-l10n-de firefox-l10n-es-es \
-	firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt fonts-hack fonts-noto fonts-noto-cjk fonts-noto-cjk-extra \
-	fonts-noto-color-emoji fonts-noto-hinted fonts-noto-ui-extra fonts-noto-unhinted fonts-powerline \
-	frameworkintegration gdb-minimal gtk2-engines-pixbuf gwenview haveged hunspell-fr install-info juk \
-	kaccounts-providers kactivities-bin kactivitymanagerd kaddressbook kaisen-kde kaisen-menu kaisen-skeleton kamera \
-	kate kate5-data kcalc kde-baseapps kde-cli-tools kde-cli-tools-data kde-config-gtk-style kde-config-mailtransport \
-	kde-config-screenlocker kde-config-sddm kde-plasma-desktop kde-spectacle kde-standard kde-style-breeze \
-	kde-style-oxygen-qt5 kdeconnect kded5 kdepim-addons kdepim-runtime kdepim-themeeditors kdeplasma-addons-data kdialog \
-	kdoctools5 keditbookmarks kf5-kdepim-apps-libs-data kf5-messagelib-data kfind kgamma5 khelpcenter khotkeys \
-	khotkeys-data kimageformat-plugins kinfocenter kinit kio kio-extras kio-extras-data kio-ldap kmail kmenuedit knotes \
-	konq-plugins konqueror konsole konsole-kpart korganizer kpackagelauncherqml kpackagetool5 kross kscreen ksshaskpass \
-	ksysguard ksysguard-data ksysguardd ktexteditor-data ktexteditor-katepart kwalletmanager kwin-common kwin-data \
-	kwin-style-breeze kwin-x11 kwrite kwrited libaccounts-glib0 libaccounts-qt5-1 libappstreamqt2 libcanberra-pulse \
-	libcfitsio9 libcolorcorrect5 libdmtx0b libdolphinvcs5 libeditorconfig0 libepub0 libfakekey0 libgit2-28 libgps26 \
-	libgrantlee-templates5 libgrantlee-textdocument5 libhavege2 libhfstospell11 libibus-1.0-5 libipt2 libkaccounts2 \
-	libkdecorations2-5v5 libkdecorations2private6 libkf5activities5 libkf5activitiesstats1 libkf5akonadi-data \
-	libkf5akonadiagentbase5 libkf5akonadicalendar-data libkf5akonadicalendar5abi1 libkf5akonadicontact5 \
-	libkf5akonadicore5abi2 libkf5akonadimime5 libkf5akonadinotes5 libkf5akonadiprivate5abi2 libkf5akonadisearch-bin \
-	libkf5akonadisearch-data libkf5akonadisearch-plugins libkf5akonadisearchcore5 libkf5akonadisearchdebug5 \
-	libkf5akonadisearchpim5 libkf5akonadisearchxapian5 libkf5akonadiwidgets5abi1 libkf5alarmcalendar-data \
-	libkf5alarmcalendar5abi1 libkf5archive5 libkf5attica5 libkf5auth5 libkf5baloo5 libkf5balooengine5 \
-	libkf5baloowidgets-bin libkf5baloowidgets5 libkf5bluezqt-data libkf5bluezqt6 libkf5bookmarks-data libkf5bookmarks5 \
-	libkf5calendarcore5abi2 libkf5calendarevents5 libkf5calendarsupport-data libkf5calendarsupport5abi1 \
-	libkf5calendarutils5 libkf5completion-data libkf5completion5 libkf5contacteditor5 libkf5contacts-data \
-	libkf5contacts5 libkf5dav-data libkf5dav5 libkf5declarative-data libkf5declarative5 libkf5dnssd-data libkf5dnssd5 \
-	libkf5doctools5 libkf5emoticons-bin libkf5emoticons-data libkf5emoticons5 libkf5eventviews-data \
-	libkf5eventviews5abi1 libkf5filemetadata-bin libkf5filemetadata-data libkf5filemetadata3 libkf5followupreminder5 \
+	apt remove -y accountwizard akonadi-backend-mysql akonadi-contacts-data akonadi-mime-data akonadi-server akregator \
+	appstream apt-config-icons apt-config-icons-hidpi apt-config-icons-large apt-config-icons-large-hidpi ark baloo-kf5 \
+	bluedevil breeze breeze-cursor-theme breeze-gtk-theme breeze-icon-theme catdoc cups-bsd default-mysql-server-core \
+	dolphin dragonplayer drkonqi firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
+	fonts-hack fonts-noto fonts-noto-cjk fonts-noto-cjk-extra fonts-noto-color-emoji fonts-noto-hinted \
+	fonts-noto-ui-extra fonts-noto-unhinted fonts-powerline frameworkintegration gdb-minimal gtk2-engines-pixbuf \
+	gwenview haveged hunspell-fr install-info juk kaccounts-providers kactivities-bin kactivitymanagerd kaddressbook \
+	kaisen-kde kaisen-menu kaisen-skeleton kamera kate kate5-data kcalc kde-baseapps kde-cli-tools kde-cli-tools-data \
+	kde-config-gtk-style kde-config-mailtransport kde-config-screenlocker kde-config-sddm kde-plasma-desktop \
+	kde-spectacle kde-standard kde-style-breeze kde-style-oxygen-qt5 kdeconnect kded5 kdepim-addons kdepim-runtime \
+	kdepim-themeeditors kdeplasma-addons-data kdialog kdoctools5 keditbookmarks kf5-kdepim-apps-libs-data \
+	kf5-messagelib-data kfind kgamma5 khelpcenter khotkeys khotkeys-data kimageformat-plugins kinfocenter kinit kio \
+	kio-extras kio-extras-data kio-ldap kmail kmenuedit knotes konq-plugins konqueror konsole konsole-kpart korganizer \
+	kpackagelauncherqml kpackagetool5 kross kscreen ksshaskpass ksysguard ksysguard-data ksysguardd ktexteditor-data \
+	ktexteditor-katepart kuserfeedback-doc kwalletmanager kwin-common kwin-data kwin-style-breeze kwin-x11 kwrite \
+	kwrited libaccounts-glib0 libaccounts-qt5-1 libappstreamqt2 libcanberra-pulse libcfitsio9 libcolorcorrect5 libdmtx0b \
+	libdolphinvcs5 libeditorconfig0 libepub0 libfakekey0 libgit2-28 libgps26 libgrantlee-templates5 libhavege2 \
+	libhfstospell11 libibus-1.0-5 libipt2 libkaccounts2 libkdecorations2-5v5 libkdecorations2private6 libkf5activities5 \
+	libkf5activitiesstats1 libkf5akonadi-data libkf5akonadiagentbase5 libkf5akonadicalendar-data \
+	libkf5akonadicalendar5abi1 libkf5akonadicontact5 libkf5akonadicore5abi2 libkf5akonadimime5 libkf5akonadinotes5 \
+	libkf5akonadiprivate5abi2 libkf5akonadisearch-bin libkf5akonadisearch-data libkf5akonadisearch-plugins \
+	libkf5akonadisearchcore5 libkf5akonadisearchdebug5 libkf5akonadisearchpim5 libkf5akonadisearchxapian5 \
+	libkf5akonadiwidgets5abi1 libkf5alarmcalendar-data libkf5alarmcalendar5abi1 libkf5archive5 libkf5attica5 libkf5auth5 \
+	libkf5baloo5 libkf5balooengine5 libkf5baloowidgets-bin libkf5baloowidgets5 libkf5bluezqt-data libkf5bluezqt6 \
+	libkf5bookmarks-data libkf5bookmarks5 libkf5calendarcore5abi2 libkf5calendarevents5 libkf5calendarsupport-data \
+	libkf5calendarsupport5abi1 libkf5calendarutils5 libkf5completion-data libkf5completion5 libkf5contacteditor5 \
+	libkf5contacts-data libkf5contacts5 libkf5dav-data libkf5dav5 libkf5declarative-data libkf5declarative5 \
+	libkf5dnssd-data libkf5dnssd5 libkf5doctools5 libkf5emoticons-bin libkf5emoticons-data libkf5emoticons5 \
+	libkf5eventviews-data libkf5eventviews5abi1 libkf5filemetadata-bin libkf5filemetadata-data libkf5filemetadata3 \
 	libkf5globalaccel-bin libkf5globalaccel-data libkf5globalaccel5 libkf5globalaccelprivate5 \
 	libkf5grantleetheme-plugins libkf5grantleetheme5 libkf5gravatar-data libkf5gravatar5abi2 libkf5holidays-data \
 	libkf5holidays5 libkf5iconthemes-bin libkf5iconthemes-data libkf5iconthemes5 libkf5identitymanagement5 \
 	libkf5imap-data libkf5imap5 libkf5incidenceeditor-data libkf5incidenceeditor5abi1 libkf5itemmodels5 \
 	libkf5itemviews-data libkf5itemviews5 libkf5jobwidgets-data libkf5jobwidgets5 libkf5js5 libkf5jsapi5 \
 	libkf5kaddressbookgrantlee5 libkf5kaddressbookimportexport5 libkf5kcmutils-data libkf5kcmutils5 libkf5kdcraw5 \
-	libkf5kdelibs4support-data libkf5kdelibs4support5 libkf5kdelibs4support5-bin libkf5kdepimdbusinterfaces5 \
-	libkf5kexiv2-15.0.0 libkf5khtml-bin libkf5khtml-data libkf5khtml5 libkf5kiocore5 libkf5kiofilewidgets5 libkf5kiogui5 \
-	libkf5kiontlm5 libkf5kiowidgets5 libkf5kipi-data libkf5kipi32.0.0 libkf5kirigami2-5 libkf5kmanagesieve5 libkf5konq6 \
-	libkf5kontactinterface-data libkf5kontactinterface5 libkf5krosscore5 libkf5krossui5 libkf5ksieve-data libkf5ksieve5 \
-	libkf5ksieveui5 libkf5ldap-data libkf5ldap5abi1 libkf5libkdepim-data libkf5libkdepim-plugins libkf5libkdepim5 \
-	libkf5libkdepimakonadi5 libkf5libkleo-data libkf5libkleo5 libkf5mailcommon-data libkf5mailcommon5abi2 \
-	libkf5mailimporter5 libkf5mailimporterakonadi5 libkf5mailtransport-data libkf5mailtransport5 \
-	libkf5mailtransportakonadi5 libkf5mbox5 libkf5messagecomposer5abi1 libkf5messagecore5abi1 libkf5messagelist5abi1 \
-	libkf5messageviewer5abi1 libkf5mime-data libkf5mime5abi1 libkf5mimetreeparser5abi1 libkf5modemmanagerqt6 \
-	libkf5networkmanagerqt6 libkf5newstuff-data libkf5newstuff5 libkf5newstuffcore5 libkf5notifyconfig-data \
-	libkf5notifyconfig5 libkf5package-data libkf5package5 libkf5parts-data libkf5parts-plugins libkf5parts5 \
-	libkf5people-data libkf5people5 libkf5peoplebackend5 libkf5peoplewidgets5 libkf5pimcommon-data libkf5pimcommon5abi2 \
-	libkf5pimcommonakonadi5abi1 libkf5pimtextedit-data libkf5pimtextedit-plugins libkf5pimtextedit5abi2 libkf5plasma5 \
-	libkf5plasmaquick5 libkf5prison5 libkf5pty-data libkf5pty5 libkf5pulseaudioqt2 libkf5purpose-bin libkf5purpose5 \
-	libkf5quickaddons5 libkf5runner5 libkf5screen-bin libkf5screen7 libkf5sendlater5 libkf5solid5 libkf5solid5-data \
-	libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5style5 libkf5su-bin libkf5su-data libkf5su5 \
-	libkf5syndication5abi1 libkf5syntaxhighlighting-data libkf5syntaxhighlighting5 libkf5sysguard-bin libkf5sysguard-data \
-	libkf5templateparser5 libkf5texteditor-bin libkf5texteditor5 libkf5textwidgets-data libkf5textwidgets5 \
-	libkf5threadweaver5 libkf5tnef5 libkf5unitconversion-data libkf5unitconversion5 libkf5waylandserver5 \
-	libkf5webengineviewer5abi1 libkf5xmlgui-bin libkf5xmlgui-data libkf5xmlgui5 libkfontinst5 libkfontinstui5 libkgantt2 \
-	libkgantt2-l10n libkolabxml1v5 libkpimgapi-data libkpimgapicalendar5 libkpimgapicontacts5 libkpimgapicore5abi1 \
-	libkpimgapitasks5 libkpimimportwizard5 libkpimitinerary-data libkpimitinerary5 libkpimpkpass5 libkpimsmtp5abi1 \
-	libkscreenlocker5 libksgrd7 libksignalplotter7 libkwin4-effect-builtins1 libkwineffects12 libkwinglutils12 \
-	libkwinxrenderutils12 libkworkspace5-5 libmarkdown2 libmbedtls12 libmbedx509-0 libndp0 libnotificationmanager1 \
-	libokular5core9 libopenconnect5 liboxygenstyle5-5 liboxygenstyleconfig5-5 libpackagekitqt5-1 libpam-kwallet-common \
-	libpam-kwallet5 libphonenumber7 libplasma-geolocation-interface5 libpoppler-qt5-1 libpowerdevilcore2 \
-	libpowerdevilui5 libprocesscore7 libprocessui7 libqalculate20 libqalculate20-data libqca-qt5-2 libqca-qt5-2-plugins \
-	libqgpgme7 libqmobipocket2 libqt5multimediaquick5 libqt5networkauth5 libqt5quickcontrols2-5 libqt5quicktemplates2-5 \
-	libqt5quickwidgets5 libqt5script5 libqt5virtualkeyboard5 libqt5webengine-data libqt5webengine5 libqt5webenginecore5 \
-	libqt5webenginewidgets5 libqt5xmlpatterns5 libre2-8 libsasl2-modules-kdexoauth2 libscim8v5 libsignon-plugins-common1 \
-	libsignon-qt5-1 libstoken1 libtaskmanager6abi1 libteamdctl0 libtomcrypt1 libtss2-esys0 libvoikko1 libweather-ion7 \
-	libxapian30 libxcb-composite0 libxcb-cursor0 libxcb-damage0 libxcb-dpms0 libxcb-record0 libxerces-c3.2 libzxingcore1 \
-	mariadb-server-core-10.3 mbox-importer media-player-info milou mobile-broadband-provider-info network-manager okular \
-	oxygen-sounds pim-data-exporter pim-sieve-editor plasma-dataengines-addons plasma-desktop plasma-desktop-data \
-	plasma-discover plasma-discover-common plasma-framework plasma-integration plasma-nm plasma-pa plasma-runners-addons \
-	plasma-wallpapers-addons plasma-widgets-addons plasma-workspace plasma-workspace-data polkit-kde-agent-1 powerdevil \
-	powerdevil-data qdbus-qt5 qml-module-org-kde-activities qml-module-org-kde-bluezqt qml-module-org-kde-draganddrop \
-	qml-module-org-kde-kcm qml-module-org-kde-kconfig qml-module-org-kde-kcoreaddons qml-module-org-kde-kholidays \
-	qml-module-org-kde-kio qml-module-org-kde-kirigami2 qml-module-org-kde-kquickcontrols \
-	qml-module-org-kde-kquickcontrolsaddons qml-module-org-kde-kwindowsystem qml-module-org-kde-newstuff \
-	qml-module-org-kde-people qml-module-org-kde-purpose qml-module-org-kde-qqc2desktopstyle \
-	qml-module-org-kde-runnermodel qml-module-org-kde-solid qml-module-qtmultimedia qml-module-qtquick-controls2 \
+	libkf5kdelibs4support-data libkf5kdelibs4support5 libkf5kdelibs4support5-bin libkf5kexiv2-15.0.0 libkf5khtml-bin \
+	libkf5khtml-data libkf5khtml5 libkf5kiocore5 libkf5kiofilewidgets5 libkf5kiogui5 libkf5kiontlm5 libkf5kiowidgets5 \
+	libkf5kipi-data libkf5kipi32.0.0 libkf5kirigami2-5 libkf5kmanagesieve5 libkf5konq6 libkf5kontactinterface-data \
+	libkf5kontactinterface5 libkf5krosscore5 libkf5krossui5 libkf5ksieve-data libkf5ksieve5 libkf5ksieveui5 \
+	libkf5ldap-data libkf5ldap5abi1 libkf5libkdepim-data libkf5libkdepim-plugins libkf5libkdepim5 libkf5libkleo-data \
+	libkf5libkleo5 libkf5mailcommon-data libkf5mailcommon5abi2 libkf5mailimporter5 libkf5mailimporterakonadi5 \
+	libkf5mailtransport-data libkf5mailtransport5 libkf5mailtransportakonadi5 libkf5mbox5 libkf5messagecomposer5abi1 \
+	libkf5messagecore5abi1 libkf5messagelist5abi1 libkf5messageviewer5abi1 libkf5mime-data libkf5mime5abi1 \
+	libkf5mimetreeparser5abi1 libkf5modemmanagerqt6 libkf5networkmanagerqt6 libkf5newstuff-data libkf5newstuff5 \
+	libkf5newstuffcore5 libkf5notifyconfig-data libkf5notifyconfig5 libkf5package-data libkf5package5 libkf5parts-data \
+	libkf5parts-plugins libkf5parts5 libkf5people-data libkf5people5 libkf5peoplebackend5 libkf5peoplewidgets5 \
+	libkf5pimcommon-data libkf5pimcommon5abi2 libkf5pimcommonakonadi5abi1 libkf5pimtextedit-data \
+	libkf5pimtextedit-plugins libkf5pimtextedit5abi2 libkf5plasma5 libkf5plasmaquick5 libkf5prison5 libkf5pty-data \
+	libkf5pty5 libkf5pulseaudioqt2 libkf5purpose-bin libkf5purpose5 libkf5quickaddons5 libkf5runner5 libkf5screen-bin \
+	libkf5screen7 libkf5solid5 libkf5solid5-data libkf5sonnet5-data libkf5sonnetcore5 libkf5sonnetui5 libkf5style5 \
+	libkf5su-bin libkf5su-data libkf5su5 libkf5syndication5abi1 libkf5syntaxhighlighting-data libkf5syntaxhighlighting5 \
+	libkf5sysguard-bin libkf5sysguard-data libkf5templateparser5 libkf5texteditor-bin libkf5texteditor5 \
+	libkf5textwidgets-data libkf5textwidgets5 libkf5threadweaver5 libkf5tnef5 libkf5unitconversion-data \
+	libkf5unitconversion5 libkf5waylandserver5 libkf5webengineviewer5abi1 libkf5xmlgui-bin libkf5xmlgui-data \
+	libkf5xmlgui5 libkfontinst5 libkfontinstui5 libkgantt2 libkgantt2-l10n libkolabxml1v5 libkpimgapi-data \
+	libkpimgapicalendar5 libkpimgapicontacts5 libkpimgapicore5abi1 libkpimgapitasks5 libkpimimportwizard5 \
+	libkpimitinerary-data libkpimitinerary5 libkpimpkpass5 libkpimsmtp5abi1 libkscreenlocker5 libksgrd7 \
+	libksignalplotter7 libkuserfeedbackcore1 libkuserfeedbackwidgets1 libkwin4-effect-builtins1 libkwineffects12 \
+	libkwinglutils12 libkwinxrenderutils12 libkworkspace5-5 libmarkdown2 libmbedtls12 libmbedx509-0 libndp0 \
+	libnotificationmanager1 libokular5core9 libopenconnect5 liboxygenstyle5-5 liboxygenstyleconfig5-5 libpackagekitqt5-1 \
+	libpam-kwallet-common libpam-kwallet5 libphonenumber7 libplasma-geolocation-interface5 libpoppler-qt5-1 \
+	libpowerdevilcore2 libpowerdevilui5 libprocesscore7 libprocessui7 libqalculate20 libqalculate20-data libqca-qt5-2 \
+	libqca-qt5-2-plugins libqgpgme7 libqmobipocket2 libqt5multimediaquick5 libqt5networkauth5 libqt5quickcontrols2-5 \
+	libqt5quickparticles5 libqt5quicktemplates2-5 libqt5quickwidgets5 libqt5script5 libqt5virtualkeyboard5 \
+	libqt5webengine-data libqt5webengine5 libqt5webenginecore5 libqt5webenginewidgets5 libqt5xmlpatterns5 libre2-8 \
+	libsasl2-modules-kdexoauth2 libscim8v5 libsignon-plugins-common1 libsignon-qt5-1 libstoken1 libtaskmanager6abi1 \
+	libteamdctl0 libtomcrypt1 libtss2-esys0 libvoikko1 libweather-ion7 libxapian30 libxcb-composite0 libxcb-cursor0 \
+	libxcb-damage0 libxcb-dpms0 libxcb-record0 libxerces-c3.2 libzxingcore1 mariadb-server-core-10.3 mbox-importer \
+	media-player-info milou mobile-broadband-provider-info network-manager okular oxygen-sounds pim-data-exporter \
+	pim-sieve-editor plasma-dataengines-addons plasma-desktop plasma-desktop-data plasma-discover plasma-discover-common \
+	plasma-framework plasma-integration plasma-nm plasma-pa plasma-runners-addons plasma-wallpapers-addons \
+	plasma-widgets-addons plasma-workspace plasma-workspace-data polkit-kde-agent-1 powerdevil powerdevil-data qdbus-qt5 \
+	qml-module-org-kde-activities qml-module-org-kde-bluezqt qml-module-org-kde-draganddrop qml-module-org-kde-kcm \
+	qml-module-org-kde-kconfig qml-module-org-kde-kcoreaddons qml-module-org-kde-kholidays qml-module-org-kde-kio \
+	qml-module-org-kde-kirigami2 qml-module-org-kde-kquickcontrols qml-module-org-kde-kquickcontrolsaddons \
+	qml-module-org-kde-kwindowsystem qml-module-org-kde-newstuff qml-module-org-kde-people qml-module-org-kde-purpose \
+	qml-module-org-kde-qqc2desktopstyle qml-module-org-kde-runnermodel qml-module-org-kde-solid \
+	qml-module-org-kde-userfeedback qml-module-qtmultimedia qml-module-qtquick-controls2 qml-module-qtquick-particles2 \
 	qml-module-qtquick-templates2 qml-module-qtquick-virtualkeyboard qml-module-qtwebengine qml-module-qtwebkit \
 	qt5-image-formats-plugins qtchooser sddm sddm-theme-breeze sddm-theme-debian-maui signon-plugin-oauth2 \
-	software-properties-kde sonnet-plugins sweeper systemsettings tpm-udev user-manager;apt -y --fix-broken install; \
-	apt install -y kaisen-mate;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
+	software-properties-kde sonnet-plugins sweeper systemsettings tpm-udev user-manager; \
+	apt install -y kaisen-mate || true;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
 fi
 
 if [[ $OPTION = "4" ]]; then

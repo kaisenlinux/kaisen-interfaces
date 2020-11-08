@@ -19,10 +19,13 @@ fi
 
 if [[ "$EUID" -eq "0" ]]; then
 	echo -e $GREEN "Check APT access..."
-	tput init;apt update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection to continue." && exit 1
+	tput init;apt update 2>&1 | grep '^[WE]:' 1> /dev/null && echo -e $RED "Please check your internet connection to continue." && exit 1
 	echo ""
-	echo -e $GREEN "APT access ok, check to update kaisen-interface-switcher..."
+	echo -e $GREEN "APT access ok, check connected network interface..."
 	echo ""
+	tput init;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
+	echo -e $GREEN "Check if new kaisen-interface-switcher version exist..."
+        echo ""
 	tput init;apt install -y kaisen-lxde
 	echo -e $GREEN "Welcome at Kaisen Linux interface switcher (LXDE version)."
 	echo ""
@@ -47,70 +50,70 @@ if [[ "$EUID" -eq "0" ]]; then
 if [[ $OPTION = "1" ]]; then
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt remove --fix-missing -y clipit conky-all diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr \
-	firefox-l10n-it firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility \
-	gnome-screenshot gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines \
-	gtk2-engines-pixbuf gucharmap gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect \
-	libaudclient2 libdee-1.0-4 libdiodon0 libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 \
-	libglade2-0 libgtksourceview-3.0-1 libgtksourceview-3.0-common libgucharmap-2-90-7 libid3tag0 libimlib2 \
-	libkeybinder0 liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 \
-	libobrender32v5 libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 \
-	libxapian30 libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 \
-	libxmmsclient-glib1 libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lxappearance \
+	apt remove -y clipit conky-all conkycolors diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
+	firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility gnome-screenshot \
+	gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines gtk2-engines-pixbuf gucharmap \
+	gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect libaudclient2 libdee-1.0-4 libdiodon0 \
+	libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libglade2-0 libgtksourceview-3.0-1 \
+	libgtksourceview-3.0-common libgucharmap-2-90-7 libhandy-1-0 libid3tag0 libimlib2 libkeybinder0 \
+	liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 libobrender32v5 \
+	libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 libxapian30 \
+	libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxmmsclient-glib1 \
+	libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance \
 	lxappearance-obconf lxde lxde-common lxde-core lxde-icon-theme lxde-settings-daemon lxhotkey-core lxhotkey-data \
 	lxhotkey-gtk lxhotkey-plugin-openbox lxinput lxlock lxmenu-data lxmusic lxpanel lxpanel-data lxpolkit lxrandr \
 	lxsession lxsession-data lxsession-default-apps lxsession-edit lxsession-logout lxtask lxterminal menu-xdg \
 	mobile-broadband-provider-info mousepad network-manager network-manager-gnome obconf obsession openbox \
-	openbox-lxde-session pavucontrol pcmanfm scrot system-tools-backends usermode xarchiver xcursor-themes xdotool \
-	xfconf xmms2-core xmms2-plugin-alsa xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver \
-	xscreensaver-data zeitgeist-core zenity zenity-common;apt -y --fix-broken install;apt install -y kaisen-kde; \
-	apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
+	openbox-lxde-session pavucontrol pcmanfm python-configparser python-entrypoints python-keyring scrot \
+	system-tools-backends transmission-gtk usermode xarchiver xcursor-themes xdotool xfconf xmms2-core xmms2-plugin-alsa \
+	xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver xscreensaver-data zeitgeist-core zenity \
+	zenity-common;apt install -y kaisen-kde || true;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
 fi
 
 if [[ $OPTION = "2" ]]; then
 	echo -e $GREEN "MATE installation..."
-        echo "";tput init; \
-	apt remove --fix-missing -y clipit conky-all diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr \
-	firefox-l10n-it firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility \
-	gnome-screenshot gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines \
-	gtk2-engines-pixbuf gucharmap gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect \
-	libaudclient2 libdee-1.0-4 libdiodon0 libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 \
-	libglade2-0 libgtksourceview-3.0-1 libgtksourceview-3.0-common libgucharmap-2-90-7 libid3tag0 libimlib2 \
-	libkeybinder0 liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 \
-	libobrender32v5 libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 \
-	libxapian30 libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 \
-	libxmmsclient-glib1 libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lxappearance \
+    echo "";tput init; \
+	apt remove -y clipit conky-all conkycolors diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
+	firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility gnome-screenshot \
+	gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines gtk2-engines-pixbuf gucharmap \
+	gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect libaudclient2 libdee-1.0-4 libdiodon0 \
+	libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libglade2-0 libgtksourceview-3.0-1 \
+	libgtksourceview-3.0-common libgucharmap-2-90-7 libhandy-1-0 libid3tag0 libimlib2 libkeybinder0 \
+	liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 libobrender32v5 \
+	libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 libxapian30 \
+	libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxmmsclient-glib1 \
+	libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance \
 	lxappearance-obconf lxde lxde-common lxde-core lxde-icon-theme lxde-settings-daemon lxhotkey-core lxhotkey-data \
 	lxhotkey-gtk lxhotkey-plugin-openbox lxinput lxlock lxmenu-data lxmusic lxpanel lxpanel-data lxpolkit lxrandr \
 	lxsession lxsession-data lxsession-default-apps lxsession-edit lxsession-logout lxtask lxterminal menu-xdg \
 	mobile-broadband-provider-info mousepad network-manager network-manager-gnome obconf obsession openbox \
-	openbox-lxde-session pavucontrol pcmanfm scrot system-tools-backends usermode xarchiver xcursor-themes xdotool \
-	xfconf xmms2-core xmms2-plugin-alsa xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver \
-	xscreensaver-data zeitgeist-core zenity zenity-common;apt -y --fix-broken install;apt install -y kaisen-mate; \
-	apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
+	openbox-lxde-session pavucontrol pcmanfm python-configparser python-entrypoints python-keyring scrot \
+	system-tools-backends transmission-gtk usermode xarchiver xcursor-themes xdotool xfconf xmms2-core xmms2-plugin-alsa \
+	xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver xscreensaver-data zeitgeist-core zenity \
+	zenity-common;apt install -y kaisen-mate || true;apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
 fi
 
 if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "XFCE installation..."
-        echo "";tput init; \
-	apt remove --fix-missing -y clipit conky-all diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr \
-	firefox-l10n-it firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility \
-	gnome-screenshot gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines \
-	gtk2-engines-pixbuf gucharmap gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect \
-	libaudclient2 libdee-1.0-4 libdiodon0 libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 \
-	libglade2-0 libgtksourceview-3.0-1 libgtksourceview-3.0-common libgucharmap-2-90-7 libid3tag0 libimlib2 \
-	libkeybinder0 liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 \
-	libobrender32v5 libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 \
-	libxapian30 libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 \
-	libxmmsclient-glib1 libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lxappearance \
+    echo "";tput init; \
+	apt remove -y clipit conky-all conkycolors diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
+	firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility gnome-screenshot \
+	gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines gtk2-engines-pixbuf gucharmap \
+	gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect libaudclient2 libdee-1.0-4 libdiodon0 \
+	libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libglade2-0 libgtksourceview-3.0-1 \
+	libgtksourceview-3.0-common libgucharmap-2-90-7 libhandy-1-0 libid3tag0 libimlib2 libkeybinder0 \
+	liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 libobrender32v5 \
+	libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 libxapian30 \
+	libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxmmsclient-glib1 \
+	libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance \
 	lxappearance-obconf lxde lxde-common lxde-core lxde-icon-theme lxde-settings-daemon lxhotkey-core lxhotkey-data \
 	lxhotkey-gtk lxhotkey-plugin-openbox lxinput lxlock lxmenu-data lxmusic lxpanel lxpanel-data lxpolkit lxrandr \
 	lxsession lxsession-data lxsession-default-apps lxsession-edit lxsession-logout lxtask lxterminal menu-xdg \
 	mobile-broadband-provider-info mousepad network-manager network-manager-gnome obconf obsession openbox \
-	openbox-lxde-session pavucontrol pcmanfm scrot system-tools-backends usermode xarchiver xcursor-themes xdotool \
-	xfconf xmms2-core xmms2-plugin-alsa xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver \
-	xscreensaver-data zeitgeist-core zenity zenity-common;apt -y --fix-broken install;apt install -y kaisen-xfce; \
-	apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
+	openbox-lxde-session pavucontrol pcmanfm python-configparser python-entrypoints python-keyring scrot \
+	system-tools-backends transmission-gtk usermode xarchiver xcursor-themes xdotool xfconf xmms2-core xmms2-plugin-alsa \
+	xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver xscreensaver-data zeitgeist-core zenity \
+	zenity-common;apt install -y kaisen-xfce || true;apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
 fi
 
 if [[ $OPTION = "4" ]]; then
