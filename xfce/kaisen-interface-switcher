@@ -19,7 +19,7 @@ fi
 
 if [[ "$EUID" -eq "0" ]]; then
 	echo -e $GREEN "Check APT access..."
-	tput init;apt update 2>&1 | grep '^[WE]:' 1> /dev/null && echo -e $RED "Please check your internet connection to continue." && exit 1
+	tput init;apt update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." && exit 1
 	echo ""
 	echo -e $GREEN "APT access ok, check connected network interface..."
 	echo ""
@@ -46,6 +46,15 @@ if [[ "$EUID" -eq "0" ]]; then
 	done
 	echo ""
 
+case $OPTION in
+	1|2|3|4)
+	for users in $(awk -F: '/\/home/ && ($3 >= 1000) {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+	mkdir -p /usr/share/kaisen-interface-switcher/$users/XFCE 2> /dev/null || true && cp -rp /home/$users/.config/{xfce4,gtk-3.0} /usr/share/kaisen-interface-switcher/$users/XFCE 2> /dev/null || true
+	done
+	;;
+esac
+
 if [[ $OPTION = "1" ]]; then
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
@@ -60,44 +69,56 @@ if [[ $OPTION = "1" ]]; then
 	x11-session-utils xcursor-themes xfce4 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-power-manager \
 	xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screenshooter xfce4-session \
 	xfce4-settings xfce4-terminal xfconf xfdesktop4 xfdesktop4-data xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 \
-	xiccd xinit xorg xorg-docs-core; \
-	apt install -y kaisen-kde || true;apt -y --fix-broken install;apt -y autoremove;/sbin/reboot
+	xiccd xinit xorg xorg-docs-core && \
+	apt install -y kaisen-kde || true && apt -y --fix-broken install && apt -y autoremove && systemctl restart lightdm
 fi
 
 if [[ $OPTION = "2" ]]; then
 	echo -e $GREEN "LXDE installation..."
-    echo "";tput init; \
-    apt remove -y exo-utils firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
-	fonts-powerline gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines-pixbuf \
-	hunspell-fr kaisen-menu kaisen-skeleton kaisen-xfce libexo-2-0 libexo-common libexo-helpers libgarcon-1-0 \
-	libgarcon-common libgarcon-gtk3-1-0 liblightdm-gobject-1-0 libndp0 libnma-common libnma0 libteamdctl0 libthunarx-3-0 \
-	libtumbler-1-0 libwnck-3-0 libwnck-3-common libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
-	libxfce4ui-utils libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxpresent1 \
-	light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings mobile-broadband-provider-info network-manager \
-	network-manager-gnome pavucontrol tango-icon-theme thunar thunar-data thunar-volman tumbler tumbler-common x11-apps \
-	x11-session-utils xcursor-themes xfce4 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-power-manager \
-	xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screenshooter xfce4-session \
-	xfce4-settings xfce4-terminal xfconf xfdesktop4 xfdesktop4-data xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 \
-	xiccd xinit xorg xorg-docs-core; \
-	apt install -y kaisen-lxde || true;apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
+	echo "";tput init; \
+	apt remove -y exo-utils firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
+        fonts-powerline gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines-pixbuf \
+        hunspell-fr kaisen-menu kaisen-skeleton kaisen-xfce libexo-2-0 libexo-common libexo-helpers libgarcon-1-0 \
+        libgarcon-common libgarcon-gtk3-1-0 liblightdm-gobject-1-0 libndp0 libnma-common libnma0 libteamdctl0 libthunarx-3-0 \
+        libtumbler-1-0 libwnck-3-0 libwnck-3-common libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
+        libxfce4ui-utils libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxpresent1 \
+        light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings mobile-broadband-provider-info network-manager \
+        network-manager-gnome pavucontrol tango-icon-theme thunar thunar-data thunar-volman tumbler tumbler-common x11-apps \
+        x11-session-utils xcursor-themes xfce4 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-power-manager \
+        xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screenshooter xfce4-session \
+        xfce4-settings xfce4-terminal xfconf xfdesktop4 xfdesktop4-data xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 \
+        xiccd xinit xorg xorg-docs-core && \
+	apt install -y kaisen-lxde || true && apt -y --fix-broken install && apt -y autoremove
+	#If rollback on LXDE, reapplying LXDE users configurations or reapplying default LXDE configurations
+        for users in $(awk -F: '/\/home/ && ($3 >= 1000) {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/LXDE/* /home/$users/.config/ 2> /dev/null || cp -rp /etc/skel/.config/{lxpanel,lxsession,lxterminal,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
+        done
+        systemctl restart lightdm
 fi
 
 if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "MATE installation..."
-    echo "";tput init; \
-    apt remove -y exo-utils firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
-	fonts-powerline gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines-pixbuf \
-	hunspell-fr kaisen-menu kaisen-skeleton kaisen-xfce libexo-2-0 libexo-common libexo-helpers libgarcon-1-0 \
-	libgarcon-common libgarcon-gtk3-1-0 liblightdm-gobject-1-0 libndp0 libnma-common libnma0 libteamdctl0 libthunarx-3-0 \
-	libtumbler-1-0 libwnck-3-0 libwnck-3-common libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
-	libxfce4ui-utils libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxpresent1 \
-	light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings mobile-broadband-provider-info network-manager \
-	network-manager-gnome pavucontrol tango-icon-theme thunar thunar-data thunar-volman tumbler tumbler-common x11-apps \
-	x11-session-utils xcursor-themes xfce4 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-power-manager \
-	xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screenshooter xfce4-session \
-	xfce4-settings xfce4-terminal xfconf xfdesktop4 xfdesktop4-data xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 \
-	xiccd xinit xorg xorg-docs-core; \
-	apt install -y kaisen-mate || true;apt -y --fix-broken install;apt -y autoremove;systemctl restart lightdm
+	echo "";tput init; \
+	apt remove -y exo-utils firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it firefox-l10n-pt-pt \
+        fonts-powerline gnome-accessibility-themes gnome-themes-extra gnome-themes-extra-data gtk2-engines-pixbuf \
+        hunspell-fr kaisen-menu kaisen-skeleton kaisen-xfce libexo-2-0 libexo-common libexo-helpers libgarcon-1-0 \
+        libgarcon-common libgarcon-gtk3-1-0 liblightdm-gobject-1-0 libndp0 libnma-common libnma0 libteamdctl0 libthunarx-3-0 \
+        libtumbler-1-0 libwnck-3-0 libwnck-3-common libxfce4panel-2.0-4 libxfce4ui-1-0 libxfce4ui-2-0 libxfce4ui-common \
+        libxfce4ui-utils libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxpresent1 \
+        light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings mobile-broadband-provider-info network-manager \
+        network-manager-gnome pavucontrol tango-icon-theme thunar thunar-data thunar-volman tumbler tumbler-common x11-apps \
+        x11-session-utils xcursor-themes xfce4 xfce4-appfinder xfce4-notifyd xfce4-panel xfce4-power-manager \
+        xfce4-power-manager-data xfce4-power-manager-plugins xfce4-pulseaudio-plugin xfce4-screenshooter xfce4-session \
+        xfce4-settings xfce4-terminal xfconf xfdesktop4 xfdesktop4-data xfonts-100dpi xfonts-75dpi xfonts-scalable xfwm4 \
+        xiccd xinit xorg xorg-docs-core && \
+	apt install -y kaisen-mate || true && apt -y --fix-broken install && apt -y autoremove
+	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
+        for users in $(awk -F: '/\/home/ && ($3 >= 1000) {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/MATE/* /home/$users/.config/ 2> /dev/null || cp -rp /etc/skel/.config/{dconf,mate,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
+        done
+        systemctl restart lightdm
 fi
 
 if [[ $OPTION = "4" ]]; then

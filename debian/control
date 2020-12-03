@@ -21,14 +21,16 @@ Depends: kde-standard,
 	 gksu,
 	 plymouth,
 	 kaisen-menu,
-	 sddm,
+	 lightdm,
+	 lightdm-gtk-greeter,
+	 lightdm-gtk-greeter-settings,
 	 terminator,
 	 vim,
 	 zsh,
 	 kaisen-skeleton,
 	 locales-all,
-	 sddm-theme-breeze,
 	 kaisen-design,
+	 fonts-cantarell,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxde

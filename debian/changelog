@@ -1,3 +1,21 @@
+kaisen-interfaces (1.4+kaisen8) kaisen-packages; urgency=medium
+
+  * Now, APT errors are display in stderr
+  * Create backup all interfaces (but not KDE) on
+    /usr/share/kaisen-interface-switcher (fix bad GTK)
+  * Restore backup after unintall old interface
+  * Add postrm script
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisen-linux.org>  Thu, 03 Dec 2020 04:03:56 +0200
+
+kaisen-interfaces (1.4+kaisen7) kaisen-packages; urgency=medium
+
+  * Update KDE and XFCE kaisen-interface-switcher
+  * Add check wifi execution on kaisen-interface-switcher
+  * Add conkycolors on LXDE and MATE
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisen-linux.org>  Sun, 08 Nov 2020 16:31:58 +0200
+
 kaisen-interfaces (1.4+kaisen6) kaisen-packages; urgency=medium
 
   * Update KDE and XFCE kaisen-interface-switcher
