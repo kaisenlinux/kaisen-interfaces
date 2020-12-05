@@ -1,3 +1,9 @@
+kaisen-interfaces (1.4+kaisen10) kaisen-packages; urgency=medium
+
+  * Fix typo on kaisen-interface-switcher*
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisen-linux.org>  Sat, 05 Dec 2020 05:11:47 +0200
+
 kaisen-interfaces (1.4+kaisen9) kaisen-packages; urgency=medium
 
   * LightDM script on KDE postinst now exec dpkg install only

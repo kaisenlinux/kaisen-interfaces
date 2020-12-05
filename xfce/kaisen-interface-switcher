@@ -27,6 +27,7 @@ if [[ "$EUID" -eq "0" ]]; then
 	echo -e $GREEN "Check if new kaisen-interface-switcher version exist..."
         echo ""
 	tput init;apt install -y kaisen-xfce
+	echo ""
 	echo -e $GREEN "Welcome at Kaisen Linux interface switcher (XFCE version)."
 	echo ""
 	echo -e $GREEN "This script will install a graphical interface of your choice listed below."
