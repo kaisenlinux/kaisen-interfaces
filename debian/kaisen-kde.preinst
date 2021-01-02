@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+if [[ "$1" = "install" ]]; then
+        dpkg-divert --quiet --package kaisen-kde \
+                    --divert /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop.old \
+                    --rename /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop || true
+fi
+
+#DEBHELPER#
