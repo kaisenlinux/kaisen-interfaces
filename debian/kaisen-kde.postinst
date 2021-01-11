@@ -52,7 +52,9 @@ cp /usr/share/kaisen-kde/conkyrc /etc/skel/.conkyrc
 #Automatic update conkyrc for all users
 for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
 do
+	if [ -e /home/$users/.conkyrc ]; then
 	cp -f /usr/share/kaisen-kde/conkyrc /home/$users/.conkyrc
+	fi
 done
 
 rm -rf /usr/share/kaisen-kde
