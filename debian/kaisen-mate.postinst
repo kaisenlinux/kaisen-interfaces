@@ -6,3 +6,23 @@ update-alternatives --install /usr/bin/editor editor /usr/bin/vim.basic 500
 update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /etc/X11/cursors/redglass.theme 500
 update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/terminator 500
 update-alternatives --install /usr/share/gconf/defaults/10_libgksu libgksu-gconf-defaults /usr/share/libgksu/debian/gconf-defaults.libgksu-sudo 500
+
+#Add conky theme to /etc/skel
+if [ ! -d /etc/skel ]; then
+	echo "Creating /etc/skel directory and adding conkyrc in /etc/skel..."
+	mkdir -p /etc/skel
+else
+        echo "Adding conkyrc in /etc/skel..."
+fi
+
+cp /usr/share/kaisen-mate/conkyrc /etc/skel/.conkyrc
+
+#Automatic update conkyrc for all users if .conkyrc exist
+for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+do
+	if [ -e /home/$users/.conkyrc ]; then
+        cp -f /usr/share/kaisen-mate/conkyrc /home/$users/.conkyrc
+	fi
+done
+
+rm -rf /usr/share/kaisen-mate

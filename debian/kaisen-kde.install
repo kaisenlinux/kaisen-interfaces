@@ -1,3 +1,5 @@
+conky.desktop etc/xdg/autostart/
 kde/kaisen-interface-switcher usr/sbin
 kde/conf/theme.conf.user usr/share/sddm/themes/breeze/
 kde/conf/kde_settings.conf etc/sddm.conf.d/
+kde/conkyrc usr/share/kaisen-kde/

@@ -33,6 +33,8 @@ Depends: kde-standard,
 	 locales-all,
 	 kaisen-design,
 	 fonts-cantarell,
+	 conky-all,
+	 conkycolors,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxde
@@ -134,4 +136,6 @@ Depends: xfce4,
 	 locales-all,
 	 fonts-cantarell,
 	 kaisen-design,
+	 conky-all,
+	 conkycolors,
 Description: Kaisen XFCE desktop environment configurations
