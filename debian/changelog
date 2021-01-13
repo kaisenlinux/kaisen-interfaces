@@ -1,3 +1,11 @@
+kaisen-interfaces (1.5+kaisen6) kaisen-packages; urgency=medium
+
+  * Update conky theme for all interfaces
+  * Hostname and lsb_release command is now executed all 99999 seconds.
+  * Reduce RAM used
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisen-linux.org>  Wed, 13 Jan 2021 23:13:06 +0200
+
 kaisen-interfaces (1.5+kaisen5) kaisen-packages; urgency=medium
 
   * Update KDE conkyrc (fix transparence bug with feh script)
