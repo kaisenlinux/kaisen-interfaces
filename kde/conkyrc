@@ -25,12 +25,12 @@ conky.config = {
 --############################
 -- - Window specifications - #
 --############################
-	own_window_class = 'Conky',
+	own_window_class = 'Kaisen Linux Conky',
 	own_window = true,
 	own_window_type = 'normal',
-	own_window_transparent = false,
-	own_window_argb_visual = true,
-	own_window_argb_value = 0,
+	own_window_transparent = true,
+	own_window_argb_visual = false,
+	own_window_argb_value = 200,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
 	alignment = 'top_right',
@@ -58,6 +58,8 @@ conky.config = {
 conky.text = [[
 # |--SEPARATOR
 ${color0}${voffset 8}${offset 4}${font ConkyColorsLogos:size=9}${font}${color}${voffset -16}
+# |--FEH USE TO TRANSPARENCE
+${texeci 999999 /usr/share/kaisen-kde/conkyfeh}
 # |--OS INFORMATIONS
 ${color0}${font ConkyColors:size=16}a${font}${color}
 ${goto 32}${voffset -23}Kernel: ${alignr}${color2}${kernel}${color}
@@ -68,7 +70,6 @@ ${goto 32}OS version: ${alignr}${color2}Kaisen Rolling ${exec lsb_release -rs}${
 ${goto 32}Architecture: ${alignr}${color2}${machine}${color}
 ${goto 32}Conky version: ${alignr}${color2}$conky_version${color}
 ${goto 32}Running process: ${alignr}${color2}${processes}${color}
-${goto 32}Users connected: ${alignr}${color2}${user_names}${color}
 # |--CPU
 ${voffset 4}${color0}${font ConkyColors:size=16}e${color}${font}${voffset -4}${goto 32}CPU: ${font Liberation Sans:style=Bold:size=8}${color1}${cpu cpu0}%${color}${font} ${alignr}${color0}${cpubar cpu0 8,60 E07A1F FF0000}${color}
 # |--MEM

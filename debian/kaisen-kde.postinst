@@ -57,4 +57,4 @@ do
 	fi
 done
 
-rm -rf /usr/share/kaisen-kde
+rm -rf /usr/share/kaisen-kde/conkyrc

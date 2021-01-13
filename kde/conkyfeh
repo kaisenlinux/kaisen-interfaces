@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+for image in $(cat ~/.config/plasma-org.kde.plasma.desktop-appletsrc | grep '^Image=' | sed "s|Image=file://||");do feh --bg-fill --no-fehbg $image 2> /dev/null;done || for folder in $(cat ~/.config/plasma-org.kde.plasma.desktop-appletsrc | grep '^Image=' | sed "s|Image=||");do feh -r --bg-fill --no-fehbg $folder 2> /dev/null;done
