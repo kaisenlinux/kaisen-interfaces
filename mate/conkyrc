@@ -66,8 +66,8 @@ ${goto 32}Desktop: ${alignr}${color2}${desktop_name}${color}
 ${goto 32}Hostname: ${alignr}${color2}${texeci 99999 hostname}${color}
 ${goto 32}OS version: ${alignr}${color2}Kaisen Rolling ${texeci 99999 lsb_release -rs}${color}
 ${goto 32}Architecture: ${alignr}${color2}${machine}${color}
-${goto 32}Conky version: ${alignr}${color2}$conky_version${color}
 ${goto 32}Total process: ${alignr}${color2}${processes}${color}
+${goto 32}Conky version: ${alignr}${color2}$conky_version${color}
 # |--CPU
 ${voffset 4}${color0}${font ConkyColors:size=16}e${color}${font}${voffset -4}${goto 32}CPU: ${font Liberation Sans:style=Bold:size=8}${color1}${cpu cpu0}%${color}${font} ${alignr}${color0}${cpubar cpu0 8,60 E07A1F FF0000}${color}
 # |--MEM
