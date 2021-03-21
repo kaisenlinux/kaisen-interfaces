@@ -1,3 +1,19 @@
+kaisen-interfaces (1.5+kaisen9) kaisen-testing; urgency=medium
+
+  * Update KDE, XFCE and MATE conky theme
+  * Remove feh KDE dependancy 
+  * Remove conkyfeh script for KDE conky (default KDE profile updated to fix
+    Conky launch multiples process)
+  * Update kaisen-interface-switcher (adding double apt install to prevent E/S errors
+    and adding autoremove with dpkg -l for LXDE and XFCE).
+    MATE is now removed (with autoremove) by installed by MATE metapackages
+  * All kaisen-interface-switcher scripts now executed dhclient before
+    apt install to retrieve network configuration with DHCP if this configuration
+    has been removed.
+  * Conky theme is now copied with automated updates on root user 
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 20 Mar 2021 22:57:42 +0200
+
 kaisen-interfaces (1.5+kaisen8) kaisen-packages; urgency=medium
 
   * Add tap interface on conky theme

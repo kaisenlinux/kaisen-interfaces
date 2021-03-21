@@ -35,7 +35,6 @@ Depends: kde-standard,
 	 fonts-cantarell,
 	 conky-all,
 	 conkycolors,
-	 feh,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxde

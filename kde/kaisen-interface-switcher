@@ -60,7 +60,7 @@ esac
 if [[ $OPTION = "1" ]]; then
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && apt install -y kaisen-xfce || true && apt -y --fix-broken install && apt -y autoremove
+	apt autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null && apt install -y kaisen-xfce || apt install -y kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying XFCE configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -76,7 +76,7 @@ fi
 if [[ $OPTION = "2" ]]; then
 	echo -e $GREEN "LXDE installation..."
         echo "";tput init; \
-	apt autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && apt install -y kaisen-lxde || true && apt -y --fix-broken install && apt -y autoremove
+	apt autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null && apt install -y kaisen-lxde || apt install -y kaisen-lxde
 	#If rollback on LXDE, reapplying LXDE users configurations or reapplying LXDE configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -92,7 +92,7 @@ fi
 if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "MATE installation..."
         echo "";tput init; \
-	apt autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && apt install -y kaisen-mate || true && apt -y --fix-broken install && apt -y autoremove
+	apt autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null && apt install -y kaisen-mate || apt install -y kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying MATE configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do

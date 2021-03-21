@@ -60,24 +60,7 @@ esac
 if [[ $OPTION = "1" ]]; then
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt remove -y clipit conky-all conkycolors diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
-	firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility gnome-screenshot \
-	gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines gtk2-engines-pixbuf gucharmap \
-	gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect libaudclient2 libdee-1.0-4 libdiodon0 \
-	libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libglade2-0 libgtksourceview-3.0-1 \
-	libgtksourceview-3.0-common libgucharmap-2-90-7 libhandy-1-0 libid3tag0 libimlib2 libkeybinder0 \
-	liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 libobrender32v5 \
-	libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 libxapian30 \
-	libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxmmsclient-glib1 \
-	libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance \
-	lxappearance-obconf lxde lxde-common lxde-core lxde-icon-theme lxde-settings-daemon lxhotkey-core lxhotkey-data \
-	lxhotkey-gtk lxhotkey-plugin-openbox lxinput lxlock lxmenu-data lxmusic lxpanel lxpanel-data lxpolkit lxrandr \
-	lxsession lxsession-data lxsession-default-apps lxsession-edit lxsession-logout lxtask lxterminal menu-xdg \
-	mobile-broadband-provider-info mousepad network-manager network-manager-gnome obconf obsession openbox \
-	openbox-lxde-session pavucontrol pcmanfm python-configparser python-entrypoints python-keyring scrot \
-	system-tools-backends transmission-gtk usermode xarchiver xcursor-themes xdotool xfconf xmms2-core xmms2-plugin-alsa \
-	xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver xscreensaver-data zeitgeist-core zenity \
-	zenity-common && apt install -y kaisen-kde || true && apt -y --fix-broken install && apt -y autoremove
+	apt autoremove -y `dpkg -l | grep lxde | cut -d \  -f 3` lxterminal && dhclient 2> /dev/null && apt install -y kaisen-kde || apt install -y kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -93,24 +76,7 @@ fi
 if [[ $OPTION = "2" ]]; then
 	echo -e $GREEN "MATE installation..."
 	echo "";tput init; \
-	apt remove -y clipit conky-all conkycolors diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
-	firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility gnome-screenshot \
-	gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines gtk2-engines-pixbuf gucharmap \
-	gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect libaudclient2 libdee-1.0-4 libdiodon0 \
-	libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libglade2-0 libgtksourceview-3.0-1 \
-	libgtksourceview-3.0-common libgucharmap-2-90-7 libhandy-1-0 libid3tag0 libimlib2 libkeybinder0 \
-	liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 libobrender32v5 \
-	libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 libxapian30 \
-	libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxmmsclient-glib1 \
-	libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance \
-	lxappearance-obconf lxde lxde-common lxde-core lxde-icon-theme lxde-settings-daemon lxhotkey-core lxhotkey-data \
-	lxhotkey-gtk lxhotkey-plugin-openbox lxinput lxlock lxmenu-data lxmusic lxpanel lxpanel-data lxpolkit lxrandr \
-	lxsession lxsession-data lxsession-default-apps lxsession-edit lxsession-logout lxtask lxterminal menu-xdg \
-	mobile-broadband-provider-info mousepad network-manager network-manager-gnome obconf obsession openbox \
-	openbox-lxde-session pavucontrol pcmanfm python-configparser python-entrypoints python-keyring scrot \
-	system-tools-backends transmission-gtk usermode xarchiver xcursor-themes xdotool xfconf xmms2-core xmms2-plugin-alsa \
-	xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver xscreensaver-data zeitgeist-core zenity \
-	zenity-common && apt install -y kaisen-mate || true && apt -y --fix-broken install && apt -y autoremove
+	apt autoremove -y `dpkg -l | grep lxde | cut -d \  -f 3` lxterminal && dhclient 2> /dev/null && apt install -y kaisen-mate || apt install -y kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -126,24 +92,7 @@ fi
 if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt remove -y clipit conky-all conkycolors diodon firefox-l10n-de firefox-l10n-es-es firefox-l10n-fr firefox-l10n-it \
-	firefox-l10n-pt-pt fonts-powerline galculator giblib1 gnome-accessibility-themes gnome-disk-utility gnome-screenshot \
-	gnome-system-tools gnome-themes-extra gnome-themes-extra-data gpicview gtk2-engines gtk2-engines-pixbuf gucharmap \
-	gvfs-fuse hunspell-fr kaisen-lxde kaisen-menu kaisen-skeleton laptop-detect libaudclient2 libdee-1.0-4 libdiodon0 \
-	libfm-data libfm-extra4 libfm-gtk-data libfm-gtk4 libfm-modules libfm4 libglade2-0 libgtksourceview-3.0-1 \
-	libgtksourceview-3.0-common libgucharmap-2-90-7 libhandy-1-0 libid3tag0 libimlib2 libkeybinder0 \
-	liblightdm-gobject-1-0 liblua5.1-0 libmenu-cache-bin libmenu-cache3 libndp0 libnma-common libnma0 libobrender32v5 \
-	libobt2v5 liboobs-1-5 libpeas-1.0-0 libpeas-common libteamdctl0 libuser1 libwnck-common libwnck22 libxapian30 \
-	libxdo3 libxfce4util-bin libxfce4util-common libxfce4util7 libxfconf-0-3 libxklavier16 libxmmsclient-glib1 \
-	libxmmsclient6 libzeitgeist-2.0-0 light-locker lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance \
-	lxappearance-obconf lxde lxde-common lxde-core lxde-icon-theme lxde-settings-daemon lxhotkey-core lxhotkey-data \
-	lxhotkey-gtk lxhotkey-plugin-openbox lxinput lxlock lxmenu-data lxmusic lxpanel lxpanel-data lxpolkit lxrandr \
-	lxsession lxsession-data lxsession-default-apps lxsession-edit lxsession-logout lxtask lxterminal menu-xdg \
-	mobile-broadband-provider-info mousepad network-manager network-manager-gnome obconf obsession openbox \
-	openbox-lxde-session pavucontrol pcmanfm python-configparser python-entrypoints python-keyring scrot \
-	system-tools-backends transmission-gtk usermode xarchiver xcursor-themes xdotool xfconf xmms2-core xmms2-plugin-alsa \
-	xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-vorbis xscreensaver xscreensaver-data zeitgeist-core zenity \
-	zenity-common && apt install -y kaisen-xfce || true && apt -y --fix-broken install && apt -y autoremove
+	apt autoremove -y `dpkg -l | grep lxde | cut -d \  -f 3` lxterminal && dhclient 2> /dev/null && apt install -y kaisen-xfce || apt install -y kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying dedfault XFCE configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do

@@ -29,7 +29,7 @@ conky.config = {
 	own_window = true,
 	own_window_type = 'normal',
 	own_window_transparent = true,
-	own_window_argb_visual = false,
+	own_window_argb_visual = true,
 	own_window_argb_value = 200,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
@@ -58,8 +58,6 @@ conky.config = {
 conky.text = [[
 # |--SEPARATOR
 ${color0}${voffset 8}${offset 4}${font ConkyColorsLogos:size=9}${font}${color}${voffset -16}
-# |--FEH USE TO TRANSPARENCE
-${texeci 999999 /usr/share/kaisen-kde/conkyfeh}
 # |--OS INFORMATIONS
 ${color0}${font ConkyColors:size=16}a${font}${color}
 ${goto 32}${voffset -23}Kernel: ${alignr}${color2}${kernel}${color}
