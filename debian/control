@@ -1,11 +1,10 @@
 Source: kaisen-interfaces
 Priority: standard
 Section: kaisen-packages
-Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisen-linux.org>
-Uploaders: Kevin Chevreuil - Kaisen <kaisen@kaisen-linux.org>
-Standards-Version: 4.5.0
+Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
+Standards-Version: 4.5.1
 Build-Depends: debhelper
-Homepage: https://kaisen-linux.org/kaisen
+Homepage: https://kaisenlinux.org
 
 Package: kaisen-kde
 Architecture: all
@@ -27,14 +26,12 @@ Depends: kde-standard,
 	 sddm,
 	 sddm-theme-breeze,
 	 terminator,
-	 vim,
-	 zsh,
 	 kaisen-skeleton,
-	 locales-all,
 	 kaisen-design,
 	 fonts-cantarell,
-	 conky-all,
-	 conkycolors,
+Recommends: lightdm-gtk-greeter-settings,
+	    conky-all,
+	    conkycolors,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxde
@@ -43,7 +40,6 @@ Priority: standard
 Depends: lxde,
 	 lightdm,
 	 lightdm-gtk-greeter,
-	 lightdm-gtk-greeter-settings,
 	 network-manager,
 	 network-manager-gnome,
 	 firefox,
@@ -57,15 +53,13 @@ Depends: lxde,
 	 kaisen-menu,
 	 xcursor-themes,
 	 terminator,
-	 vim,
-	 zsh,
 	 plymouth,
 	 kaisen-skeleton,
-	 locales-all,
 	 fonts-cantarell,
-	 conky-all,
-	 conkycolors,
 	 kaisen-design,
+Recommends: lightdm-gtk-greeter-settings,
+	    conky-all,
+	    conkycolors,
 Description: Kaisen LXDE desktop environment configurations
 
 Package: kaisen-mate
@@ -74,7 +68,6 @@ Priority: standard
 Depends: mate-desktop-environment,
 	 lightdm,
 	 lightdm-gtk-greeter,
-	 lightdm-gtk-greeter-settings,
 	 network-manager,
 	 network-manager-gnome,
 	 firefox,
@@ -89,14 +82,12 @@ Depends: mate-desktop-environment,
 	 plymouth,
 	 xcursor-themes,
 	 terminator,
-	 vim,
-	 zsh,
 	 kaisen-skeleton,
-	 locales-all,
 	 fonts-cantarell,
-	 conky-all,
-	 conkycolors,
 	 kaisen-design,
+Recommends: lightdm-gtk-greeter-settings,
+	    conky-all,
+	    conkycolors,
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -114,7 +105,6 @@ Depends: xfce4,
 	 xfce4-terminal,
 	 lightdm,
 	 lightdm-gtk-greeter,
-	 lightdm-gtk-greeter-settings,
 	 network-manager,
 	 network-manager-gnome,
 	 firefox,
@@ -130,12 +120,10 @@ Depends: xfce4,
 	 xcursor-themes,
 	 terminator,
 	 xfce4-terminal,
-	 vim,
-	 zsh,
 	 kaisen-skeleton,
-	 locales-all,
 	 fonts-cantarell,
 	 kaisen-design,
-	 conky-all,
-	 conkycolors,
+Recommends: lightdm-gtk-greeter-settings,
+	    conky-all,
+	    conkycolors,
 Description: Kaisen XFCE desktop environment configurations

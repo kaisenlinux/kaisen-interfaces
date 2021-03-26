@@ -1,3 +1,12 @@
+kaisen-interfaces (1.5+kaisen11) kaisen-packages; urgency=medium
+
+  * Conky and lightdm-gtk-greeter installed by recommends
+  * Remove vim and zsh dependancies (zsh installed by default and vim by
+    kaisen-miscellaneous)
+  * Update control information
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 27 Mar 2021 00:02:26 +0200
+
 kaisen-interfaces (1.5+kaisen10) kaisen-packages; urgency=medium
 
   * Update background link at kde/conf/theme.conf.user
