@@ -96,7 +96,7 @@ ${voffset 2}${color0}${font ConkyColors:size=15}b${font}${color}${goto 32}${voff
 # |--USB MODEM
 ${voffset 2}${color0}${font ConkyColors:size=15}d${font}${color}${goto 32}${voffset -6}USB IP: ${alignr}${exec ip a | grep inet | grep -vw lo | grep -v vmnet | grep -v wl | grep -v en | grep -v eth | grep -v inet6 | grep -v ppp | grep -v sl | grep -v ww | grep -v docker | grep -v cs | grep -v tun | grep -v br- | grep -v lxcbr | grep -v tap | cut -d \/ -f1 | sed 's/[^0-9\.]*//g'}
 # |--VPN IP
-${voffset 2}${color0}${font ConkyColors:size=15}A${font}${color}${goto 32}${voffset -6}VPN IP: ${alignr}${exec ip a | grep inet | grep -vw lo | grep -v vmnet | grep -v wl | grep -v en | grep -v eth | grep -v inet6 | grep -v ppp | grep -v sl | grep -v ww | grep -v docker | grep -v br- | grep -v lxcbr | cut -d \/ -f1 | sed 's/[^0-9\.]*//g'}
+${voffset 2}${color0}${font ConkyColors:size=15}A${font}${color}${goto 32}${voffset -6}VPN IP: ${alignr}${exec ip a | grep inet | grep -vw lo | grep -v vmnet | grep -v wl | grep -v en | grep -v eth | grep -v inet6 | grep -v ppp | grep -v sl | grep -v ww | grep -v docker | grep -v br- | grep -v lxcbr | grep -v usb | cut -d \/ -f1 | sed 's/[^0-9\.]*//g'}
 # |--HDD
 ${execp /usr/share/conkycolors/bin/conkyHD1}
 # |--TIME AND DATE
