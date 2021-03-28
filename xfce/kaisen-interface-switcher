@@ -49,7 +49,7 @@ if [[ "$EUID" -eq "0" ]]; then
 
 case $OPTION in
 	1|2|3)
-	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
 	mkdir -p /usr/share/kaisen-interface-switcher/$users/XFCE 2> /dev/null || true && cp -rp /home/$users/.config/{xfce4,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /usr/share/kaisen-interface-switcher/$users/XFCE 2> /dev/null || true
 	done
@@ -61,7 +61,7 @@ if [[ $OPTION = "1" ]]; then
 	echo "";tput init; \
 	apt autoremove -y `dpkg -l | grep xfce | cut -d \  -f 3` && dhclient 2> /dev/null && apt install -y kaisen-kde || apt install -y kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
-        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
         cp -rp /usr/share/kaisen-interface-switcher/$users/KDE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
         done
@@ -77,7 +77,7 @@ if [[ $OPTION = "2" ]]; then
 	echo "";tput init; \
 	apt autoremove -y `dpkg -l | grep xfce | cut -d \  -f 3` && dhclient 2> /dev/null && apt install -y kaisen-lxde || apt install -y kaisen-lxde
 	#If rollback on LXDE, reapplying LXDE users configurations or reapplying default LXDE configurations
-        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
         cp -rp /usr/share/kaisen-interface-switcher/$users/LXDE/* /home/$users/.config/ 2> /dev/null || cp -rp /etc/skel/.config/{lxpanel,lxsession,lxterminal,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
         done
@@ -93,7 +93,7 @@ if [[ $OPTION = "3" ]]; then
 	echo "";tput init; \
 	apt autoremove -y `dpkg -l | grep xfce | cut -d \  -f 3` && dhclient 2> /dev/null && apt install -y kaisen-mate || apt install -y kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
-        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
         cp -rp /usr/share/kaisen-interface-switcher/$users/MATE/* /home/$users/.config/ 2> /dev/null || cp -rp /etc/skel/.config/{dconf,mate,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
         done
