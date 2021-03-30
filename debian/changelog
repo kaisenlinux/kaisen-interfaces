@@ -1,3 +1,9 @@
+kaisen-interfaces (1.6) kaisen-packages; urgency=medium
+
+  * Update to 1.6 (no sources changes)
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 30 Mar 2021 10:13:44 +0200
+
 kaisen-interfaces (1.5+kaisen14) kaisen-packages; urgency=medium
 
   * Adding fonts-liberation of Recommends packages for all interfaces (font use by
