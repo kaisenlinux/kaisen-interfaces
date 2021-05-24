@@ -1,3 +1,14 @@
+kaisen-interfaces (1.6+kaisen3) kaisen-packages; urgency=medium
+
+  * Remove check new kaisen-interface-switcher version
+  * Add CAUTION for standby during process
+  * Now using apt-get binary to install or remove packages
+  * Add log file created during kaisen-interface-switcher is used
+  * Add echo for restart lightdm or computer restart
+  * Add fonts-noto-color-emoji (to display openvpn emoji)
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Mon, 24 May 2021 16:40:08 +0200
+
 kaisen-interfaces (1.6+kaisen2) kaisen-packages; urgency=medium
 
   * Remove gksudo alternatives on *.postinst

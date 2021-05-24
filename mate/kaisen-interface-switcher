@@ -6,7 +6,7 @@
 set -e
 
 export DEBIAN_FRONTEND=noninteractive
-
+DATE=$(date '+%Y-%m-%d_%H-%M-%S')
 YELLOW='\e[0;33m'
 GREEN='\e[1;32m'
 RED='\e[1;31m'
@@ -19,14 +19,12 @@ fi
 
 if [[ "$EUID" -eq "0" ]]; then
 	echo -e $GREEN "Check APT access..."
-	tput init;apt update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." && exit 1
+	tput init;apt-get update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." && exit 1
 	echo ""
 	echo -e $GREEN "APT access ok, check connected network interface..."
 	echo ""
 	tput init;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
-	echo -e $GREEN "Check if new kaisen-interface-switcher version exist..."
-        echo ""
-	tput init;apt install -y kaisen-mate
+	echo -e $GREEN "Checks complete."
 	echo ""
 	echo -e $GREEN "Welcome at Kaisen Linux interface switcher (MATE version)."
 	echo ""
@@ -34,6 +32,7 @@ if [[ "$EUID" -eq "0" ]]; then
 	echo ""
 	echo -e $YELLOW "CAUTION: This script will automatically restart display manager or your computer will restart at the end of the process."
 	echo -e $YELLOW "Your unsaved work will be lost."
+	echo -e $YELLOW "It is advisable to increase the duration or deactivate standby."
 	echo ""
 	echo -e $GREEN "Which graphical interface do you want to install?"
 	echo ""
@@ -57,10 +56,16 @@ case $OPTION in
 	;;
 esac
 
+log() {
+mkdir -p /var/log/kaisen-interface-switcher 2> /dev/null || true
+exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-MATE-$DATE.log) 2>&1
+}
+
 if [[ $OPTION = "1" ]]; then
+	log
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt autoremove -y debian-mate-default-settings gir1.2-matemenu-2.0:amd64 kaisen-mate libmate-desktop-2-17:amd64 \
+	apt-get autoremove -y debian-mate-default-settings gir1.2-matemenu-2.0:amd64 kaisen-mate libmate-desktop-2-17:amd64 \
         libmate-menu2:amd64 libmate-panel-applet-4-1:amd64 libmate-slab0:amd64 libmate-window-settings1:amd64 libmatedict6 \
         libmatekbd-common libmatekbd4:amd64 libmatemixer-common libmatemixer0:amd64 libmateweather-common \
         libmateweather1:amd64 mate-applet-brisk-menu mate-applets mate-applets-common mate-backgrounds mate-calc \
@@ -70,23 +75,26 @@ if [[ $OPTION = "1" ]]; then
         mate-polkit-common mate-power-manager mate-power-manager-common mate-screensaver mate-screensaver-common \
         mate-session-manager mate-settings-daemon mate-settings-daemon-common mate-system-monitor mate-system-monitor-common \
         mate-terminal mate-terminal-common mate-themes mate-user-guide mate-utils mate-utils-common \
-	&& dhclient 2> /dev/null && apt install -y kaisen-kde || apt install -y kaisen-kde
+	&& dhclient 2> /dev/null && apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
         cp -rp /usr/share/kaisen-interface-switcher/$users/KDE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
         done
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-                systemctl restart lightdm
-        else
-                /sbin/reboot
-        fi
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
 fi
 
 if [[ $OPTION = "2" ]]; then
+	log
 	echo -e $GREEN "LXDE installation..."
 	echo "";tput init; \
-	apt autoremove -y debian-mate-default-settings gir1.2-matemenu-2.0:amd64 kaisen-mate libmate-desktop-2-17:amd64 \
+	apt-get autoremove -y debian-mate-default-settings gir1.2-matemenu-2.0:amd64 kaisen-mate libmate-desktop-2-17:amd64 \
 	libmate-menu2:amd64 libmate-panel-applet-4-1:amd64 libmate-slab0:amd64 libmate-window-settings1:amd64 libmatedict6 \
 	libmatekbd-common libmatekbd4:amd64 libmatemixer-common libmatemixer0:amd64 libmateweather-common \
 	libmateweather1:amd64 mate-applet-brisk-menu mate-applets mate-applets-common mate-backgrounds mate-calc \
@@ -96,23 +104,26 @@ if [[ $OPTION = "2" ]]; then
 	mate-polkit-common mate-power-manager mate-power-manager-common mate-screensaver mate-screensaver-common \
 	mate-session-manager mate-settings-daemon mate-settings-daemon-common mate-system-monitor mate-system-monitor-common \
 	mate-terminal mate-terminal-common mate-themes mate-user-guide mate-utils mate-utils-common \
-	&& dhclient 2> /dev/null && apt install -y kaisen-lxde || apt install -y kaisen-lxde
+	&& dhclient 2> /dev/null && apt-get install -y kaisen-lxde || apt-get install -y kaisen-lxde
 	#If rollback on LXDE, reapplying LXDE users configurations or reapplying default LXDE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
         cp -rp /usr/share/kaisen-interface-switcher/$users/LXDE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{lxpanel,lxsession,lxterminal,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
         done
-        if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-                systemctl restart lightdm
-        else
-                /sbin/reboot
-        fi
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
 fi
 
 if [[ $OPTION = "3" ]]; then
+	log
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt autoremove -y debian-mate-default-settings gir1.2-matemenu-2.0:amd64 kaisen-mate libmate-desktop-2-17:amd64 \
+	apt-get autoremove -y debian-mate-default-settings gir1.2-matemenu-2.0:amd64 kaisen-mate libmate-desktop-2-17:amd64 \
         libmate-menu2:amd64 libmate-panel-applet-4-1:amd64 libmate-slab0:amd64 libmate-window-settings1:amd64 libmatedict6 \
         libmatekbd-common libmatekbd4:amd64 libmatemixer-common libmatemixer0:amd64 libmateweather-common \
         libmateweather1:amd64 mate-applet-brisk-menu mate-applets mate-applets-common mate-backgrounds mate-calc \
@@ -122,17 +133,19 @@ if [[ $OPTION = "3" ]]; then
         mate-polkit-common mate-power-manager mate-power-manager-common mate-screensaver mate-screensaver-common \
         mate-session-manager mate-settings-daemon mate-settings-daemon-common mate-system-monitor mate-system-monitor-common \
         mate-terminal mate-terminal-common mate-themes mate-user-guide mate-utils mate-utils-common \
-	&& dhclient 2> /dev/null && apt install -y kaisen-xfce || apt install -y kaisen-xfce
+	&& dhclient 2> /dev/null && apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
         cp -rp /usr/share/kaisen-interface-switcher/$users/XFCE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{xfce4,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0} /home/$users/.config/ 2> /dev/null || true
         done
-        if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-                systemctl restart lightdm
-        else
-                /sbin/reboot
-        fi
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
 fi
 
 if [[ $OPTION = "4" ]]; then

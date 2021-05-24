@@ -32,6 +32,7 @@ Recommends: lightdm-gtk-greeter-settings,
 	    conky-all,
 	    conkycolors,
 	    fonts-liberation,
+	    fonts-noto-color-emoji,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxde
@@ -60,6 +61,7 @@ Recommends: lightdm-gtk-greeter-settings,
 	    conky-all,
 	    conkycolors,
 	    fonts-liberation,
+	    fonts-noto-color-emoji,
 Description: Kaisen LXDE desktop environment configurations
 
 Package: kaisen-mate
@@ -88,6 +90,7 @@ Recommends: lightdm-gtk-greeter-settings,
 	    conky-all,
 	    conkycolors,
 	    fonts-liberation,
+	    fonts-noto-color-emoji,
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -126,4 +129,5 @@ Recommends: lightdm-gtk-greeter-settings,
 	    conky-all,
 	    conkycolors,
 	    fonts-liberation,
+	    fonts-noto-color-emoji,
 Description: Kaisen XFCE desktop environment configurations
