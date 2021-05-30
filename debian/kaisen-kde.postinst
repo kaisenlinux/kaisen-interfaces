@@ -61,4 +61,4 @@ if [ -e /root/.conkyrc ]; then
 	cp -f /usr/share/kaisen-kde/conkyrc /root/.conkyrc
 fi
 
-rm -rf /usr/share/kaisen-kde/conkyrc
+rm -rf /usr/share/kaisen-kde
