@@ -1,3 +1,9 @@
+kaisen-interfaces (1.6+kaisen5) kaisen-packages; urgency=medium
+
+  * Add virbr and vnet interfaces on all conky themes
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Fri, 11 Jun 2021 21:42:28 +0200
+
 kaisen-interfaces (1.6+kaisen4) kaisen-packages; urgency=medium
 
   * Fix typo
