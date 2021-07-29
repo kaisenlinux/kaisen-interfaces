@@ -65,7 +65,6 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	echo -e $GREEN "KDE packages remove...";tput init
 	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput init
 	apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce

@@ -1,3 +1,12 @@
+kaisen-interfaces (1.7+kaisen1) kaisen-packages; urgency=medium
+
+  * Add gedit tool for xfce
+  * Update postinst script for kaisen-xfce (add || true after gtk-update-icon-cache)
+  * Update kaisen-interface-switcher XFCE to remove gedit with XFCE
+  * Fix typo in kaisen-interface-switcher KDE script
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Thu, 29 Jul 2021 06:16:21 +0200
+
 kaisen-interfaces (1.7) kaisen-packages; urgency=medium
 
   * Update at 1.7
