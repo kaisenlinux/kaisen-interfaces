@@ -1,3 +1,10 @@
+kaisen-interfaces (1.8+kaisen1) kaisen-packages; urgency=medium
+
+  * Add fonts-powerline as dependancy for all interfaces
+  * Remove the two line xfce4-terminal
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 31 Aug 2021 00:08:51 +0200
+
 kaisen-interfaces (1.8) kaisen-packages; urgency=medium
 
   * Update package at 1.8
