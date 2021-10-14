@@ -64,7 +64,7 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
+	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -83,7 +83,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXDE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-lxde || apt-get install -y kaisen-lxde
+	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-lxde || apt-get install -y kaisen-lxde
 	#If rollback on LXDE, reapplying LXDE users configurations or reapplying default LXDE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -102,7 +102,7 @@ if [[ $OPTION = "3" ]]; then
 	log
 	echo -e $GREEN "MATE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-mate || apt-get install -y kaisen-mate
+	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-mate || apt-get install -y kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
