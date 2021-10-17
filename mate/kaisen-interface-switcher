@@ -65,7 +65,7 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt-get autoremove --purge -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
 	apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
@@ -86,7 +86,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXDE installation..."
 	echo "";tput init; \
-	apt-get autoremove --purge -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
         echo -e $GREEN "LXDE packages installation...";tput init
 	apt-get install -y kaisen-lxde || apt-get install -y kaisen-lxde
 	#If rollback on LXDE, reapplying LXDE users configurations or reapplying default LXDE configurations
@@ -107,7 +107,7 @@ if [[ $OPTION = "3" ]]; then
 	log
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt-get autoremove --purge -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
         echo -e $GREEN "XFCE packages installation...";tput init
 	apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
