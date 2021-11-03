@@ -2,12 +2,8 @@
 
 set -e
 
-if [[ "$1" = "install" ]]; then
-
 update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /etc/X11/cursors/redglass.theme 500
 update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/terminator 500
-
-fi
 
 #Add conky theme to /etc/skel
 if [ ! -d /etc/skel ]; then
