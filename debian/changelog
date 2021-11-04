@@ -1,3 +1,9 @@
+kaisen-interfaces (1.8+kaisen9) kaisen-packages; urgency=medium
+
+  * Add exclude pan* interfaces in all Conky
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Thu, 04 Nov 2021 16:49:57 +0200
+
 kaisen-interfaces (1.8+kaisen8) kaisen-packages; urgency=medium
 
   * Update color and typo in all kaisen-interface-switcher
