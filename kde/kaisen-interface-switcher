@@ -10,6 +10,7 @@ DATE=$(date '+%Y-%m-%d_%H-%M-%S')
 YELLOW='\e[0;33m'
 GREEN='\e[1;32m'
 RED='\e[1;31m'
+BLUE='\e[1;36m'
 
 #Check root execution
 if [[ "$EUID" -ne "0" ]]; then
@@ -18,10 +19,10 @@ if [[ "$EUID" -ne "0" ]]; then
 fi
 
 if [[ "$EUID" -eq "0" ]]; then
-	echo -e $GREEN "Check APT access..."
+	echo -e $YELLOW "Check APT access..."
 	tput init;apt-get update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." && exit 1
 	echo ""
-	echo -e $GREEN "APT access ok, check connected network interface..."
+	echo -e $GREEN "APT access ok.\e[0;33m Check connected network interface..."
 	echo ""
 	tput init;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
 	echo -e $GREEN "Checks complete."
@@ -34,16 +35,16 @@ if [[ "$EUID" -eq "0" ]]; then
 	echo -e $YELLOW "Your unsaved work will be lost."
 	echo -e $YELLOW "It is advisable to increase the duration or deactivate standby."
 	echo ""
-	echo -e $GREEN "Which graphical interface do you want to install?"
+	echo -e $BLUE "Which graphical interface do you want to install?"
 	echo ""
-	echo -e $GREEN "   1) XFCE"
-	echo -e $GREEN "   2) LXDE"
-	echo -e $GREEN "   3) MATE"
-	echo -e $GREEN "   4) EXIT"
+	echo -e $BLUE "   1) XFCE"
+	echo -e $BLUE "   2) LXDE"
+	echo -e $BLUE "   3) MATE"
+	echo -e $BLUE "   4) EXIT"
 	echo ""
 
 	while [[ $OPTION != "1" && $OPTION != "2" && $OPTION != "3" && $OPTION != "4" ]]; do
-		read -rp "Select an option [1-4]: " OPTION
+		read -rp "$(echo -e $YELLOW "Select an option \e[1;36m[1-4]\e[0;33m:\e[0m ")" OPTION
 	done
 	echo ""
 

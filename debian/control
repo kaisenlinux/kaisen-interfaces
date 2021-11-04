@@ -2,7 +2,7 @@ Source: kaisen-interfaces
 Priority: standard
 Section: kaisen-packages
 Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
-Standards-Version: 4.5.1
+Standards-Version: 4.6.1
 Build-Depends: debhelper
 Homepage: https://kaisenlinux.org
 
