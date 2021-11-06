@@ -1,0 +1,437 @@
+#!/bin/bash
+
+#This script was developed and is maintained by Kevin Chevreuil - Kaisen for Kaisen Linux project
+#and is under AGPL license.
+
+export DEBIAN_FRONTEND=noninteractive
+DATE=$(date '+%Y-%m-%d_%H-%M-%S')
+YELLOW='\e[0;33m'
+GREEN='\e[1;32m'
+RED='\e[1;31m'
+BLUE='\e[1;36m'
+
+#Check root execution
+if [[ "$EUID" -ne "0" ]]; then
+        echo -e $RED "Run this screen as root or with sudo command to continue."
+        exit 1
+fi
+
+#Check GUI is using
+ps -e | grep -o 'kded5' > /dev/null
+    if [ $? -eq 0 ]; then
+    DESKTOP="KDE"
+    fi
+ps -e | grep -o 'lxqt-panel' > /dev/null
+    if [ $? -eq 0 ]; then
+    DESKTOP="LXQT"
+    fi
+ps -e | grep -o 'mate-panel' > /dev/null
+    if [ $? -eq 0 ]; then
+    DESKTOP="MATE"
+    fi
+ps -e | grep -o 'xfce4-panel' > /dev/null
+    if [ $? -eq 0 ]; then
+    DESKTOP="XFCE"
+    fi
+
+if [[ $DESKTOP != KDE && $DESKTOP != LXQT && $DESKTOP != MATE && $DESKTOP != XFCE ]]; then
+	echo -e $RED "To use this script, you must use KDE, LXQT, MATE or XFCE."
+	exit 1
+fi
+
+echo -e $YELLOW "Check APT access..."
+tput init;apt-get update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." && exit 1
+echo ""
+echo -e $GREEN "APT access ok.\e[0;33m Check connected network interface..."
+echo ""
+tput init;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
+echo -e $GREEN "Checks complete."
+echo ""
+echo -e $GREEN "Welcome at Kaisen Linux interface switcher."
+echo ""
+echo -e $GREEN "This script will install a graphical interface of your choice listed below."
+echo ""
+echo -e $YELLOW "CAUTION: This script will automatically restart the computer at the end of the process."
+echo -e $YELLOW "Your unsaved work will be lost."
+echo -e $YELLOW "It is advisable to increase the duration or deactivate standby."
+echo ""
+echo -e $BLUE "Which graphical interface do you want to install?"
+echo ""
+
+##### KDE #####
+if [[ $DESKTOP = KDE ]]; then
+echo -e $BLUE "   1) XFCE"
+echo -e $BLUE "   2) LXQT"
+echo -e $BLUE "   3) MATE"
+echo -e $BLUE "   4) EXIT"
+echo ""
+
+	while [[ $OPTION != "1" && $OPTION != "2" && $OPTION != "3" && $OPTION != "4" ]]; do
+		read -rp "$(echo -e $YELLOW "Select an option \e[1;36m[1-4]\e[0;33m:\e[0m ")" OPTION
+	done
+	echo ""
+
+case $OPTION in
+        1|2|3)
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        mkdir -p /usr/share/kaisen-interface-switcher/$users/KDE 2> /dev/null || true && cp -rp /home/$users/.config/{gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /usr/share/kaisen-interface-switcher/$users/KDE 2> /dev/null || true
+        done
+        ;;
+esac
+
+log() {
+mkdir -p /var/log/kaisen-interface-switcher 2> /dev/null || true
+exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-KDE-$DATE.log) 2>&1
+}
+
+if [[ $OPTION = "1" ]]; then
+	log
+	echo -e $GREEN "XFCE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "XFCE packages installation...";tput init
+	apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce
+	#If rollback on XFCE, reapplying XFCE users configurations or reapplying XFCE configurations
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/XFCE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{xfce4,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "2" ]]; then
+	log
+	echo -e $GREEN "LXQT installation..."
+        echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "LXQT packages installation...";tput init
+	apt-get install -y kaisen-lxqt || apt-get install -y kaisen-lxqt
+	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/LXQT/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{cmst,featherpad,lxqt,pacmanfm-qt,qterminal.org,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "3" ]]; then
+	log
+	echo -e $GREEN "MATE installation..."
+        echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "MATE packages installation...";tput init
+	apt-get install -y kaisen-mate || apt-get install -y kaisen-mate
+	#If rollback on MATE, reapplying MATE users configurations or reapplying MATE configurations
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/MATE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{dconf,mate,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "4" ]]; then
+	exit 0
+fi
+fi
+
+##### LXQT #####
+if [[ $DESKTOP = LXQT ]]; then
+echo -e $BLUE "   1) KDE"
+echo -e $BLUE "   2) MATE"
+echo -e $BLUE "   3) XFCE"
+echo -e $BLUE "   4) EXIT"
+echo ""
+
+	while [[ $OPTION != "1" && $OPTION != "2" && $OPTION != "3" && $OPTION != "4" ]]; do
+		read -rp "$(echo -e $YELLOW "Select an option \e[1;36m[1-4]\e[0;33m:\e[0m ")" OPTION
+	done
+	echo ""
+
+case $OPTION in
+	1|2|3)
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+		mkdir -p /usr/share/kaisen-interface-switcher/$users/LXQT 2> /dev/null || true && cp -rp /home/$users/.config/{cmst,featherpad,lxqt,pacmanfm-qt,qterminal.org,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /usr/share/kaisen-interface-switcher/$users/LXQT 2> /dev/null || true
+        done
+	;;
+esac
+
+log() {
+mkdir -p /var/log/kaisen-interface-switcher 2> /dev/null || true
+exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-LXQT-$DATE.log) 2>&1
+}
+
+if [[ $OPTION = "1" ]]; then
+	log
+	echo -e $GREEN "KDE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "KDE packages installation...";tput init
+	apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
+	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/KDE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "2" ]]; then
+	log
+	echo -e $GREEN "MATE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "MATE packages installation...";tput init
+	apt-get install -y kaisen-mate || apt-get install -y kaisen-mate
+	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/MATE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{dconf,mate,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "3" ]]; then
+	log
+	echo -e $GREEN "XFCE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
+        echo -e $GREEN "XFCE packages installation...";tput init
+	apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce
+	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/XFCE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{xfce4,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "4" ]]; then
+	exit 0
+fi
+fi
+
+##### MATE #####
+if [[ $DESKTOP = MATE ]]; then
+echo -e $BLUE "   1) KDE"
+echo -e $BLUE "   2) LXQT"
+echo -e $BLUE "   3) XFCE"
+echo -e $BLUE "   4) EXIT"
+echo ""
+
+	while [[ $OPTION != "1" && $OPTION != "2" && $OPTION != "3" && $OPTION != "4" ]]; do
+		read -rp "$(echo -e $YELLOW "Select an option \e[1;36m[1-4]\e[0;33m:\e[0m ")" OPTION
+	done
+	echo ""
+
+case $OPTION in
+	1|2|3)
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        mkdir -p /usr/share/kaisen-interface-switcher/$users/MATE 2> /dev/null || true && cp -rp /home/$users/.config/{dconf,mate,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /usr/share/kaisen-interface-switcher/$users/MATE 2> /dev/null || true
+        done
+	;;
+esac
+
+log() {
+mkdir -p /var/log/kaisen-interface-switcher 2> /dev/null || true
+exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-MATE-$DATE.log) 2>&1
+}
+
+if [[ $OPTION = "1" ]]; then
+	log
+	echo -e $GREEN "KDE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "KDE packages installation...";tput init
+	apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
+	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/KDE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "2" ]]; then
+	log
+	echo -e $GREEN "LXQT installation..."
+    echo "";tput init; \
+	echo -e $GREEN "LXQT packages installation...";tput init
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-lxqt || apt-get install -y kaisen-lxqt
+	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/LXQT/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{cmst,featherpad,lxqt,pacmanfm-qt,qterminal.org,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "3" ]]; then
+	log
+	echo -e $GREEN "XFCE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+    echo -e $GREEN "XFCE packages installation...";tput init
+	apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce
+	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/XFCE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{xfce4,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "4" ]]; then
+	exit 0
+fi
+fi
+
+##### XFCE #####
+if [[ $DESKTOP = XFCE ]]; then
+	echo -e $BLUE "   1) KDE"
+	echo -e $BLUE "   2) LXQT"
+	echo -e $BLUE "   3) MATE"
+	echo -e $BLUE "   4) EXIT"
+	echo ""
+	while [[ $OPTION != "1" && $OPTION != "2" && $OPTION != "3" && $OPTION != "4" ]]; do
+		read -rp "$(echo -e $YELLOW "Select an option \e[1;36m[1-4]\e[0;33m:\e[0m ")" OPTION
+	done
+	echo ""
+
+case $OPTION in
+	1|2|3)
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+	mkdir -p /usr/share/kaisen-interface-switcher/$users/XFCE 2> /dev/null || true && cp -rp /home/$users/.config/{xfce4,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /usr/share/kaisen-interface-switcher/$users/XFCE 2> /dev/null || true
+	done
+	;;
+esac
+
+log() {
+mkdir -p /var/log/kaisen-interface-switcher 2> /dev/null || true
+exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-XFCE-$DATE.log) 2>&1
+}
+
+if [[ $OPTION = "1" ]]; then
+	log
+	echo -e $GREEN "KDE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "KDE packages installation...";tput init
+	apt-get install -y kaisen-kde || apt-get install -y kaisen-kde
+	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/KDE/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "2" ]]; then
+	log
+	echo -e $GREEN "LXQT installation..."
+    echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "LXQT packages installation...";tput init
+	apt-get install -y kaisen-lxqt || apt-get install -y kaisen-lxqt
+	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
+	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/LXQT/* /home/$users/.config/ 2> /dev/null || cp -rf /etc/skel/.config/{cmst,featherpad,lxqt,pacmanfm-qt,qterminal.org,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "3" ]]; then
+	log
+	echo -e $GREEN "MATE installation..."
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
+	echo -e $GREEN "MATE packages installation...";tput init
+	apt-get install -y kaisen-mate || apt-get install -y kaisen-mate
+	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
+        for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
+        do
+        cp -rp /usr/share/kaisen-interface-switcher/$users/MATE/* /home/$users/.config/ 2> /dev/null || cp -rp /etc/skel/.config/{dconf,mate,gtkrc,gtkrc-2.0,gtk-2.0,gtk-3.0,gtk-4.0} /home/$users/.config/ 2> /dev/null || true
+        done
+	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
+		echo -e $GREEN "Switch ok. Restart lightdm..."
+		systemctl restart lightdm
+	else
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		/sbin/reboot
+	fi
+fi
+
+if [[ $OPTION = "4" ]]; then
+	exit 0
+fi
+fi

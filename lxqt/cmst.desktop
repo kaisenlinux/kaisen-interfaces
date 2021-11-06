@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=LXQt network manager
+Exec=/usr/bin/cmst --minimized
+Hidden=false
+Type=Application
+StartupNotify=false
+X-KDE-Autostart-enabled=false
+X-MATE-Autostart-enabled=false
+X-XFCE-Autostart-enabled=false
+X-LXQt-Need-Tray=true

@@ -1,3 +1,13 @@
+kaisen-interfaces (1.8+kaisen10) kaisen-packages; urgency=medium
+
+  * Add kaisen-interfaces-common package
+  * Install conky, kaisen-interface-switcher and conky.desktop
+    with kaisen-interfaces-common packages
+  * Remove postrm script for all interfaces
+  * Keep LXDE metapackage but remove all their files
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 06 Nov 2021 03:11:07 +0200
+
 kaisen-interfaces (1.8+kaisen9) kaisen-packages; urgency=medium
 
   * Add exclude pan* interfaces in all Conky

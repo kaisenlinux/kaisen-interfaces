@@ -36,29 +36,3 @@ set_dm() {
 set_dm $1
 
 fi
-
-#Add conky theme to /etc/skel
-if [ ! -d /etc/skel ]; then
-	echo "Creating /etc/skel directory and adding conkyrc in /etc/skel and /root..."
-	mkdir -p /etc/skel
-else
-        echo "Adding conkyrc in /etc/skel and /root..."
-fi
-
-cp -f /usr/share/kaisen-kde/conkyrc /etc/skel/.conkyrc
-cp -f /usr/share/kaisen-kde/conkyrc /root/.conkyrc
-
-#Automatic update conkyrc for all non root users
-for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
-do
-	if [ -e /home/$users/.conkyrc ]; then
-	cp -f /usr/share/kaisen-kde/conkyrc /home/$users/.conkyrc
-	fi
-done
-
-#Automatic update conkyrc for root user
-if [ -e /root/.conkyrc ]; then
-	cp -f /usr/share/kaisen-kde/conkyrc /root/.conkyrc
-fi
-
-rm -rf /usr/share/kaisen-kde

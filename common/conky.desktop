@@ -4,6 +4,6 @@ Exec=/usr/bin/conky
 Hidden=false
 Type=Application
 X-KDE-Autostart-enabled=true
-X-LXDE-Autostart-enabled=true
+X-LXQt-Autostart-enabled=true
 X-MATE-Autostart-enabled=true
 X-XFCE-Autostart-enabled=true
