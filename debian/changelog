@@ -3,7 +3,7 @@ kaisen-interfaces (1.8+kaisen11) kaisen-packages; urgency=medium
   * Add openbox folder backup and restore for LXQt in kaisen-interface-switcher
   * Force LXQt autostart in cmst.desktop
 
- -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 06 Nov 2021 04:35:16 +0200
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 06 Nov 2021 04:49:51 +0200
 
 kaisen-interfaces (1.8+kaisen10) kaisen-packages; urgency=medium
 
