@@ -122,6 +122,7 @@ Recommends: lightdm-gtk-greeter-settings,
             gimp,
             qbittorrent,
             hexchat,
+	    gnome-calculator,
 Description: Kaisen LXQT desktop environment configurations
 
 Package: kaisen-mate
@@ -241,6 +242,7 @@ Recommends: lightdm-gtk-greeter-settings,
 	    gimp,
 	    qbittorrent,
 	    hexchat,
+	    gnome-calculator,
 Description: Kaisen XFCE desktop environment configurations
 
 Package: kaisen-lxde

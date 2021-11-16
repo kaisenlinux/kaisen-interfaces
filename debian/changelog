@@ -1,3 +1,9 @@
+kaisen-interfaces (1.8+kaisen12) kaisen-packages; urgency=medium
+
+  * Add gnome-calculator package for LXQT and XFCE
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 16 Nov 2021 21:01:53 +0200
+
 kaisen-interfaces (1.8+kaisen11) kaisen-packages; urgency=medium
 
   * Add openbox folder backup and restore for LXQt in kaisen-interface-switcher
