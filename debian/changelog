@@ -1,10 +1,15 @@
+kaisen-interfaces (1.8+kaisen15) kaisen-packages; urgency=medium
+
+  * Readd conky install by kaisen-interfaces-common
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 04 Dec 2021 00:34:52 +0200
+
 kaisen-interfaces (1.8+kaisen14) kaisen-packages; urgency=medium
 
   * Fix typo in kaisen-interface-switcher
   * Fix bad dpkg -l command in XFCE
-  * Readd conky install by kaisen-interfaces-common
 
- -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 04 Dec 2021 00:34:52 +0200
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Fri, 03 Dec 2021 17:28:29 +0200
 
 kaisen-interfaces (1.8+kaisen13) kaisen-packages; urgency=medium
 
