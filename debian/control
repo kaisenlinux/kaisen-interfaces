@@ -9,11 +9,6 @@ Homepage: https://kaisenlinux.org
 Package: kaisen-interfaces-common
 Architecture: all
 Priority: standard
-Replaces: kaisen-kde,
-	  kaisen-lxde,
-	  kaisen-lxqt,
-	  kaisen-mate,
-	  kaisen-xfce,
 Description: Common files for all Kaisen Linux interfaces metapackages
 
 Package: kaisen-kde
