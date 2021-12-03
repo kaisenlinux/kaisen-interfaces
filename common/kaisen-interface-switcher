@@ -299,9 +299,10 @@ fi
 if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXQT installation..."
-    echo "";tput init; \
+	echo "";tput init; \
+	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
-	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null && apt-get install -y kaisen-lxqt || apt-get install -y kaisen-lxqt
+	apt-get install -y kaisen-lxqt || apt-get install -y kaisen-lxqt
 	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
@@ -321,7 +322,7 @@ if [[ $OPTION = "3" ]]; then
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
 	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
-    echo -e $GREEN "XFCE packages installation...";tput init
+	echo -e $GREEN "XFCE packages installation...";tput init
 	apt-get install -y kaisen-xfce || apt-get install -y kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
         for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
@@ -393,7 +394,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXQT installation..."
     echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
 	apt-get install -y kaisen-lxqt || apt-get install -y kaisen-lxqt
 	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
