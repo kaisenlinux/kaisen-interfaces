@@ -1,3 +1,9 @@
+kaisen-interfaces (1.8+kaisen17) kaisen-packages; urgency=medium
+
+  * Remove check for conky update
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 04 Dec 2021 04:04:07 +0100
+
 kaisen-interfaces (1.8+kaisen16) kaisen-packages; urgency=medium
 
   * Change automatically conky update check
