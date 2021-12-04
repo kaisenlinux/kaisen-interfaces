@@ -11,18 +11,13 @@ else
 fi
 
 cp -f /usr/share/kaisen-interfaces-common/conkyrc /etc/skel/.conkyrc
+rm -rf /usr/share/kaisen-interfaces-common
 
-#Automatic update conkyrc for all non root users
+#Automatic update conkyrc for all users
 for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
 do
-        if [ -e /home/$users/.conkyrc ]; then
-        cp -f /usr/share/kaisen-interfaces-common/conkyrc /home/$users/.conkyrc
+        if [ -x /usr/bin/conky ]; then
+        cp -f /etc/skel/.conkyrc /home/$users/
+	cp -f /etc/skel/.conkyrc /root/
         fi
 done
-
-#Automatic update conkyrc for root user
-if [ -e /root/.conkyrc ]; then
-        cp -f /usr/share/kaisen-interfaces-common/conkyrc /root/.conkyrc
-fi
-
-rm -rf /usr/share/kaisen-interfaces-common
