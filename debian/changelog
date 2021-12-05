@@ -1,3 +1,10 @@
+kaisen-interfaces (1.8+kaisen19) kaisen-packages; urgency=medium
+
+  * Readd conky-all, conkycolors, terminator and fonts-powerline packages
+    installed by kaisen-interfaces-common
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 05 Dec 2021 23:36:38 +0100
+
 kaisen-interfaces (1.8+kaisen18) kaisen-packages; urgency=medium
 
   * Remove conky install (again...)

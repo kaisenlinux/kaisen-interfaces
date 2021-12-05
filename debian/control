@@ -23,6 +23,8 @@ Depends: firefox,
 	 kaisen-skeleton,
          kaisen-design,
          fonts-cantarell,
+	 fonts-powerline,
+	 terminator,
 Recommends: lightdm-gtk-greeter-settings,
 	    fonts-liberation,
             fonts-noto-color-emoji,
@@ -49,6 +51,8 @@ Recommends: lightdm-gtk-greeter-settings,
             gimp,
             qbittorrent,
             hexchat,
+	    conky-all,
+            conkycolors,
 Description: Common files for all Kaisen Linux interfaces metapackages
 
 Package: kaisen-kde
