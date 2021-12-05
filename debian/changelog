@@ -1,3 +1,10 @@
+kaisen-interfaces (1.8+kaisen18) kaisen-packages; urgency=medium
+
+  * Remove conky install (again...)
+  * Install common packages for all interfaces by kaisen-interfaces-common
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 05 Dec 2021 15:07:03 +0100
+
 kaisen-interfaces (1.8+kaisen17) kaisen-packages; urgency=medium
 
   * Remove check for conky update
