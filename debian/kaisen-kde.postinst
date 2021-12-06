@@ -4,9 +4,9 @@ set -e
 
 update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/terminator 500
 
-if [[ "$1" = "install" ]]; then
+if [[ -z "$2" ]]; then
 
-#Change SDDM to LightDM
+#Change SDDM for LightDM only when the package is installed
 set_dm() {
     DISPLAY_MANAGER="lightdm"
     DISPLAY_MANAGER_SERVICE="/etc/systemd/system/display-manager.service"
