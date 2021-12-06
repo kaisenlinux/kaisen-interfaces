@@ -1,3 +1,9 @@
+kaisen-interfaces (1.8+kaisen21) kaisen-packages; urgency=medium
+
+  * Remove fonts-powerline as dependancy for the common package
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Mon, 06 Dec 2021 18:17:48 +0100
+
 kaisen-interfaces (1.8+kaisen20) kaisen-packages; urgency=medium
 
   * The script to change SDDM for LightDM is executed when $2
