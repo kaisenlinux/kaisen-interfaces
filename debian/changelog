@@ -1,3 +1,9 @@
+kaisen-interfaces (2.0+kaisen2) kaisen-packages; urgency=medium
+
+  * Remove conky-all and conkycolors packages for kaisen-interfaces-common
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Fri, 18 Feb 2022 14:38:02 +0100
+
 kaisen-interfaces (2.0+kaisen1) kaisen-packages; urgency=medium
 
   * Add full non-interactive (with confold), for kaisen-interface-switcher
