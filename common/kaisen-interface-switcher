@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#This script was developed and is maintained by Kevin Chevreuil - Kaisen for Kaisen Linux project
-#and is under AGPL license.
+#This script was developed and is maintained by Kevin Chevreuil - Kaisen for Kaisen Linux project and is under AGPL license.
 
 export DEBIAN_FRONTEND=noninteractive
 DATE=$(date '+%Y-%m-%d_%H-%M-%S')
@@ -89,7 +88,7 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying XFCE configurations
@@ -110,7 +109,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXQT installation..."
         echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt
 	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
@@ -131,7 +130,7 @@ if [[ $OPTION = "3" ]]; then
 	log
 	echo -e $GREEN "MATE installation..."
         echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying MATE configurations
@@ -184,7 +183,7 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
@@ -205,7 +204,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "MATE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations
@@ -226,7 +225,7 @@ if [[ $OPTION = "3" ]]; then
 	log
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep lxqt | cut -d \  -f 3` && dhclient 2> /dev/null
         echo -e $GREEN "XFCE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
@@ -279,7 +278,7 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
@@ -300,7 +299,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXQT installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt
 	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
@@ -321,7 +320,7 @@ if [[ $OPTION = "3" ]]; then
 	log
 	echo -e $GREEN "XFCE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep mate- | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying default XFCE configurations
@@ -373,7 +372,7 @@ if [[ $OPTION = "1" ]]; then
 	log
 	echo -e $GREEN "KDE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde
 	#If rollback on KDE, reapplying KDE users configurations or reapplying default KDE configurations
@@ -394,7 +393,7 @@ if [[ $OPTION = "2" ]]; then
 	log
 	echo -e $GREEN "LXQT installation..."
     echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt
 	#If rollback on LXQT, reapplying LXQT users configurations or reapplying LXQT configurations
@@ -415,7 +414,7 @@ if [[ $OPTION = "3" ]]; then
 	log
 	echo -e $GREEN "MATE installation..."
 	echo "";tput init; \
-	apt-get autoremove -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
+	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput init
 	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate
 	#If rollback on MATE, reapplying MATE users configurations or reapplying default MATE configurations

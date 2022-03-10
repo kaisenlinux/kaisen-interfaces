@@ -77,6 +77,7 @@ Architecture: all
 Priority: standard
 Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-desktop-environment,
+	 mate-tweak,
 	 network-manager,
 	 network-manager-gnome,
 	 xcursor-themes,
