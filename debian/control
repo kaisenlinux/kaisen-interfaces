@@ -60,7 +60,8 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 sddm,
 	 sddm-theme-breeze,
 	 network-manager,
-	 network-manager-openvpn,
+Recommends: network-manager-openvpn,
+	    network-manager-fortisslvpn,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt
@@ -82,8 +83,9 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-tweak,
 	 network-manager,
 	 network-manager-gnome,
-	 network-manager-openvpn,
 	 xcursor-themes,
+Recommends: network-manager-openvpn,
+            network-manager-fortisslvpn,
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -103,10 +105,10 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 xfce4-whiskermenu-plugin,
 	 gedit,
 	 network-manager,
-	 network-manager-gnome,
-	 network-manager-openvpn,
 	 xcursor-themes,
 Recommends: gnome-calculator,
+	    network-manager-openvpn,
+            network-manager-fortisslvpn,
 Description: Kaisen XFCE desktop environment configurations
 
 Package: kaisen-lxde
