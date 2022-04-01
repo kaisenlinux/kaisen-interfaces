@@ -59,6 +59,8 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 kde-standard,
 	 sddm,
 	 sddm-theme-breeze,
+	 network-manager,
+	 network-manager-openvpn,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt
@@ -80,6 +82,7 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-tweak,
 	 network-manager,
 	 network-manager-gnome,
+	 network-manager-openvpn,
 	 xcursor-themes,
 Description: Kaisen MATE desktop environment configurations
 
@@ -101,6 +104,7 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 gedit,
 	 network-manager,
 	 network-manager-gnome,
+	 network-manager-openvpn,
 	 xcursor-themes,
 Recommends: gnome-calculator,
 Description: Kaisen XFCE desktop environment configurations
