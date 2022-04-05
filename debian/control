@@ -85,7 +85,9 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 network-manager-gnome,
 	 xcursor-themes,
 Recommends: network-manager-openvpn,
+	    network-manager-openvpn-gnome,
             network-manager-fortisslvpn,
+	    network-manager-fortisslvpn-gnome,
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -108,7 +110,9 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 xcursor-themes,
 Recommends: gnome-calculator,
 	    network-manager-openvpn,
+	    network-manager-openvpn-gnome,
             network-manager-fortisslvpn,
+	    network-manager-fortisslvpn-gnome,
 Description: Kaisen XFCE desktop environment configurations
 
 Package: kaisen-lxde
