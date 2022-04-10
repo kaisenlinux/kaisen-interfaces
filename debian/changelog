@@ -1,3 +1,9 @@
+kaisen-interfaces (2.0+kaisen7) kaisen-packages; urgency=medium
+
+  * Add all traductions for thunderbird and firefox
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 10 Apr 2022 11:50:46 +0100
+
 kaisen-interfaces (2.0+kaisen6) kaisen-packages; urgency=medium
 
   * Add network-manager-openvpn-gnome and network-manager-fortisslvpn-gnome
