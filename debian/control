@@ -10,7 +10,6 @@ Package: kaisen-interfaces-common
 Architecture: all
 Priority: standard
 Depends: firefox,
-         firefox-l10n-all,
          sudo,
          plymouth,
          kaisen-menu,
@@ -23,25 +22,11 @@ Depends: firefox,
 Recommends: lightdm-gtk-greeter-settings,
 	    fonts-liberation,
             fonts-noto-color-emoji,
-            locales-all,
 	    vlc,
             gimp,
             qbittorrent,
             hexchat,
 	    thunderbird,
-            thunderbird-l10n-all,
-            libreoffice,
-            libreoffice-help-fr,
-            libreoffice-help-en-us,
-            libreoffice-help-es,
-            libreoffice-help-pt,
-            libreoffice-help-it,
-            libreoffice-help-de,
-            libreoffice-l10n-fr,
-            libreoffice-l10n-es,
-            libreoffice-l10n-pt,
-            libreoffice-l10n-it,
-            libreoffice-l10n-de,
 Description: Common files for all Kaisen Linux interfaces metapackages
 
 Package: kaisen-kde
