@@ -27,6 +27,7 @@ Recommends: lightdm-gtk-greeter-settings,
             qbittorrent,
             hexchat,
 	    thunderbird,
+	    libreoffice,
 Description: Common files for all Kaisen Linux interfaces metapackages
 
 Package: kaisen-kde

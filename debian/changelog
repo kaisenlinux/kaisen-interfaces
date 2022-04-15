@@ -1,3 +1,9 @@
+kaisen-interfaces (2.0+kaisen9) kaisen-packages; urgency=medium
+
+  * Readd libreoffice
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Fri, 15 Apr 2022 14:24:41 +0100
+
 kaisen-interfaces (2.0+kaisen8) kaisen-packages; urgency=medium
 
   * Deletion of all languages packages
