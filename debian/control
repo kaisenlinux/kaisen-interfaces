@@ -28,6 +28,7 @@ Recommends: lightdm-gtk-greeter-settings,
             hexchat,
 	    thunderbird,
 	    libreoffice,
+	    breeze-cursor-theme,
 Description: Common files for all Kaisen Linux interfaces metapackages
 
 Package: kaisen-kde
@@ -49,7 +50,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 lxqt,
 	 lxqt-archiver,
 	 cmst,
-         xcursor-themes,
 Recommends: gnome-calculator,
 Description: Kaisen LXQT desktop environment configurations
 
@@ -60,7 +60,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-desktop-environment,
 	 mate-tweak,
 	 network-manager-gnome,
-	 xcursor-themes,
 Recommends: network-manager-openvpn-gnome,
 	    network-manager-fortisslvpn-gnome,
 Description: Kaisen MATE desktop environment configurations
@@ -82,7 +81,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 xfce4-whiskermenu-plugin,
 	 gedit,
 	 network-manager,
-	 xcursor-themes,
 Recommends: gnome-calculator,
 	    network-manager-openvpn-gnome,
             network-manager-fortisslvpn-gnome,

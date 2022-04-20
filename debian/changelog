@@ -1,3 +1,12 @@
+kaisen-interfaces (2.0+kaisen10) kaisen-packages; urgency=medium
+
+  * Use breeze-cursor-theme instead of xcursor-theme (breeze-cursor-theme
+    will be installed by kaisen-interface-common package)
+  * Remove kaisen-lxqt.postinst and kaisen-mate.postinst
+  * Update kaisen-kde.preinst (use $2 instead of $1 variable)
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Wed, 20 Apr 2022 16:08:39 +0100
+
 kaisen-interfaces (2.0+kaisen9) kaisen-packages; urgency=medium
 
   * Readd libreoffice
