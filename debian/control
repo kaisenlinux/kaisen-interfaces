@@ -22,10 +22,6 @@ Depends: firefox,
 Recommends: lightdm-gtk-greeter-settings,
 	    fonts-liberation,
             fonts-noto-color-emoji,
-	    vlc,
-            gimp,
-            qbittorrent,
-            hexchat,
 	    thunderbird,
 	    libreoffice,
 	    breeze-cursor-theme,
@@ -39,8 +35,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 sddm,
 	 sddm-theme-breeze,
 	 network-manager,
-Recommends: network-manager-openvpn,
-	    network-manager-fortisslvpn,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt
@@ -60,8 +54,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-desktop-environment,
 	 mate-tweak,
 	 network-manager-gnome,
-Recommends: network-manager-openvpn-gnome,
-	    network-manager-fortisslvpn-gnome,
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -82,8 +74,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 gedit,
 	 network-manager,
 Recommends: gnome-calculator,
-	    network-manager-openvpn-gnome,
-            network-manager-fortisslvpn-gnome,
 Description: Kaisen XFCE desktop environment configurations
 
 Package: kaisen-lxde
