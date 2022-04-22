@@ -24,6 +24,9 @@ Recommends: lightdm-gtk-greeter-settings,
             fonts-noto-color-emoji,
 	    thunderbird,
 	    libreoffice,
+	    qbittorrent,
+            vlc,
+            gimp,
 	    breeze-cursor-theme,
 Description: Common files for all Kaisen Linux interfaces metapackages
 
