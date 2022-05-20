@@ -90,7 +90,7 @@ if [[ $OPTION = "1" ]]; then
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput init
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
+	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
 	#If rollback on XFCE, reapplying XFCE users configurations or reapplying XFCE configurations
 	for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
         do
