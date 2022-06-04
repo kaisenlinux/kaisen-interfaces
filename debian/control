@@ -37,9 +37,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 sddm,
 	 sddm-theme-breeze,
 	 network-manager,
-Breaks: kaisen-lxqt,
-	   kaisen-mate,
-	   kaisen-xfce,
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt
@@ -50,9 +47,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 lxqt-archiver,
 	 cmst,
 Recommends: gnome-calculator,
-Breaks: kaisen-kde,
-	   kaisen-mate,
-	   kaisen-xfce,
 Description: Kaisen LXQT desktop environment configurations
 
 Package: kaisen-mate
@@ -62,9 +56,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-desktop-environment,
 	 mate-tweak,
 	 network-manager-gnome,
-Breaks: kaisen-kde,
-	   kaisen-lxqt,
-	   kaisen-xfce,
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -85,9 +76,6 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 gedit,
 	 network-manager,
 Recommends: gnome-calculator,
-Breaks: kaisen-kde,
-	   kaisen-lxqt,
-	   kaisen-mate,
 Description: Kaisen XFCE desktop environment configurations
 
 Package: kaisen-lxde

@@ -1,16 +1,9 @@
-kaisen-interfaces (2.0+kaisen16) kaisen-packages; urgency=medium
+kaisen-interfaces (2.0+kaisen15) kaisen-packages; urgency=medium
 
+  * Remove the sudo package as dependancy for kaisen-interfaces-common
   * Remove the postrm script for kaisen-interfaces-common
 
- -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 04 Jun 2022 03:20:14 +0100
-
-kaisen-interfaces (2.0+kaisen15) kaisen-testing; urgency=medium
-
-  * Add Conflicts for all interfaces for kaisen-kde, kaisen-lxqt, kaisen-mate
-    and kaisen-xfce
-  * Remove the sudo package as dependancy for kaisen-interfaces-common
-
- -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 31 May 2022 16:04:11 +0100
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 04 Jun 2022 03:41:09 +0100
 
 kaisen-interfaces (2.0+kaisen14) kaisen-packages; urgency=medium
 
