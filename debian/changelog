@@ -1,3 +1,9 @@
+kaisen-interfaces (2.0+kaisen16) kaisen-packages; urgency=medium
+
+  * Add thunar-archive-plugin and xarchiver for XFCE
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Mon, 06 Jun 2022 17:16:23 +0100
+
 kaisen-interfaces (2.0+kaisen15) kaisen-packages; urgency=medium
 
   * Remove the sudo package as dependancy for kaisen-interfaces-common

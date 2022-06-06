@@ -75,6 +75,8 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 xfce4-whiskermenu-plugin,
 	 gedit,
 	 network-manager,
+	 thunar-archive-plugin,
+	 xarchiver,
 Recommends: gnome-calculator,
 Description: Kaisen XFCE desktop environment configurations
 
