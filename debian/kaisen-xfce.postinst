@@ -2,7 +2,9 @@
 
 set -e
 
-gtk-update-icon-cache /usr/share/icons/Kaisen 2> /dev/null || true
-gtk-update-icon-cache /usr/share/icons/Adwaita 2> /dev/null || true
-gtk-update-icon-cache /usr/share/icons/Tango 2> /dev/null || true
-gtk-update-icon-cache /usr/share/icons/HighContrast 2> /dev/null || true
+if [[ "$1" = "configure" ]]; then
+	gtk-update-icon-cache /usr/share/icons/Kaisen 2> /dev/null || true
+	gtk-update-icon-cache /usr/share/icons/Adwaita 2> /dev/null || true
+	gtk-update-icon-cache /usr/share/icons/Tango 2> /dev/null || true
+	gtk-update-icon-cache /usr/share/icons/HighContrast 2> /dev/null || true
+fi

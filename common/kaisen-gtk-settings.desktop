@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Kaisen GTK settings
+Exec=/usr/share/kaisen-interfaces-common/kaisen-gtk-settings
+Hidden=false
+Type=Application
+StartupNotify=false

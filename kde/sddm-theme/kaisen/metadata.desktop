@@ -1,0 +1,9 @@
+[SddmGreeterTheme]
+Name=Kaisen
+Type=sddm-theme
+Version=0.1
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=kaisen
+Theme-API=2.0

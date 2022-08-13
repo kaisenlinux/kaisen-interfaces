@@ -1,2 +1,1 @@
-kde/conf/theme.conf.user usr/share/sddm/themes/breeze/
-kde/conf/kde_settings.conf etc/sddm.conf.d/
+kde/sddm-theme/kaisen usr/share/sddm/themes/

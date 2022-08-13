@@ -1,3 +1,16 @@
+kaisen-interfaces (2.1+kaisen1) kaisen-packages; urgency=medium
+
+  * Install a custom SDDM theme instead of configuration files in
+    /usr/share/sddm/themes/breeze
+  * Rename lxqt/cmst.conf in lxqt/kaisen-cmst.conf
+  * Replace X-*-Autostart-enabled by OnlyShowIn entry in kaisen-cmst.conf
+  * Update of the kaisen-interface-switcher script to adapt the changes provided
+    by kaisen-skeleton
+  * Install the network-manager-gnome package with XFCE
+  * Add kaisen-gtk-settings script and him launcher
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 13 Aug 2022 08:30:09 +0100
+
 kaisen-interfaces (2.1) kaisen-packages; urgency=medium
 
   * Bump version to 2.1
