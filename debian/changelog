@@ -1,3 +1,9 @@
+kaisen-interfaces (2.1+kaisen2) kaisen-packages; urgency=medium
+
+  * Add a new file that will be written by the sed pattern
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Thu, 18 Aug 2022 04:46:27 +0100
+
 kaisen-interfaces (2.1+kaisen1) kaisen-packages; urgency=medium
 
   * Install a custom SDDM theme instead of configuration files in

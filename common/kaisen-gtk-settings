@@ -2,5 +2,5 @@
 
 for users in $(awk -F: '/\/home/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1 && awk -F: '/\/root/ {printf "%s:%s\n",$1,$3}' /etc/passwd | cut -d: -f1)
 do
-	sed -i 's/gtk-application-prefer-dark-theme=true/gtk-application-prefer-dark-theme=false/g' /home/$users/.config/gtk-3.0/settings.ini 2> /dev/null
+	sed -i 's/gtk-application-prefer-dark-theme=true/gtk-application-prefer-dark-theme=false/g' /home/$users/.config/gtk-3.0/settings.ini /home/$users/.config/gtk-4.0/settings.ini 2> /dev/null
 done
