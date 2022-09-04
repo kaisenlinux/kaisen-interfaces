@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+	purge|remove|autoremove)
+		#Remove diversion
+		dpkg-divert --quiet --rename --remove /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop
+	;;
+esac
+
+#DEBHELPER#

@@ -3,9 +3,7 @@
 set -e
 
 if [ -z "$2" ]; then
-        dpkg-divert --quiet --package kaisen-kde \
-                    --divert /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop.old \
-                    --rename /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop || true
+	dpkg-divert --quiet --divert /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop.old --rename /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop
 fi
 
 #DEBHELPER#
