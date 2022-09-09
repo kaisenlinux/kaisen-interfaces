@@ -11,7 +11,7 @@ BLUE='\e[1;36m'
 
 #Check root execution
 if [[ "$EUID" -ne "0" ]]; then
-        echo -e $RED "Run this screen as root or with sudo command to continue."
+        echo -e $RED "Run this screen as root or with the sudo command to continue."
         exit 1
 fi
 
