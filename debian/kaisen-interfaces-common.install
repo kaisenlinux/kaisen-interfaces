@@ -1,3 +1,4 @@
 common/kaisen-gtk-settings usr/share/kaisen-interfaces-common/
 common/kaisen-gtk-settings.desktop etc/xdg/autostart/
 common/kaisen-interface-switcher usr/sbin/
+common/kaisen-xdg-user-dirs.desktop etc/xdg/autostart/
