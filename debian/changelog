@@ -1,3 +1,12 @@
+kaisen-interfaces (2.1+kaisen6) kaisen-packages; urgency=medium
+
+  * Add:
+    - kaisen-kde.conffiles
+    - kaisen-interfaces-common.conffiles
+  * Add the Replaces field in the control file
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Tue, 08 Nov 2022 15:38:09 +0100
+
 kaisen-interfaces (2.1+kaisen5) kaisen-packages; urgency=medium
 
   * Add the kaisen-xdg-user-dirs.desktop launcher
