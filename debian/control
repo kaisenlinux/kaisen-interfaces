@@ -61,6 +61,7 @@ Priority: standard
 Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-desktop-environment,
 	 mate-tweak,
+	 mate-media,
 	 network-manager-gnome,
 Description: Kaisen MATE desktop environment configurations
 
