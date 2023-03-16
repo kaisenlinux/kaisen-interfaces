@@ -77,7 +77,7 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-KDE-$D
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "XFCE installation..."
+	echo -e $GREEN "XFCE installation... Removal of KDE packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput init
@@ -93,7 +93,7 @@ fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "LXQT installation..."
+	echo -e $GREEN "LXQT installation... Removal of KDE packages..."
         echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
@@ -109,7 +109,7 @@ fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "MATE installation..."
+	echo -e $GREEN "MATE installation... Removal of KDE packages..."
         echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput init
@@ -148,7 +148,7 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-LXQT-$
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "KDE installation..."
+	echo -e $GREEN "KDE installation... Removal of LXQt packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
@@ -164,7 +164,7 @@ fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "MATE installation..."
+	echo -e $GREEN "MATE installation... Removal of LXQt packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput init
@@ -180,7 +180,7 @@ fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "XFCE installation..."
+	echo -e $GREEN "XFCE installation... Removal of LXQt packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
         echo -e $GREEN "XFCE packages installation...";tput init
@@ -219,7 +219,7 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-MATE-$
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "KDE installation..."
+	echo -e $GREEN "KDE installation... Removal of MATE packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
@@ -235,7 +235,7 @@ fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "LXQT installation..."
+	echo -e $GREEN "LXQT installation... Removal of MATE packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
@@ -251,7 +251,7 @@ fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "XFCE installation..."
+	echo -e $GREEN "XFCE installation... Removal of MATE packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput init
@@ -289,7 +289,7 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-XFCE-$
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "KDE installation..."
+	echo -e $GREEN "KDE installation... Removal of XFCE packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput init
@@ -305,7 +305,7 @@ fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "LXQT installation..."
+	echo -e $GREEN "LXQT installation... Removal of XFCE packages..."
     	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput init
@@ -321,7 +321,7 @@ fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "MATE installation..."
+	echo -e $GREEN "MATE installation... Removal of XFCE packages..."
 	echo "";tput init; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput init
