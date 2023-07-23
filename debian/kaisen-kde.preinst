@@ -4,6 +4,7 @@ set -e
 
 if [ -z "$2" ]; then
 	dpkg-divert --quiet --divert /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop.old --rename /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop
+	dpkg-divert --quiet --divert /etc/xdg/autostart/org.kde.discover.notifier.desktop.old --rename /etc/xdg/autostart/org.kde.discover.notifier.desktop
 fi
 
 #DEBHELPER#
