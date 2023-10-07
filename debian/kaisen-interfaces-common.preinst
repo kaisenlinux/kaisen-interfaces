@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+#Setup diversion
+if [[ -e /etc/lightdm/lightdm-gtk-greeter.conf ]]; then
+	cp /etc/lightdm/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk-greeter.conf.old
+	dpkg-divert --quiet --no-rename --package kaisen-interfaces-common --divert /etc/lightdm/lightdm-gtk-greeter.conf.old --add /etc/lightdm/lightdm-gtk-greeter.conf
+else
+	dpkg-divert --quiet --rename --package kaisen-interfaces-common --divert /etc/lightdm/lightdm-gtk-greeter.conf.old --add /etc/lightdm/lightdm-gtk-greeter.conf
+fi
+
+#DEBHELPER#

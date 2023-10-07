@@ -1,7 +1,14 @@
+kaisen-interfaces (2.3+kaisen2) kaisen-packages; urgency=medium
+
+  * Use a diversion to set the lightdm config
+  * Import the custom lightdm config
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sat, 07 Oct 2023 22:38:18 +0100
+
 kaisen-interfaces (2.3+kaisen1) kaisen-packages; urgency=medium
 
   * Remove the kaisen-lxde metapackage
-  * Use divert for don't restart discover at the session start
+  * Use a diversion to don't restart discover at the session start
 
  -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 23 Jul 2023 03:17:27 +0100
 
