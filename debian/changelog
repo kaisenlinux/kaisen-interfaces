@@ -1,3 +1,9 @@
+kaisen-interfaces (2.3+kaisen4) kaisen-packages; urgency=medium
+
+  * Replace tput init by tput sgr0 for the kaisen-interface-switcher script
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Wed, 13 Mar 2024 00:46:41 +0100
+
 kaisen-interfaces (2.3+kaisen3) kaisen-packages; urgency=medium
 
   * Replace PNG files by JPG files
