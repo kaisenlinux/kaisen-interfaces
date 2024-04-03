@@ -11,6 +11,7 @@ Architecture: all
 Priority: standard
 Depends: firefox,
          plymouth,
+	 plymouth-themes,
          kaisen-menu,
          lightdm,
          lightdm-gtk-greeter,
