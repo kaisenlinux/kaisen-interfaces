@@ -1,3 +1,11 @@
+kaisen-interfaces (2.3+kaisen5) kaisen-packages; urgency=medium
+
+  * Add power-profiles-daemon and xserver-xorg-input-synaptics packages
+    (thanks @psyray)
+  * Remove the debian/compat file
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Wed, 03 Apr 2024 18:32:38 +0100
+
 kaisen-interfaces (2.3+kaisen4) kaisen-packages; urgency=medium
 
   * Replace tput init by tput sgr0 for the kaisen-interface-switcher script

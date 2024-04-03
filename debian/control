@@ -3,7 +3,7 @@ Priority: standard
 Section: kaisen-packages
 Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
 Standards-Version: 4.6.1
-Build-Depends: debhelper
+Build-Depends: debhelper-compat (= 13)
 Homepage: https://kaisenlinux.org
 
 Package: kaisen-interfaces-common
@@ -27,6 +27,8 @@ Recommends: lightdm-gtk-greeter-settings,
             vlc,
             gimp,
 	    breeze-cursor-theme,
+	    power-profiles-daemon,
+	    xserver-xorg-input-synaptics,
 Replaces: kaisen-kde,
 	  kaisen-lxde,
 	  kaisen-lxqt,
