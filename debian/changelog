@@ -1,3 +1,9 @@
+kaisen-interfaces (2.3+kaisen7) kaisen-packages; urgency=medium
+
+  * Add print-manager as recommand package for KDE
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Thu, 11 Apr 2024 10:13:43 +0100
+
 kaisen-interfaces (2.3+kaisen6) kaisen-packages; urgency=medium
 
   * Add the plymouth-themes package
