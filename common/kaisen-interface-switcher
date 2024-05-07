@@ -81,7 +81,7 @@ if [[ $OPTION = "1" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -97,7 +97,7 @@ if [[ $OPTION = "2" ]]; then
         echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -113,7 +113,7 @@ if [[ $OPTION = "3" ]]; then
         echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -152,7 +152,7 @@ if [[ $OPTION = "1" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -168,7 +168,7 @@ if [[ $OPTION = "2" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -184,7 +184,7 @@ if [[ $OPTION = "3" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
         echo -e $GREEN "XFCE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -223,7 +223,7 @@ if [[ $OPTION = "1" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -239,7 +239,7 @@ if [[ $OPTION = "2" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -255,7 +255,7 @@ if [[ $OPTION = "3" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "XFCE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-xfce
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -293,7 +293,7 @@ if [[ $OPTION = "1" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "KDE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-kde
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -309,7 +309,7 @@ if [[ $OPTION = "2" ]]; then
     	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "LXQT packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-lxqt
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm
@@ -325,7 +325,7 @@ if [[ $OPTION = "3" ]]; then
 	echo "";tput sgr0; \
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
 	echo -e $GREEN "MATE packages installation...";tput sgr0
-	apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confold" -o "Dpkg::Options::=--force-confdef" install kaisen-mate
+	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
 		echo -e $GREEN "Switch ok. Restart lightdm..."
 		systemctl restart lightdm

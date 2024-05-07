@@ -46,7 +46,7 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 sddm,
 	 sddm-theme-breeze,
 	 network-manager,
-Recommends: print-manager,
+Recommends: print-manager, bluedevil
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt
@@ -90,4 +90,5 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 thunar-archive-plugin,
 	 xarchiver,
 Recommends: gnome-calculator,
+	    xscreensaver
 Description: Kaisen XFCE desktop environment configurations
