@@ -1,3 +1,9 @@
+kaisen-interfaces (2.3+kaisen10) kaisen-packages; urgency=medium
+
+  * The lxqt-archiver is now a recommended package
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 26 May 2024 23:43:41 +0200
+
 kaisen-interfaces (2.3+kaisen9) kaisen-packages; urgency=medium
 
   * Add the new icon for lightdm
