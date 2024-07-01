@@ -1,3 +1,9 @@
+kaisen-interfaces (2.3+kaisen11) kaisen-packages; urgency=medium
+
+  * Redefine the lxqt-archiver as now a required package for LXQt
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Mon, 01 Jul 2024 23:41:19 +0200
+
 kaisen-interfaces (2.3+kaisen10) kaisen-packages; urgency=medium
 
   * The lxqt-archiver is now a recommended package

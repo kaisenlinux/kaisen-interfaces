@@ -54,9 +54,9 @@ Architecture: all
 Priority: standard
 Depends: kaisen-interfaces-common (= ${source:Version}),
 	 lxqt,
+	 lxqt-archiver,
 	 cmst,
 Recommends: gnome-calculator,
-	    lxqt-archiver,
 Description: Kaisen LXQT desktop environment configurations
 
 Package: kaisen-mate
