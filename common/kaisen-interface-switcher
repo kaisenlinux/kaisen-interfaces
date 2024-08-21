@@ -8,10 +8,11 @@ YELLOW='\e[0;33m'
 GREEN='\e[1;32m'
 RED='\e[1;31m'
 BLUE='\e[1;36m'
+RESET_COLOR='\033[0m'
 
 #Check root execution
 if [[ "$EUID" -ne "0" ]]; then
-        echo -e $RED "Run this screen as root or with the sudo command to continue."
+        echo -e $RED "Run this screen as root or with the sudo command to continue." $RESET_COLOR
         exit 1
 fi
 
@@ -34,27 +35,27 @@ ps -e | grep -o 'xfce4-panel' > /dev/null
     fi
 
 if [[ $DESKTOP != KDE && $DESKTOP != LXQT && $DESKTOP != MATE && $DESKTOP != XFCE ]]; then
-	echo -e $RED "To use this script, you must use KDE, LXQT, MATE or XFCE."
+	echo -e $RED "To use this script, you must use KDE, LXQT, MATE or XFCE." $RESET_COLOR
 	exit 1
 fi
 
-echo -e $YELLOW "Check APT access..."
-tput sgr0;apt-get update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." && exit 1
+echo -e $YELLOW "Check APT access..." $RESET_COLOR
+apt-get update 2>&1 | grep '^[WE]:' && echo -e $RED "Please check your internet connection or APT access to continue." $RESET_COLOR && exit 1
 echo ""
-echo -e $GREEN "APT access ok.\e[0;33m Check connected network interface..."
+echo -e $GREEN "APT access ok.\e[0;33m Check connected network interface..." $RESET_COLOR
 echo ""
-tput sgr0;ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." && exit 1
-echo -e $GREEN "Checks complete."
+ip route get 8.8.8.8 | awk -F"dev " 'NR==1{split($2,a," ");print a[1]}' | grep '^[w]l' 1> /dev/null && echo -e $RED "Disable wifi and connect an Ethernet cable or USB modem to continue." $RESET_COLOR && exit 1
+echo -e $GREEN "Checks complete." $RESET_COLOR
 echo ""
-echo -e $GREEN "Welcome at Kaisen Linux interface switcher."
+echo -e $GREEN "Welcome at Kaisen Linux interface switcher." $RESET_COLOR
 echo ""
-echo -e $GREEN "This script will install a graphical interface of your choice listed below."
+echo -e $GREEN "This script will install a graphical interface of your choice listed below." $RESET_COLOR
 echo ""
-echo -e $YELLOW "CAUTION: This script will automatically restart the computer at the end of the process."
-echo -e $YELLOW "Your unsaved work will be lost."
-echo -e $YELLOW "It is advisable to increase the duration or deactivate standby."
+echo -e $YELLOW "CAUTION: This script will automatically restart the computer at the end of the process." $RESET_COLOR
+echo -e $YELLOW "Your unsaved work will be lost." $RESET_COLOR
+echo -e $YELLOW "It is advisable to increase the duration or deactivate standby." $RESET_COLOR
 echo ""
-echo -e $BLUE "Which graphical interface do you want to install?"
+echo -e $BLUE "Which graphical interface do you want to install?" $RESET_COLOR
 echo ""
 
 ##### KDE #####
@@ -77,48 +78,48 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-KDE-$D
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "XFCE installation... Removal of KDE packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "XFCE installation... Removal of KDE packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "XFCE packages installation...";tput sgr0
+	echo -e $GREEN "XFCE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not started..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not started..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "LXQT installation... Removal of KDE packages..."
-        echo "";tput sgr0; \
+	echo -e $GREEN "LXQT installation... Removal of KDE packages..." $RESET_COLOR
+        echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "LXQT packages installation...";tput sgr0
+	echo -e $GREEN "LXQT packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "MATE installation... Removal of KDE packages..."
-        echo "";tput sgr0; \
+	echo -e $GREEN "MATE installation... Removal of KDE packages..." $RESET_COLOR
+        echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep kde | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "MATE packages installation...";tput sgr0
+	echo -e $GREEN "MATE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
@@ -148,48 +149,48 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-LXQT-$
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "KDE installation... Removal of LXQt packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "KDE installation... Removal of LXQt packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "KDE packages installation...";tput sgr0
+	echo -e $GREEN "KDE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "MATE installation... Removal of LXQt packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "MATE installation... Removal of LXQt packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "MATE packages installation...";tput sgr0
+	echo -e $GREEN "MATE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "XFCE installation... Removal of LXQt packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "XFCE installation... Removal of LXQt packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'lxqt\|qterminal' | cut -d \  -f 3` && dhclient 2> /dev/null
-        echo -e $GREEN "XFCE packages installation...";tput sgr0
+        echo -e $GREEN "XFCE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
@@ -219,48 +220,48 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-MATE-$
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "KDE installation... Removal of MATE packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "KDE installation... Removal of MATE packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "KDE packages installation...";tput sgr0
+	echo -e $GREEN "KDE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "LXQT installation... Removal of MATE packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "LXQT installation... Removal of MATE packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "LXQT packages installation...";tput sgr0
+	echo -e $GREEN "LXQT packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "XFCE installation... Removal of MATE packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "XFCE installation... Removal of MATE packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'mate-\|dconf-editor' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "XFCE packages installation...";tput sgr0
+	echo -e $GREEN "XFCE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
@@ -289,48 +290,48 @@ exec > >(tee /var/log/kaisen-interface-switcher/kaisen-interface-switcher-XFCE-$
 
 if [[ $OPTION = "1" ]]; then
 	log
-	echo -e $GREEN "KDE installation... Removal of XFCE packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "KDE installation... Removal of XFCE packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "KDE packages installation...";tput sgr0
+	echo -e $GREEN "KDE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "2" ]]; then
 	log
-	echo -e $GREEN "LXQT installation... Removal of XFCE packages..."
-    	echo "";tput sgr0; \
+	echo -e $GREEN "LXQT installation... Removal of XFCE packages..." $RESET_COLOR
+    	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "LXQT packages installation...";tput sgr0
+	echo -e $GREEN "LXQT packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
 
 if [[ $OPTION = "3" ]]; then
 	log
-	echo -e $GREEN "MATE installation... Removal of XFCE packages..."
-	echo "";tput sgr0; \
+	echo -e $GREEN "MATE installation... Removal of XFCE packages..." $RESET_COLOR
+	echo ""
 	apt-get autoremove --purge -y `dpkg -l | grep 'xfce\|gedit' | cut -d \  -f 3` && dhclient 2> /dev/null
-	echo -e $GREEN "MATE packages installation...";tput sgr0
+	echo -e $GREEN "MATE packages installation..." $RESET_COLOR
 	apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
 	if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-		echo -e $GREEN "Switch ok. Restart lightdm..."
+		echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
 		systemctl restart lightdm
 	else
-		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..."
+		echo -e $GREEN "Switch ok. Restart computer because lightdm is not start..." $RESET_COLOR
 		/sbin/reboot
 	fi
 fi
