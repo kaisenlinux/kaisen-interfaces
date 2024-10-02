@@ -1,3 +1,9 @@
+kaisen-interfaces (2.3+kaisen13) kaisen-packages; urgency=medium
+
+  * Factorisation of the kaisen-interface-switcher script
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Wed, 02 Oct 2024 18:23:28 +0200
+
 kaisen-interfaces (2.3+kaisen12) kaisen-packages; urgency=medium
 
   * Use the RESET_COLOR variable instead of the tput sgr0 command
