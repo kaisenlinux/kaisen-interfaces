@@ -41,7 +41,7 @@ Package: kaisen-kde
 Architecture: all
 Priority: standard
 Depends: kaisen-interfaces-common (= ${source:Version}),
-	 kde-standard,
+	 plasma-desktop,
 	 kde-style-breeze,
 	 sddm,
 	 sddm-theme-breeze,

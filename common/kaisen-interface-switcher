@@ -17,7 +17,7 @@ if [[ "$EUID" -ne "0" ]]; then
 fi
 
 #Check GUI is using
-ps -e | grep -o 'kded5' > /dev/null
+ps -e | grep -o 'kded6' > /dev/null
     if [ $? -eq 0 ]; then
     DESKTOP="KDE"
     fi
