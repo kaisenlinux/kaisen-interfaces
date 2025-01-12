@@ -1,3 +1,12 @@
+kaisen-interfaces (2.3+kaisen15) kaisen-packages; urgency=medium
+
+  * Do no longer use lightdm for KDE! Welcome SDDM!
+  * Update the kaisen-interface-switcher for SDDM
+  * Do not install lightdm for KDE desktop
+  * Install kde-standard instead of plasma-desktop
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 12 Jan 2025 02:56:13 +0200
+
 kaisen-interfaces (2.3+kaisen14) kaisen-packages; urgency=medium
 
   * Update the postinst script for the kaisen-interfaces-common package

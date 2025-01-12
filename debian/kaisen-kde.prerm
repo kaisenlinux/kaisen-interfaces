@@ -6,6 +6,7 @@ case "$1" in
 	purge|remove|autoremove)
 		#Remove diversion
 		dpkg-divert --quiet --rename --remove /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop
+		dpkg-divert --quiet --rename --remove /etc/xdg/autostart/org.kde.discover.notifier.desktop
 	;;
 esac
 

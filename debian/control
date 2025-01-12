@@ -13,14 +13,11 @@ Depends: firefox,
          plymouth,
 	 plymouth-themes,
          kaisen-menu,
-         lightdm,
-         lightdm-gtk-greeter,
 	 kaisen-skeleton,
          kaisen-design,
          fonts-cantarell,
 	 terminator,
-Recommends: lightdm-gtk-greeter-settings,
-	    fonts-liberation,
+Recommends: fonts-liberation,
 	    fonts-noto-color-emoji,
 	    thunderbird,
 	    libreoffice,
@@ -41,12 +38,12 @@ Package: kaisen-kde
 Architecture: all
 Priority: standard
 Depends: kaisen-interfaces-common (= ${source:Version}),
-	 plasma-desktop,
+	 kde-standard,
 	 kde-style-breeze,
 	 sddm,
 	 sddm-theme-breeze,
 	 network-manager,
-Recommends: print-manager, bluedevil
+Recommends: print-manager, bluedevil, lightdm-gtk-greeter-settings
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt
@@ -56,7 +53,9 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 lxqt,
 	 lxqt-archiver,
 	 cmst,
-Recommends: gnome-calculator,
+         lightdm,
+         lightdm-gtk-greeter,
+Recommends: gnome-calculator, lightdm-gtk-greeter-settings
 Description: Kaisen LXQT desktop environment configurations
 
 Package: kaisen-mate
@@ -67,6 +66,9 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 mate-tweak,
 	 mate-media,
 	 network-manager-gnome,
+         lightdm,
+         lightdm-gtk-greeter,
+Recommends: lightdm-gtk-greeter-settings
 Description: Kaisen MATE desktop environment configurations
 
 Package: kaisen-xfce
@@ -89,6 +91,9 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 network-manager-gnome,
 	 thunar-archive-plugin,
 	 xarchiver,
+         lightdm,
+         lightdm-gtk-greeter,
 Recommends: gnome-calculator,
-	    xscreensaver
+	    xscreensaver,
+	    lightdm-gtk-greeter-settings
 Description: Kaisen XFCE desktop environment configurations

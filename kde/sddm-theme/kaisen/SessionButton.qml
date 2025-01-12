@@ -7,15 +7,15 @@
 
 import QtQuick 2.15
 
-import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.kirigami 2.20 as Kirigami
 
 PlasmaComponents.ToolButton {
     id: root
 
     property int currentIndex: -1
 
-    text: i18nd("plasma_lookandfeel_org.kde.lookandfeel", "Desktop Session: %1", instantiator.objectAt(currentIndex).text || "")
+    text: i18nd("plasma-desktop-sddm-theme", "Desktop Session: %1", instantiator.objectAt(currentIndex).text || "")
     visible: menu.count > 1
 
     Component.onCompleted: {
@@ -34,15 +34,15 @@ PlasmaComponents.ToolButton {
     signal sessionChanged()
 
     PlasmaComponents.Menu {
-        PlasmaCore.ColorScope.colorGroup: PlasmaCore.Theme.NormalColorGroup
-        PlasmaCore.ColorScope.inherit: false
+        Kirigami.Theme.colorSet: Kirigami.Theme.Window
+        Kirigami.Theme.inherit: false
 
         id: menu
         Instantiator {
             id: instantiator
             model: sessionModel
-            onObjectAdded: menu.insertItem(index, object)
-            onObjectRemoved: menu.removeItem(object)
+            onObjectAdded: (index, object) => menu.insertItem(index, object)
+            onObjectRemoved: (index, object) => menu.removeItem(object)
             delegate: PlasmaComponents.MenuItem {
                 text: model.name
                 onTriggered: {

@@ -2,6 +2,8 @@
 
 #This script is developed and is maintained by Kevin Chevreuil - Kaisen for the Kaisen Linux project and is under AGPL license.
 
+export PATH=/usr/bin:/bin:/usr/local/bin:/usr/sbin:/sbin:/usr/local/sbin
+
 export DEBIAN_FRONTEND=noninteractive
 DATE=$(date '+%Y-%m-%d_%H-%M-%S')
 YELLOW='\e[0;33m'
@@ -115,13 +117,8 @@ case ${NEW_DESKTOP} in
 esac
 }
 
-reboot_or_restart() {
-if [[ "$DESKTOP_SESSION" -eq "lightdm-xsession" ]]; then
-	echo -e $GREEN "Switch ok. Restart lightdm..." $RESET_COLOR
-	systemctl restart lightdm
-else
-	echo -e $GREEN "Switch ok. Restart computer because lightdm is not started..." $RESET_COLOR
-fi
+reboot() {
+exec /sbin/reboot
 }
 
 steps() {
@@ -130,7 +127,7 @@ ui_uninstallation_echo
 desktop_remove
 ui_installation_echo
 desktop_installation
-reboot_or_restart
+reboot
 }
 
 ##### KDE #####

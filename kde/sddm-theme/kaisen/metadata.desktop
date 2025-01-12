@@ -1,9 +1,17 @@
 [SddmGreeterTheme]
 Name=Kaisen
+Description=Kaisen
+Author=KDE Visual Design Group. Modified by Kevin Chevreuil for Kaisen Linux
+Copyright=(c) 2014, David Edmundson
+License=CC-BY-SA
 Type=sddm-theme
 Version=0.1
+Website=https://kaisenlinux.org
 Screenshot=preview.png
 MainScript=Main.qml
 ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=kaisen@kaisenlinux.org
 Theme-Id=kaisen
 Theme-API=2.0
+QtVersion=6
