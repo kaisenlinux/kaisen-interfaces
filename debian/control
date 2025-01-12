@@ -15,6 +15,7 @@ Depends: firefox,
          kaisen-menu,
 	 kaisen-skeleton,
          kaisen-design,
+	 breeze-cursor-theme,
          fonts-cantarell,
 	 terminator,
 Recommends: fonts-liberation,
@@ -24,7 +25,6 @@ Recommends: fonts-liberation,
 	    qbittorrent,
 	    vlc,
 	    gimp,
-	    breeze-cursor-theme,
 	    power-profiles-daemon,
 	    xserver-xorg-input-synaptics,
 Replaces: kaisen-kde,
@@ -43,7 +43,7 @@ Depends: kaisen-interfaces-common (= ${source:Version}),
 	 sddm,
 	 sddm-theme-breeze,
 	 network-manager,
-Recommends: print-manager, bluedevil, lightdm-gtk-greeter-settings
+Recommends: print-manager, bluedevil
 Description: Kaisen KDE desktop environment configurations
 
 Package: kaisen-lxqt

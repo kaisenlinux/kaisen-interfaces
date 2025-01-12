@@ -4,8 +4,10 @@ kaisen-interfaces (2.3+kaisen15) kaisen-packages; urgency=medium
   * Update the kaisen-interface-switcher for SDDM
   * Do not install lightdm for KDE desktop
   * Install kde-standard instead of plasma-desktop
+  * Update the kaisen-kde.postinst script to install SDDM properly
+  * The breeze-cursor-theme package as now a required package for interfaces
 
- -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 12 Jan 2025 02:56:13 +0200
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Sun, 12 Jan 2025 05:41:28 +0200
 
 kaisen-interfaces (2.3+kaisen14) kaisen-packages; urgency=medium
 
