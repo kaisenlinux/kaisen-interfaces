@@ -4,8 +4,10 @@ set -e
 
 if [[ "$1" = "configure" ]]; then
 	update-alternatives --install /usr/share/sddm/themes/debian-theme sddm-debian-theme /usr/share/sddm/themes/kaisen 500
-	if dpkg --compare-versions "$2" lt "2.3+kaisen15"; then
+	if dpkg --compare-versions "$2" lt "2.3+kaisen16"; then
+		systemctl disable display-manager || true
+		systemctl disable lightdm || true
 		echo "/usr/bin/sddm" > /etc/X11/default-display-manager
-		systemctl enable sddm
+		systemctl enable sddm || true
 	fi
 fi

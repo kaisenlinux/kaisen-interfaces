@@ -1,3 +1,10 @@
+kaisen-interfaces (2.3+kaisen16) kaisen-packages; urgency=medium
+
+  * Disable display-manager and lightdm before enabling sddm. Thanks
+    to ThomSon for the reporting
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Thu, 16 Jan 2025 14:42:02 +0200
+
 kaisen-interfaces (2.3+kaisen15) kaisen-packages; urgency=medium
 
   * Do no longer use lightdm for KDE! Welcome SDDM!
