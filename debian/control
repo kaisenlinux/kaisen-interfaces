@@ -2,7 +2,7 @@ Source: kaisen-interfaces
 Priority: standard
 Section: kaisen-packages
 Maintainer: Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>
-Standards-Version: 4.6.1
+Standards-Version: 4.7.0
 Build-Depends: debhelper-compat (= 13)
 Homepage: https://kaisenlinux.org
 
@@ -18,6 +18,7 @@ Depends: firefox,
 	 breeze-cursor-theme,
          fonts-cantarell,
 	 terminator,
+	 xserver-xorg-input-all,
 Recommends: fonts-liberation,
 	    fonts-noto-color-emoji,
 	    thunderbird,
