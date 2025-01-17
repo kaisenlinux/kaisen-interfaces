@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#Ensure that lightdm has been enabled
+if [[ "$1" = "configure" ]]; then
+	systemctl enable lightdm || true
+fi
