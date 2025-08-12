@@ -1,3 +1,14 @@
+kaisen-interfaces (3.0) kaisen-packages; urgency=medium
+
+  * Bump to 3.0
+  * Add kaisen-xfce.pre(inst|rm) to divert default XFCE background
+    to fix XFCE 4.20 regression (xfce4-desktop.xml no longer 
+    doesn't read as default conf)
+  * Enable lightdm or sddm after UI installation (kaisen-interface-switcher)
+  * Use a function for user exit (kaisen-interface-switcher)
+
+ -- Kevin Chevreuil - Kaisen <kaisen@kaisenlinux.org>  Mon, 11 Aug 2025 14:56:14 +0200
+
 kaisen-interfaces (2.3+kaisen18) kaisen-packages; urgency=medium
 
   * Ensure that lightdm has been enabled after installing a GUI

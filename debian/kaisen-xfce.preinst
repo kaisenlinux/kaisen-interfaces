@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+DEFAULT_XFCE_BACKGROUND=/usr/share/backgrounds/xfce/xfce-x.svg
+if [ -e "${DEFAULT_XFCE_BACKGROUND}" ]; then
+	dpkg-divert --quiet --no-rename --package kaisen-xfce --divert "${DEFAULT_XFCE_BACKGROUND}.orig" --add "${DEFAULT_XFCE_BACKGROUND}"
+	ln -sf /usr/share/backgrounds/kaisen-theme.jpg "${DEFAULT_XFCE_BACKGROUND}"
+fi

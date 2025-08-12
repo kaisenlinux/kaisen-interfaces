@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+dpkg-divert --quiet --no-rename --remove /usr/share/backgrounds/xfce/xfce-x.svg

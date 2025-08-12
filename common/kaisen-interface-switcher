@@ -103,16 +103,16 @@ echo ""
 desktop_installation() {
 case ${NEW_DESKTOP} in
 	KDE)
-		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde
+		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-kde && systemctl enable sddm
 	;;
 	LXQT)
-		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt
+		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-lxqt && systemctl enable lightdm
 	;;
 	MATE)
-		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate
+		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-mate && systemctl enable lightdm
 	;;
 	XFCE)
-		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce
+		apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce || apt-get -qy -o "Dpkg::Options::=--force-confnew" install kaisen-xfce && systemctl enable lightdm
 	;;
 esac
 }
@@ -128,6 +128,12 @@ desktop_remove
 ui_installation_echo
 desktop_installation
 reboot
+}
+
+user_exit() {
+if [[ $OPTION = "4" ]]; then
+	exit 0
+fi
 }
 
 ##### KDE #####
@@ -155,9 +161,7 @@ if [[ $OPTION = "3" ]]; then
 	steps
 fi
 
-if [[ $OPTION = "4" ]]; then
-	exit 0
-fi
+user_exit
 fi
 
 ##### LXQT #####
@@ -185,9 +189,7 @@ if [[ $OPTION = "3" ]]; then
 	steps
 fi
 
-if [[ $OPTION = "4" ]]; then
-	exit 0
-fi
+user_exit
 fi
 
 ##### MATE #####
@@ -215,9 +217,7 @@ if [[ $OPTION = "3" ]]; then
 	steps
 fi
 
-if [[ $OPTION = "4" ]]; then
-	exit 0
-fi
+user_exit
 fi
 
 ##### XFCE #####
@@ -245,7 +245,5 @@ if [[ $OPTION = "3" ]]; then
 	steps
 fi
 
-if [[ $OPTION = "4" ]]; then
-	exit 0
-fi
+user_exit
 fi
